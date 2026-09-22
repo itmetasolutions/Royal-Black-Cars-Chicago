@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IMG, PHONE, PHONE_HREF } from "../lib/data.js";
-
-const today = () => new Date().toISOString().slice(0, 10);
 
 export default function Hero() {
   const [trip, setTrip] = useState("airport");
   const [note, setNote] = useState({ text: "Free cancellation up to 2 hours before pick-up.", ok: false });
-  const [form, setForm] = useState({ pickup: "", drop: "", date: today(), time: "", vehicle: "Luxury sedan" });
+  const [minDate, setMinDate] = useState("");
+  const [form, setForm] = useState({ pickup: "", drop: "", date: "", time: "", vehicle: "Luxury sedan" });
+
+  useEffect(() => {
+    const t = new Date().toISOString().slice(0, 10);
+    setMinDate(t);
+    setForm((f) => (f.date ? f : { ...f, date: t }));
+  }, []);
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
@@ -58,7 +63,7 @@ export default function Hero() {
                 </div>
               )}
               <div className="row2">
-                <div className="field"><label htmlFor="date">Date</label><input id="date" type="date" min={today()} value={form.date} onChange={set("date")} required /></div>
+                <div className="field"><label htmlFor="date">Date</label><input id="date" type="date" min={minDate} value={form.date} onChange={set("date")} required /></div>
                 <div className="field"><label htmlFor="time">Time</label><input id="time" type="time" value={form.time} onChange={set("time")} required /></div>
               </div>
               <div className="field">
