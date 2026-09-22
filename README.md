@@ -1,31 +1,34 @@
 # Royal Black Cars Chicago — homepage
 
-Two builds of the same homepage, sharing identical components, CSS and content.
+The Next.js app at the repo root is the site that ships (deploy this to Vercel or
+any Node host). A second build with identical components, CSS and content lives
+in `vite/` for fast local prototyping or static hosting.
 
 ```
-royal-black-cars/
-├── nextjs/   Next.js 15 (App Router) — recommended for the live site
-└── vite/     Vite 6 + React 19 — fast local prototyping / static hosting
+.
+├── app/ components/ lib/ public/   Next.js 15 (App Router) — the live site
+└── vite/                           Vite 6 + React 19 — prototyping / static hosting
 ```
 
 ## Which one to ship
 
-Use **nextjs** for the client. It renders the HTML, `<title>`, meta description and
-JSON-LD schema on the server, which is what Google needs for a local SEO site.
-The Vite build is client-rendered: fine for demos and internal review, weaker for SEO.
+Use the **root Next.js app** for the client. It renders the HTML, `<title>`, meta
+description and JSON-LD schema on the server, which is what Google needs for a
+local SEO site. The Vite build is client-rendered: fine for demos and internal
+review, weaker for SEO.
 
 ## Run it
 
 ```bash
-cd nextjs && npm install && npm run dev     # http://localhost:3000
-cd vite   && npm install && npm run dev     # http://localhost:5173
+npm install && npm run dev                 # http://localhost:3000
+cd vite && npm install && npm run dev       # http://localhost:5173
 ```
 
 Build for production:
 
 ```bash
-cd nextjs && npm run build && npm start
-cd vite   && npm run build                  # static output in dist/
+npm run build && npm start
+cd vite && npm run build                    # static output in vite/dist/
 ```
 
 ## Where things live
