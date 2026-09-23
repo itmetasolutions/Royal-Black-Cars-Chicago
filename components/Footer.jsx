@@ -18,6 +18,10 @@ const cols = [
     ["/service-areas/oak-brook/", "Oak Brook"], ["/service-areas/arlington-heights/", "Arlington Heights"],
     ["/service-areas/hinsdale/", "Hinsdale"], ["/service-areas/", "All service areas"],
   ]],
+  ["COMPANY", [
+    ["/about/", "About us"], ["/corporate-accounts/", "Corporate accounts"],
+    ["/rates/", "Rates"], ["/faq/", "FAQ"], ["/blog/", "Blog"], ["/contact/", "Contact"],
+  ]],
 ];
 
 export default function Footer() {
@@ -53,7 +57,7 @@ export default function Footer() {
 
       <div className="mbar">
         <a className="btn btn-dark" href={PHONE_HREF} style={{ background: "var(--wash)", color: "var(--text)" }}>Call</a>
-        <a className="btn btn-gold" href="#quote">Book a ride</a>
+        <a className="btn btn-gold" href="/#quote">Book a ride</a>
       </div>
     </>
   );

@@ -8,6 +8,7 @@ const links = [
   ["/services/", "Services"], ["/airports/", "Airports"], ["/fleet/", "Fleet"],
   ["/service-areas/", "Areas"], ["/corporate-accounts/", "Corporate"], ["/rates/", "Rates"],
 ];
+const drawerExtra = [["/about/", "About"], ["/faq/", "FAQ"], ["/contact/", "Contact"]];
 
 export default function Header() {
   const [stuck, setStuck] = useState(false);
@@ -32,7 +33,7 @@ export default function Header() {
           <nav className="nav" aria-label="Main">
             {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
           </nav>
-          <a className="btn btn-gold" href="#quote">Book a ride</a>
+          <a className="btn btn-gold" href="/#quote">Book a ride</a>
           <button className="burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}>
             <svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" strokeLinecap="round" /></svg>
           </button>
@@ -42,6 +43,7 @@ export default function Header() {
       <div className={`drawer${open ? " open" : ""}`} onClick={(e) => e.target.tagName === "A" && setOpen(false)}>
         <button className="close" aria-label="Close menu" onClick={() => setOpen(false)}>&times;</button>
         {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+        {drawerExtra.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
         <a href={PHONE_HREF}>{PHONE}</a>
       </div>
     </>

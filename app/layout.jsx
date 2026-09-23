@@ -1,4 +1,7 @@
 import "./globals.css";
+import Header from "@/components/Header.jsx";
+import Footer from "@/components/Footer.jsx";
+import { localBusiness } from "@/lib/schema.js";
 
 export const metadata = {
   metadataBase: new URL("https://www.royalblackcarschicago.com"),
@@ -27,7 +30,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

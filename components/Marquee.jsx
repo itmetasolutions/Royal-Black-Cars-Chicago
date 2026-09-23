@@ -1,7 +1,7 @@
-import { Star, Check } from "./icons.jsx";
+import { Check } from "./icons.jsx";
 
 const items = [
-  [<Star key="s" />, <><b>4.9</b> from 300+ Google reviews</>],
+  [<Check key="c0" />, "Flat rate agreed before you ride"],
   [<Check key="c" />, "Licensed & insured in Illinois"],
   [<Check key="c2" />, "Every flight tracked"],
   [<Check key="c3" />, "Dispatch answers 24/7"],
