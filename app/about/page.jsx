@@ -1,8 +1,8 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { Check } from "@/components/icons.jsx";
-import { IMG, trustPoints } from "@/lib/data.js";
+import { serviceDetails, airportDetails, fleetPages, IMG, trustPoints } from "@/lib/data.js";
+import { allLocations, venueDetails } from "@/lib/locations.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -11,11 +11,13 @@ export const metadata = pageMeta({
   path: "/about/",
 });
 
-const howItWorks = [
-  ["Get a quote", "Instant online, or call and text — dispatch confirms your flat rate before anything is booked."],
-  ["We track your trip", "Flight tracking for airport runs, or a confirmed pickup window for everything else."],
-  ["Your chauffeur arrives", "In a late-model sedan or SUV, on time, ready with a name board or curbside as you prefer."],
-  ["One flat rate, no surprises", "Tolls, standard wait time and gratuity are already included in the price you agreed to."],
+const areasCovered = allLocations.filter((l) => !l.isRoute).length + venueDetails.length;
+
+const stats = [
+  { n: `${serviceDetails.length}`, label: "services covered, from airport runs to conventions" },
+  { n: `${fleetPages.length}`, label: "vehicle classes, sedan through 55-seat coach" },
+  { n: `${airportDetails.length}`, label: "Chicago-area airports served" },
+  { n: `${areasCovered}+`, label: "neighborhoods, suburbs and venues with a dedicated page" },
 ];
 
 export default function Page() {
@@ -28,6 +30,16 @@ export default function Page() {
         img={IMG.hero}
         crumbs={[{ name: "About", href: "/about/" }]}
       />
+
+      <section className="stat-band sec" style={{ padding: "48px 0" }}>
+        <div className="wrap">
+          <div className="stat-row">
+            {stats.map((s) => (
+              <div key={s.label}><b>{s.n}</b><span>{s.label}</span></div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="sec">
         <div className="wrap split">
@@ -46,38 +58,32 @@ export default function Page() {
       </section>
 
       <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">WHY CLIENTS CHOOSE US</p><h2>What you can expect on every ride</h2></Reveal>
-          <div className="feature-grid" style={{ marginTop: 36 }}>
-            {trustPoints.map((t, i) => (
-              <Reveal key={t.title} delay={i % 3} className="feature-card">
-                <Check />
-                <h3>{t.title}</h3>
-                <p>{t.text}</p>
-              </Reveal>
-            ))}
-          </div>
+        <div className="wrap split">
+          <Reveal className="quote-card">
+            <q>The dependable premium alternative to rideshare: licensed, insured and winter-ready, with live pricing and specialist coverage for airports, corporate travel and private aviation.</q>
+          </Reveal>
+          <Reveal delay={1}>
+            <p className="eyebrow">OUR STANDARD</p>
+            <h2 style={{ fontSize: "1.7rem", marginBottom: 20 }}>What that promise looks like ride to ride</h2>
+            <div className="mini-grid">
+              {trustPoints.map((t) => (
+                <div key={t.title} className="feature-card">
+                  <h3>{t.title}</h3>
+                  <p>{t.text}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">HOW IT WORKS</p><h2>From quote to drop-off</h2></Reveal>
-          <div className="steps">
-            {howItWorks.map(([title, text], i) => (
-              <Reveal key={title} delay={i % 3} className="step">
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap">
           <div className="prose">
-            <h2>Our coverage</h2>
+            <h2>Our approach</h2>
+            <p>Most operators in this market compete on the same generic claims — 24/7 service, flight tracking, meet and greet. We treat those as the baseline, not the pitch. What we actually compete on is the part that's harder to fake: publishing real pricing instead of "call for a quote," running a dispatch desk that picks up rather than a call centre queue, and covering the specific corridors — O'Hare and Midway, the I-88 corporate belt, PWK's FBOs — well enough to know their quirks, not just their addresses.</p>
+            <p>That's also why this site links to specific pages for specific trips rather than one generic booking form. An O'Hare pickup, a McCormick Place convention shuttle and a Naperville client visit are different jobs with different logistics, and each one gets its own page with real detail — rates, drive times, what's included — instead of a single page pretending to cover everything equally well.</p>
+            <h2>Coverage</h2>
             <p>We run daily service across downtown Chicago, the Northwest and West suburbs and the North Shore, plus O'Hare, Midway, Chicago Executive (PWK), DuPage and the region's other airports. Long-distance bookings cover Milwaukee, Madison, Indianapolis, South Bend and Detroit. See the <a href="/service-areas/">full service area list</a>.</p>
             <h2>Corporate accounts</h2>
             <p>Businesses that book with us regularly move to a corporate account: monthly invoicing, a named dispatcher and NDA-signed chauffeurs for client-facing travel. Details are on the <a href="/corporate-accounts/">corporate accounts page</a>.</p>
@@ -85,7 +91,7 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta />
+      <Cta img={IMG.corporate} />
     </>
   );
 }

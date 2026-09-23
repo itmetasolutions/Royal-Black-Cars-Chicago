@@ -1,5 +1,6 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
+import PageFaq from "@/components/PageFaq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Check } from "@/components/icons.jsx";
 import { airportDetails, IMG } from "@/lib/data.js";
@@ -16,6 +17,21 @@ const included = [
   "60 minutes of free wait time at O'Hare and Midway",
   "Live flight tracking and automatic pick-up adjustment",
   "The first child seat, free",
+];
+
+const pricingSteps = [
+  ["Distance & vehicle class", "Your pickup, drop-off and chosen vehicle set the baseline rate."],
+  ["Time of day", "Rush-hour routing and airport wait windows are factored in up front, not added after."],
+  ["Quote confirmed", "Dispatch or the online form shows the exact rate before anything is booked."],
+  ["Rate locked", "That number doesn't change — a slow route or extra traffic is on us, not your bill."],
+];
+
+const rateFaqs = [
+  { q: "Why does the rate stay the same even in bad traffic?", a: "Because it's quoted flat for the route and vehicle class, not metered by time — a slower drive doesn't change what you agreed to." },
+  { q: "Are there hidden fees on top of the quoted rate?", a: "No — tolls, standard wait time and gratuity are already included for point-to-point and airport trips." },
+  { q: "Why do some airports show \"Custom quote\" instead of a rate?", a: "Lower-volume or longer-distance airports (DuPage, Milwaukee, Gary, Rockford) are priced based on your exact pickup point rather than a single downtown rate." },
+  { q: "Does the rate change for late-night or early-morning pickups?", a: "No surge pricing at any hour — the flat-rate promise holds around the clock." },
+  { q: "How do I get a quote for a suburb not listed here?", a: "Call, text or use the online quote form with your address — dispatch will confirm a flat rate for any of our service areas." },
 ];
 
 export default function Page() {
@@ -74,7 +90,22 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta />
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">HOW YOUR RATE IS SET</p><h2>Four inputs, one number — before you book</h2></Reveal>
+          <div className="steps">
+            {pricingSteps.map(([title, text], i) => (
+              <Reveal key={title} delay={i % 3} className="step">
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <PageFaq faqs={rateFaqs} eyebrow="PRICING QUESTIONS" title="About our rates" />
+      <Cta img={IMG.airport} />
     </>
   );
 }

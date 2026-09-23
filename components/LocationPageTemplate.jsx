@@ -51,7 +51,7 @@ export default function LocationPageTemplate({ location }) {
 
         <PageFaq faqs={faqs} title={`Questions about the ${location.name.toLowerCase()} route`} />
         <RelatedLinks title="Other routes" links={related} hub={["All service areas", "/service-areas/"]} />
-        <Cta />
+        <Cta img={img} />
       </>
     );
   }
@@ -116,7 +116,7 @@ export default function LocationPageTemplate({ location }) {
 
       <PageFaq faqs={faqs} title={`Questions about ${location.name}`} />
       <RelatedLinks title={`More in ${location.cluster}`} links={related} hub={["All service areas", "/service-areas/"]} />
-      <Cta />
+      <Cta img={img} />
     </>
   );
 }

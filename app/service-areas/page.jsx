@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
+import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { clusters, cityToCity, venueDetails } from "@/lib/locations.js";
+import { clusters, cityToCity, venueDetails, locationImage, venueImage } from "@/lib/locations.js";
 import { northwest, west, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
@@ -25,36 +26,54 @@ export default function Page() {
         crumbs={[{ name: "Service Areas", href: "/service-areas/" }]}
       />
 
-      {clusters.map((c) => (
-        <section key={c.name} className="sec" style={{ paddingTop: 0 }}>
-          <div className="wrap">
-            <h2 style={{ fontSize: "1.6rem", marginBottom: 4 }}>{c.name}</h2>
-            <div className="rl-grid">
-              {c.locations.map((l) => <a key={l.slug} className="rl-chip" href={l.href}>{l.name}</a>)}
-            </div>
+      {clusters.map((c, i) => (
+        <section key={c.name} className="sec" style={{ background: i % 2 ? "var(--wash)" : "var(--paper)" }}>
+          <div className={`wrap split${i % 2 ? " rev" : ""}`}>
+            <Reveal className="media" slide>
+              <img className="photo" src={locationImage(c.locations[0])} alt={c.name} loading="lazy" style={{ zIndex: 2 }} />
+            </Reveal>
+            <Reveal delay={1}>
+              <p className="eyebrow">{`CLUSTER ${i + 1} OF ${clusters.length}`}</p>
+              <h2>{c.name}</h2>
+              <p className="lead" style={{ fontSize: "1rem" }}>{c.blurb}</p>
+              <div className="prose" style={{ marginTop: 4 }}><p>{c.detail}</p></div>
+              <div className="rl-grid">
+                {c.locations.map((l) => <a key={l.slug} className="rl-chip" href={l.href}>{l.name}</a>)}
+              </div>
+            </Reveal>
           </div>
         </section>
       ))}
 
-      <section className="sec" style={{ paddingTop: 0 }}>
+      <section className="sec">
         <div className="wrap">
-          <h2 style={{ fontSize: "1.6rem", marginBottom: 4 }}>City-to-city</h2>
-          <div className="rl-grid">
-            {cityToCity.map((r) => <a key={r.slug} className="rl-chip" href={r.href}>{r.name}</a>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <h2 style={{ fontSize: "1.6rem", marginBottom: 4 }}>Venues</h2>
-          <div className="rl-grid">
-            {venueDetails.map((v) => <a key={v.slug} className="rl-chip" href={v.href}>{v.name}</a>)}
+          <Reveal className="section-head"><p className="eyebrow">CITY TO CITY</p><h2>Long-distance routes, run regularly</h2></Reveal>
+          <div className="stat-grid" style={{ marginTop: 32 }}>
+            {cityToCity.map((r) => (
+              <a key={r.slug} href={r.href} className="stat-card" style={{ textAlign: "left" }}>
+                <span>{r.name}</span>
+                <b style={{ fontSize: "1.15rem" }}>{r.drive}</b>
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="sec" style={{ background: "var(--wash)" }}>
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">VENUES</p><h2>Arenas, stadiums and convention halls</h2></Reveal>
+          <div className="svc" style={{ marginTop: 32 }}>
+            {venueDetails.map((v) => (
+              <a key={v.slug} href={v.href}>
+                <img className="photo" src={venueImage(v)} alt="" loading="lazy" />
+                <div><h3>{v.name}</h3><p>{v.area}</p></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
         <div className="wrap">
           <h2 style={{ fontSize: "1.4rem" }}>We also regularly serve</h2>
           <div className="prose">
@@ -65,7 +84,7 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta />
+      <Cta img={IMG.areaMap} />
     </>
   );
 }

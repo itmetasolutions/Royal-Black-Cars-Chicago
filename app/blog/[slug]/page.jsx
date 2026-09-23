@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import PageHero from "@/components/PageHero.jsx";
+import RelatedLinks from "@/components/RelatedLinks.jsx";
 import Cta from "@/components/Cta.jsx";
 import { posts, findPost } from "@/lib/blog.js";
 import { pageMeta } from "@/lib/seo.js";
@@ -17,11 +18,12 @@ export function generateMetadata({ params }) {
 export default function Page({ params }) {
   const post = findPost(params.slug);
   if (!post) notFound();
+  const related = posts.filter((p) => p.slug !== post.slug).map((p) => [p.title, `/blog/${p.slug}/`]);
 
   return (
     <>
       <PageHero
-        eyebrow={new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+        eyebrow="GUIDE"
         title={post.title}
         lead={post.description}
         img={post.img}
@@ -30,10 +32,14 @@ export default function Page({ params }) {
       />
       <section className="sec">
         <div className="wrap">
+          <p className="byline">
+            <b>Royal Black Cars Chicago</b> · {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </p>
           <div className="prose">{post.body.map((p, i) => <p key={i}>{p}</p>)}</div>
         </div>
       </section>
-      <Cta />
+      <RelatedLinks title="More guides" links={related} hub={["All guides", "/blog/"]} />
+      <Cta img={post.img} />
     </>
   );
 }

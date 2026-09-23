@@ -80,7 +80,7 @@ export default function AirportPageTemplate({ airport }) {
 
       <PageFaq faqs={airport.faqs} title={`Questions about ${airport.name}`} />
       <RelatedLinks title="Other airports" links={related} hub={["All airports", "/airports/"]} />
-      <Cta />
+      <Cta img={airport.img} />
     </>
   );
 }

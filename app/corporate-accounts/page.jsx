@@ -1,9 +1,18 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
+import PageFaq from "@/components/PageFaq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Check } from "@/components/icons.jsx";
 import { IMG, PHONE, PHONE_HREF, EMAIL } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
+
+const faqs = [
+  { q: "Is there a minimum number of riders to open an account?", a: "No — accounts scale from a single frequent traveler to a full company directory." },
+  { q: "Can we set spending limits per traveler?", a: "Yes — cost centres and trip codes can be structured however your finance team needs to track spend." },
+  { q: "How is a corporate account different from just expensing rides?", a: "One monthly invoice instead of a stack of individual receipts, a named dispatcher who knows your travelers, and NDA-signed chauffeurs available on request." },
+  { q: "Can personal and business trips be on the same account?", a: "We recommend keeping them separate — personal bookings are charged to the card on file, business trips go on the account invoice." },
+  { q: "What happens if a traveler leaves the company?", a: "Tell your dispatcher and they're removed from the account immediately — no lingering access." },
+];
 
 export const metadata = pageMeta({
   title: "Corporate Accounts | Royal Black Cars Chicago",
@@ -80,7 +89,34 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta />
+      <section className="sec" style={{ background: "var(--wash)" }}>
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">WHY IT'S WORTH SETTING UP</p><h2>Expensing rides vs. a corporate account</h2></Reveal>
+          <div className="split" style={{ marginTop: 32 }}>
+            <Reveal className="feature-card" style={{ padding: 30 }}>
+              <h3 style={{ marginBottom: 14 }}>Without an account</h3>
+              <ul className="tick">
+                <li>Every rider expenses their own ride individually</li>
+                <li>No single dispatcher who knows your team</li>
+                <li>Receipts collected and submitted one by one</li>
+                <li>New booking details entered every time</li>
+              </ul>
+            </Reveal>
+            <Reveal delay={1} className="feature-card" style={{ padding: 30, borderColor: "var(--brass)" }}>
+              <h3 style={{ marginBottom: 14 }}>With a corporate account</h3>
+              <ul className="tick">
+                <li><Check />One monthly invoice, itemized by rider and cost centre</li>
+                <li><Check />A named dispatcher who knows your frequent travelers</li>
+                <li><Check />Nothing to expense — finance reconciles once a month</li>
+                <li><Check />Booking is a text, not a new form every time</li>
+              </ul>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <PageFaq faqs={faqs} title="Corporate account questions" />
+      <Cta img={IMG.corporate} />
     </>
   );
 }

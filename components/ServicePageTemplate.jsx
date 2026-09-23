@@ -53,8 +53,15 @@ export default function ServicePageTemplate({ service }) {
       <section className="sec">
         <div className="wrap split">
           <Reveal>
-            <p className="eyebrow">HOW IT WORKS</p>
-            <div className="prose">{service.body.map((p, i) => <p key={i}>{p}</p>)}</div>
+            <p className="eyebrow">THE DETAILS</p>
+            <div className="prose">
+              {service.body.map((section, i) => (
+                <div key={i}>
+                  <h3>{section.h}</h3>
+                  {section.p.map((p, j) => <p key={j}>{p}</p>)}
+                </div>
+              ))}
+            </div>
           </Reveal>
           <Reveal delay={1} className="faq-aside">
             {service.bestFor && (
@@ -77,7 +84,7 @@ export default function ServicePageTemplate({ service }) {
 
       <PageFaq faqs={service.faqs} title={`Questions about ${service.title.toLowerCase()}`} />
       <RelatedLinks title="Other services" links={related} hub={["All services", "/services/"]} />
-      <Cta />
+      <Cta img={service.img} />
     </>
   );
 }

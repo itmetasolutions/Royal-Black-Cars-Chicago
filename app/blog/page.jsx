@@ -1,4 +1,5 @@
 import PageHero from "@/components/PageHero.jsx";
+import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { posts } from "@/lib/blog.js";
 import { IMG } from "@/lib/data.js";
@@ -10,23 +11,50 @@ export const metadata = pageMeta({
   path: "/blog/",
 });
 
+function fmt(d) {
+  return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
 export default function Page() {
+  const [featured, ...rest] = posts;
   return (
     <>
       <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" img={IMG.hero} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
+
       <section className="sec">
+        <div className="wrap split">
+          <Reveal className="media" slide>
+            <a href={`/blog/${featured.slug}/`}><img className="photo" src={featured.img} alt="" loading="lazy" style={{ zIndex: 2 }} /></a>
+          </Reveal>
+          <Reveal delay={1}>
+            <p className="eyebrow">LATEST GUIDE</p>
+            <h2><a href={`/blog/${featured.slug}/`}>{featured.title}</a></h2>
+            <p className="lead" style={{ fontSize: "1rem" }}>{featured.description}</p>
+            <p className="byline" style={{ marginTop: 18 }}><b>Royal Black Cars Chicago</b> · {fmt(featured.date)}</p>
+            <a className="btn btn-dark" href={`/blog/${featured.slug}/`}>Read the guide</a>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <div className="svc">
-            {posts.map((p) => (
-              <a key={p.slug} href={`/blog/${p.slug}/`}>
-                <img className="photo" src={p.img} alt="" loading="lazy" />
-                <div><h3>{p.title}</h3><p>{p.description}</p></div>
+          <p className="eyebrow">MORE GUIDES</p>
+          <div style={{ marginTop: 20 }}>
+            {rest.map((p) => (
+              <a key={p.slug} href={`/blog/${p.slug}/`} className="post-row" style={{ color: "inherit" }}>
+                <img src={p.img} alt="" loading="lazy" />
+                <div>
+                  <p className="date">{fmt(p.date)}</p>
+                  <h3>{p.title}</h3>
+                  <p>{p.description}</p>
+                </div>
               </a>
             ))}
           </div>
         </div>
       </section>
-      <Cta />
+
+      <Cta img={IMG.hero} />
     </>
   );
 }

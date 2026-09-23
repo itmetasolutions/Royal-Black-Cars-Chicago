@@ -6,7 +6,7 @@ import Cta from "./Cta.jsx";
 import { Check } from "./icons.jsx";
 import { fleetPages } from "../lib/data.js";
 
-const genericFaqs = [
+const sharedFaqs = [
   { q: "How do I book this vehicle?", a: "Select it when you request a quote, or tell dispatch which class you want by phone or text." },
   { q: "Can I switch vehicle class after booking?", a: "Yes, subject to availability — contact dispatch as early as possible if your group size changes." },
 ];
@@ -60,9 +60,9 @@ export default function FleetPageTemplate({ vehicle }) {
         </div>
       </section>
 
-      <PageFaq faqs={genericFaqs} title="Booking questions" />
+      <PageFaq faqs={[...(vehicle.faqs || []), ...sharedFaqs]} title="Booking questions" />
       <RelatedLinks title="Other vehicles" links={related} hub={["See the full fleet", "/fleet/"]} />
-      <Cta />
+      <Cta img={vehicle.img} />
     </>
   );
 }

@@ -50,7 +50,7 @@ export default function VenuePageTemplate({ venue }) {
 
       <PageFaq faqs={venueFaqs(venue)} title={`Questions about ${venue.name}`} />
       <RelatedLinks title="Other venues" links={related} hub={["All venues", "/venues/"]} />
-      <Cta />
+      <Cta img={img} />
     </>
   );
 }
