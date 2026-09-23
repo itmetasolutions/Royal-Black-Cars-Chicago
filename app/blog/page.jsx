@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
 import Cta from "@/components/Cta.jsx";
 import { posts } from "@/lib/blog.js";
+import { IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -12,7 +13,7 @@ export const metadata = pageMeta({
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
+      <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" img={IMG.hero} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
       <section className="sec">
         <div className="wrap">
           <div className="svc">

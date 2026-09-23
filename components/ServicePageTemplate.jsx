@@ -4,7 +4,7 @@ import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
 import { Check } from "./icons.jsx";
-import { serviceDetails } from "../lib/data.js";
+import { serviceDetails, trustPoints } from "../lib/data.js";
 import { serviceSchema } from "../lib/schema.js";
 
 export default function ServicePageTemplate({ service }) {
@@ -17,6 +17,7 @@ export default function ServicePageTemplate({ service }) {
         eyebrow={service.eyebrow}
         title={service.title}
         lead={service.lead}
+        img={service.img}
         crumbs={[{ name: "Services", href: "/services/" }, { name: service.title, href: service.href }]}
       />
 
@@ -27,6 +28,7 @@ export default function ServicePageTemplate({ service }) {
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">WHAT&apos;S INCLUDED</p>
+            <h2>Every {service.title.toLowerCase()} booking includes</h2>
             <ul className="tick">{service.included.map(i => <li key={i}><Check />{i}</li>)}</ul>
             <a className="btn btn-gold" href="/#quote">Get your rate</a>
           </Reveal>
@@ -35,19 +37,41 @@ export default function ServicePageTemplate({ service }) {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <div className="prose">{service.body.map((p, i) => <p key={i}>{p}</p>)}</div>
-          {service.bestFor && (
-            <>
-              <h3 style={{ marginTop: 8 }}>Best for</h3>
-              <ul className="tick" style={{ maxWidth: "72ch" }}>{service.bestFor.map(b => <li key={b}><Check />{b}</li>)}</ul>
-            </>
-          )}
-          {service.fleetLinks && (
-            <>
-              <h3>Recommended vehicles</h3>
-              <div className="rl-grid">{service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}</div>
-            </>
-          )}
+          <Reveal className="section-head"><p className="eyebrow">WHY RIDE WITH US</p><h2>The details most services skip</h2></Reveal>
+          <div className="feature-grid" style={{ marginTop: 36 }}>
+            {trustPoints.map((t, i) => (
+              <Reveal key={t.title} delay={i % 3} className="feature-card">
+                <Check />
+                <h3>{t.title}</h3>
+                <p>{t.text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap split">
+          <Reveal>
+            <p className="eyebrow">HOW IT WORKS</p>
+            <div className="prose">{service.body.map((p, i) => <p key={i}>{p}</p>)}</div>
+          </Reveal>
+          <Reveal delay={1} className="faq-aside">
+            {service.bestFor && (
+              <>
+                <h3 style={{ marginBottom: 12 }}>Best for</h3>
+                <ul className="tick">{service.bestFor.map(b => <li key={b}><Check />{b}</li>)}</ul>
+              </>
+            )}
+            {service.fleetLinks && (
+              <>
+                <h3 style={{ marginTop: 22, marginBottom: 12 }}>Recommended vehicles</h3>
+                <div className="rl-grid" style={{ margin: 0 }}>
+                  {service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
+                </div>
+              </>
+            )}
+          </Reveal>
         </div>
       </section>
 

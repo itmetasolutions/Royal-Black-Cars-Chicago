@@ -1,5 +1,5 @@
 import PageHero from "@/components/PageHero.jsx";
-import { EMAIL } from "@/lib/data.js";
+import { EMAIL, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -11,7 +11,7 @@ export const metadata = pageMeta({
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="LEGAL" title="Privacy Policy" crumbs={[{ name: "Privacy", href: "/privacy/" }]} cta={false} />
+      <PageHero eyebrow="LEGAL" title="Privacy Policy" img={IMG.hero} crumbs={[{ name: "Privacy", href: "/privacy/" }]} cta={false} />
       <section className="sec">
         <div className="wrap">
           <div className="prose">

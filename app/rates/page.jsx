@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Check } from "@/components/icons.jsx";
-import { airportDetails } from "@/lib/data.js";
+import { airportDetails, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -25,12 +25,18 @@ export default function Page() {
         eyebrow="RATES"
         title="One flat rate, agreed before you ride"
         lead="No meter, no surge pricing. Airport rates are published below; every other trip is quoted before you book."
+        img={IMG.airport}
         crumbs={[{ name: "Rates", href: "/rates/" }]}
       />
 
       <section className="sec">
         <div className="wrap">
-          <Reveal><p className="eyebrow">FLAT AIRPORT RATES</p><h2>From downtown, in a luxury sedan</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">FLAT AIRPORT RATES</p><h2>From downtown, in a luxury sedan</h2></Reveal>
+          <div className="stat-grid">
+            {airportDetails.slice(0, 3).map((a) => (
+              <div key={a.code} className="stat-card"><span>{a.name.replace(" International Airport", "").replace(" Airport", "")}</span><b>{a.rate}</b></div>
+            ))}
+          </div>
           <Reveal delay={1}>
             <table className="rate-table">
               <thead><tr><th>Airport</th><th>Typical drive</th><th>Flat rate</th></tr></thead>

@@ -1,7 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
 import Cta from "@/components/Cta.jsx";
 import { clusters, cityToCity, venueDetails } from "@/lib/locations.js";
-import { northwest, west } from "@/lib/data.js";
+import { northwest, west, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -21,6 +21,7 @@ export default function Page() {
         eyebrow="SERVICE AREAS"
         title="Chicago, the collar counties and beyond"
         lead="Daily service across the city and suburbs, plus scheduled long-distance runs to Milwaukee, Madison, Indianapolis, South Bend and Detroit."
+        img={IMG.areaMap}
         crumbs={[{ name: "Service Areas", href: "/service-areas/" }]}
       />
 

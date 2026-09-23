@@ -1,6 +1,6 @@
 import PageHero from "@/components/PageHero.jsx";
 import Cta from "@/components/Cta.jsx";
-import { airportDetails } from "@/lib/data.js";
+import { airportDetails, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -16,6 +16,7 @@ export default function Page() {
         eyebrow="AIRPORTS"
         title="Every Chicago-area airport, one dispatch desk"
         lead="Commercial, private and regional — flights tracked, chauffeurs briefed on the right terminal or FBO."
+        img={IMG.airport}
         crumbs={[{ name: "Airports", href: "/airports/" }]}
       />
       <section className="sec">

@@ -1,6 +1,6 @@
 import PageHero from "@/components/PageHero.jsx";
 import Cta from "@/components/Cta.jsx";
-import { serviceDetails } from "@/lib/data.js";
+import { serviceDetails, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -16,6 +16,7 @@ export default function Page() {
         eyebrow="SERVICES"
         title="Every way to book a black car in Chicago"
         lead="From a single airport run to a multi-day corporate roadshow, one flat rate agreed before you ride."
+        img={IMG.hero}
         crumbs={[{ name: "Services", href: "/services/" }]}
       />
       <section className="sec">

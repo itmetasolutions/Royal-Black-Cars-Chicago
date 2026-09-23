@@ -24,12 +24,12 @@ export default function Page({ params }) {
         eyebrow={new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
         title={post.title}
         lead={post.description}
+        img={post.img}
         crumbs={[{ name: "Blog", href: "/blog/" }, { name: post.title, href: `/blog/${post.slug}/` }]}
         cta={false}
       />
       <section className="sec">
         <div className="wrap">
-          <img className="photo" src={post.img} alt="" loading="lazy" style={{ position: "static", borderRadius: "var(--r)", aspectRatio: "16/8", objectFit: "cover", marginBottom: 32 }} />
           <div className="prose">{post.body.map((p, i) => <p key={i}>{p}</p>)}</div>
         </div>
       </section>

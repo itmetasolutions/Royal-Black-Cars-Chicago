@@ -16,6 +16,7 @@ export default function Page() {
         eyebrow="FLEET"
         title="Pick your class"
         lead="Late-model sedans, SUVs, Sprinters, stretch limos and coaches — sized to your trip, not the other way around."
+        img={fleetPages[0].img}
         crumbs={[{ name: "Fleet", href: "/fleet/" }]}
       />
       <section className="sec">

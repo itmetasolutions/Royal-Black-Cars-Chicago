@@ -1,7 +1,8 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import ContactForm from "./ContactForm.jsx";
-import { PHONE, PHONE_HREF, EMAIL } from "@/lib/data.js";
+import { Check } from "@/components/icons.jsx";
+import { PHONE, PHONE_HREF, EMAIL, IMG, trustPoints } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -17,6 +18,7 @@ export default function Page() {
         eyebrow="CONTACT"
         title="Talk to dispatch"
         lead="Call, text or email any time — dispatch answers day and night and can quote a trip on the spot."
+        img={IMG.hero}
         crumbs={[{ name: "Contact", href: "/contact/" }]}
         cta={false}
       />
@@ -40,6 +42,21 @@ export default function Page() {
             <h2 style={{ marginBottom: 16 }}>Send a message</h2>
             <ContactForm />
           </Reveal>
+        </div>
+      </section>
+
+      <section className="sec" style={{ background: "var(--wash)" }}>
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">WHY CLIENTS CALL US</p><h2>Every trip, the same standard</h2></Reveal>
+          <div className="feature-grid" style={{ marginTop: 32 }}>
+            {trustPoints.map((t, i) => (
+              <Reveal key={t.title} delay={i % 3} className="feature-card">
+                <Check />
+                <h3>{t.title}</h3>
+                <p>{t.text}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </>

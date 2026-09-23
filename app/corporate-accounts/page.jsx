@@ -19,6 +19,13 @@ const points = [
   "Multi-car roadshows and conventions coordinated by one dispatcher",
 ];
 
+const setupSteps = [
+  ["Tell us your needs", "Company details, typical routes and expected volume — a two-minute call or email."],
+  ["We confirm terms", "Billing cycle, cost-centre structure and any NDA requirements are set before your first ride."],
+  ["Add your travelers", "Frequent flyers are added to the account so booking is a text, not a new sign-up."],
+  ["Ride, then one invoice", "Every trip is logged automatically; one itemized invoice goes to finance each month."],
+];
+
 export default function Page() {
   return (
     <>
@@ -26,6 +33,7 @@ export default function Page() {
         eyebrow="FOR BUSINESS"
         title="An account your finance team will accept"
         lead="Set up once, then booking a ride is a text — not a new account, and not an expensed receipt to track down."
+        img={IMG.corporate}
         crumbs={[{ name: "Corporate Accounts", href: "/corporate-accounts/" }]}
       />
 
@@ -54,6 +62,20 @@ export default function Page() {
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 8 }}>
             <a className="btn btn-gold" href={PHONE_HREF}>{PHONE}</a>
             <a className="btn btn-line" href={`mailto:${EMAIL}`} style={{ borderColor: "var(--line)", color: "var(--text)" }}>{EMAIL}</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">GETTING STARTED</p><h2>Set up in four steps</h2></Reveal>
+          <div className="steps">
+            {setupSteps.map(([title, text], i) => (
+              <Reveal key={title} delay={i % 3} className="step">
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

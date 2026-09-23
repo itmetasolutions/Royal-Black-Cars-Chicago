@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Check } from "@/components/icons.jsx";
-import { IMG } from "@/lib/data.js";
+import { IMG, trustPoints } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -11,11 +11,11 @@ export const metadata = pageMeta({
   path: "/about/",
 });
 
-const values = [
-  ["Licensed & insured", "Operating legally in Illinois, with commercial insurance on every vehicle in the fleet."],
-  ["Flat pricing, agreed first", "Your rate is confirmed before the chauffeur is dispatched — not estimated, not metered."],
-  ["Vetted chauffeurs", "Every chauffeur is background-checked and trained on the fleet before driving a client."],
-  ["A dispatcher, not a call centre", "Dispatch answers day or night and can quote, book or change a trip on the spot."],
+const howItWorks = [
+  ["Get a quote", "Instant online, or call and text — dispatch confirms your flat rate before anything is booked."],
+  ["We track your trip", "Flight tracking for airport runs, or a confirmed pickup window for everything else."],
+  ["Your chauffeur arrives", "In a late-model sedan or SUV, on time, ready with a name board or curbside as you prefer."],
+  ["One flat rate, no surprises", "Tolls, standard wait time and gratuity are already included in the price you agreed to."],
 ];
 
 export default function Page() {
@@ -25,6 +25,7 @@ export default function Page() {
         eyebrow="ABOUT US"
         title="A dependable alternative to rideshare, built for Chicago"
         lead="Royal Black Cars Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up."
+        img={IMG.hero}
         crumbs={[{ name: "About", href: "/about/" }]}
       />
 
@@ -46,13 +47,13 @@ export default function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal><p className="eyebrow">WHY CLIENTS CHOOSE US</p><h2>What you can expect on every ride</h2></Reveal>
-          <div className="svc" style={{ marginTop: 40 }}>
-            {values.map(([title, text], i) => (
-              <Reveal key={title} delay={i % 3} style={{ background: "var(--card)", border: "1px solid var(--line)", borderRadius: "var(--r)", padding: 26 }}>
-                <Check style={{ width: 22, height: 22, fill: "var(--brass)", marginBottom: 14 }} />
-                <h3>{title}</h3>
-                <p style={{ color: "var(--muted)", fontSize: ".95rem", margin: 0 }}>{text}</p>
+          <Reveal className="section-head"><p className="eyebrow">WHY CLIENTS CHOOSE US</p><h2>What you can expect on every ride</h2></Reveal>
+          <div className="feature-grid" style={{ marginTop: 36 }}>
+            {trustPoints.map((t, i) => (
+              <Reveal key={t.title} delay={i % 3} className="feature-card">
+                <Check />
+                <h3>{t.title}</h3>
+                <p>{t.text}</p>
               </Reveal>
             ))}
           </div>
@@ -60,6 +61,20 @@ export default function Page() {
       </section>
 
       <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">HOW IT WORKS</p><h2>From quote to drop-off</h2></Reveal>
+          <div className="steps">
+            {howItWorks.map(([title, text], i) => (
+              <Reveal key={title} delay={i % 3} className="step">
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <div className="prose">
             <h2>Our coverage</h2>

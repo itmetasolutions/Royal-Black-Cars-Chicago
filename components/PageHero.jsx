@@ -1,9 +1,14 @@
 import Breadcrumbs from "./Breadcrumbs.jsx";
 import { PHONE, PHONE_HREF } from "../lib/data.js";
 
-export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true }) {
+export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true, img }) {
   return (
     <section className="page-hero">
+      {img && (
+        <div className="page-hero-bg" aria-hidden="true">
+          <img src={img} alt="" loading="eager" fetchPriority="high" />
+        </div>
+      )}
       <div className="wrap">
         <Breadcrumbs items={crumbs} />
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
