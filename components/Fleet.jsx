@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal.jsx";
-import { Seat, Bag } from "./icons.jsx";
+import { Seat, Bag, Clock } from "./icons.jsx";
 import { fleet } from "../lib/data.js";
 
 export default function Fleet() {
@@ -40,6 +40,30 @@ export default function Fleet() {
     if (e.key === "ArrowLeft") { e.preventDefault(); scrollBy(-1); }
   };
 
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let paused = false;
+    const el = rail.current;
+    const pause = () => { paused = true; };
+    const resume = () => { paused = false; };
+    el?.addEventListener("pointerenter", pause);
+    el?.addEventListener("pointerleave", resume);
+    el?.addEventListener("focusin", pause);
+    el?.addEventListener("focusout", resume);
+    const id = setInterval(() => {
+      if (paused || !el || document.hidden) return;
+      const atEndNow = el.scrollLeft >= el.scrollWidth - el.clientWidth - 8;
+      el.scrollTo({ left: atEndNow ? 0 : el.scrollLeft + step(), behavior: "smooth" });
+    }, 3800);
+    return () => {
+      clearInterval(id);
+      el?.removeEventListener("pointerenter", pause);
+      el?.removeEventListener("pointerleave", resume);
+      el?.removeEventListener("focusin", pause);
+      el?.removeEventListener("focusout", resume);
+    };
+  }, []);
+
   return (
     <section className="sec">
       <div className="wrap">
@@ -71,6 +95,7 @@ export default function Fleet() {
                     <div><Seat />{v.seats}</div>
                     <div><Bag />{v.bags}</div>
                   </div>
+                  <p className="veh-hourly"><Clock />Hourly — <b>{v.hourlyRate}</b></p>
                 </div>
               </article>
             ))}

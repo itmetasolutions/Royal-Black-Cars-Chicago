@@ -76,7 +76,7 @@ export default function Page() {
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>How a corporate account works</h2></Reveal>
-          <div className="detail-grid" style={{ gridTemplateColumns: "repeat(3,1fr)", marginTop: 32 }}>
+          <div className="detail-grid cols-3" style={{ marginTop: 32 }}>
             {details.map((d, i) => (
               <Reveal key={d.h} delay={i} className="detail-card">
                 <img src={d.img} alt="" loading="lazy" />

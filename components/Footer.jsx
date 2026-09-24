@@ -1,5 +1,13 @@
-import { Car } from "./icons.jsx";
+import { Car, Facebook, Instagram, XformerlyTwitter, LinkedIn } from "./icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL } from "../lib/data.js";
+
+// Placeholder hrefs — swap in the real profile URLs when they're ready.
+const social = [
+  ["Facebook", "#", Facebook],
+  ["Instagram", "#", Instagram],
+  ["X (Twitter)", "#", XformerlyTwitter],
+  ["LinkedIn", "#", LinkedIn],
+];
 
 const cols = [
   ["SERVICES", [
@@ -40,6 +48,11 @@ export default function Footer() {
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a><br />
                 Dispatch open 24 hours
               </p>
+              <div className="fsocial">
+                {social.map(([label, href, Icon]) => (
+                  <a key={label} href={href} aria-label={label}><Icon /></a>
+                ))}
+              </div>
             </div>
             {cols.map(([title, links]) => (
               <div key={title}>

@@ -10,9 +10,12 @@ export default function Hero() {
   const [form, setForm] = useState({ pickup: "", drop: "", date: "", time: "", vehicle: "Luxury sedan" });
 
   useEffect(() => {
-    const t = new Date().toISOString().slice(0, 10);
+    const now = new Date();
+    const t = now.toISOString().slice(0, 10);
     setMinDate(t);
-    setForm((f) => (f.date ? f : { ...f, date: t }));
+    now.setMinutes(now.getMinutes() + 90);
+    const defaultTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+    setForm((f) => ({ ...f, date: f.date || t, time: f.time || defaultTime }));
   }, []);
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });

@@ -103,7 +103,7 @@ export default function Page() {
       <section className="sec">
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">MORE ABOUT US</p><h2>Approach, coverage and corporate accounts</h2></Reveal>
-          <div className="detail-grid" style={{ gridTemplateColumns: "repeat(3,1fr)", marginTop: 32 }}>
+          <div className="detail-grid cols-3" style={{ marginTop: 32 }}>
             {closingCards.map((c, i) => (
               <Reveal key={c.h} delay={i} className="detail-card">
                 <img src={c.img} alt="" loading="lazy" />

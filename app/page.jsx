@@ -6,6 +6,7 @@ import Fleet from "@/components/Fleet.jsx";
 import ChildSeats from "@/components/ChildSeats.jsx";
 import Corporate from "@/components/Corporate.jsx";
 import ServiceAreas from "@/components/ServiceAreas.jsx";
+import VenuesHome from "@/components/VenuesHome.jsx";
 import Faq from "@/components/Faq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { faqPage } from "@/lib/schema.js";
@@ -14,14 +15,15 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }} />
+      <Marquee top />
       <Hero />
-      <Marquee />
       <Services />
       <AirportSplit />
       <Fleet />
       <ChildSeats />
       <Corporate />
       <ServiceAreas />
+      <VenuesHome />
       <Faq />
       <Cta />
     </>

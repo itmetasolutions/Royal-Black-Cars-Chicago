@@ -2,13 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { Car } from "./icons.jsx";
-import { PHONE, PHONE_HREF } from "../lib/data.js";
+import { PHONE, PHONE_HREF, serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
+import { clusters } from "../lib/locations.js";
 
-const links = [
-  ["/services/", "Services"], ["/airports/", "Airports"], ["/fleet/", "Fleet"],
-  ["/service-areas/", "Areas"], ["/corporate-accounts/", "Corporate"], ["/rates/", "Rates"],
+const navGroups = [
+  { label: "Services", hub: "/services/", links: serviceDetails.map((s) => [s.href, s.title]), cols: 3 },
+  { label: "Airports", hub: "/airports/", links: airportDetails.map((a) => [a.href, a.name]), cols: 1 },
+  { label: "Fleet", hub: "/fleet/", links: fleetPages.map((f) => [f.href, f.title]), cols: 1 },
+  {
+    label: "Areas", hub: "/service-areas/", cols: 4,
+    groups: clusters.map((c) => [c.name, c.locations.slice(0, 3).map((l) => [l.href, l.name])]),
+  },
 ];
-const drawerExtra = [["/about/", "About"], ["/faq/", "FAQ"], ["/contact/", "Contact"]];
+
+const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
 
 export default function Header() {
   const [stuck, setStuck] = useState(false);
@@ -31,7 +38,27 @@ export default function Header() {
         <div className="wrap hdr-in">
           <a className="brand" href="/"><i><Car /></i><span>Royal <b>Black Cars</b></span></a>
           <nav className="nav" aria-label="Main">
-            {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+            {navGroups.map((g) => (
+              <div key={g.label} className="nav-item">
+                <a href={g.hub}>{g.label}<i className="chev" aria-hidden="true" /></a>
+                <div className="mega">
+                  <div className="mega-panel" style={{ gridTemplateColumns: `repeat(${g.cols},1fr)` }}>
+                    {g.groups
+                      ? g.groups.map(([title, links]) => (
+                          <div key={title} className="mega-col">
+                            <p>{title}</p>
+                            {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+                          </div>
+                        ))
+                      : g.links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+                  </div>
+                  <div className="mega-panel-more">
+                    <a href={g.hub}>See all {g.label.toLowerCase()} &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {plainLinks.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
           </nav>
           <a className="btn btn-gold" href="/#quote">Book a ride</a>
           <button className="burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}>
@@ -42,8 +69,23 @@ export default function Header() {
 
       <div className={`drawer${open ? " open" : ""}`} onClick={(e) => e.target.tagName === "A" && setOpen(false)}>
         <button className="close" aria-label="Close menu" onClick={() => setOpen(false)}>&times;</button>
-        {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-        {drawerExtra.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+        {navGroups.map((g) => (
+          <details key={g.label}>
+            <summary>{g.label}</summary>
+            <div className="drawer-sub">
+              {g.groups
+                ? g.groups.map(([title, links]) => (
+                    <div key={title} className="drawer-sub-group">
+                      <b>{title}</b>
+                      {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+                    </div>
+                  ))
+                : g.links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+              <a href={g.hub} className="drawer-sub-all">See all {g.label.toLowerCase()} &rarr;</a>
+            </div>
+          </details>
+        ))}
+        {plainLinks.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
         <a href={PHONE_HREF}>{PHONE}</a>
       </div>
     </>

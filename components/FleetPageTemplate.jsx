@@ -3,7 +3,7 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
-import { Check } from "./icons.jsx";
+import { Check, Seat, Bag, Car as CarIcon } from "./icons.jsx";
 import { fleetPages } from "../lib/data.js";
 
 const sharedFaqs = [
@@ -13,6 +13,8 @@ const sharedFaqs = [
 
 export default function FleetPageTemplate({ vehicle }) {
   const related = fleetPages.filter(f => f.slug !== vehicle.slug).map(f => [f.title, f.href, f.img]);
+  const [passengersPart, bagsPart] = vehicle.capacity.split(",").map((s) => s.trim());
+  const passengerCount = passengersPart.replace(/\s*passengers?$/i, "");
 
   return (
     <>
@@ -25,18 +27,24 @@ export default function FleetPageTemplate({ vehicle }) {
       />
 
       <section className="sec">
-        <div className="wrap split">
-          <Reveal className="media" slide>
-            <img className="photo" src={vehicle.img} alt={vehicle.title} loading="lazy" style={{ zIndex: 2 }} />
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="eyebrow">SPECS</p>
-            <ul className="tick">
-              <li><Check /><span><b>Models</b> — {vehicle.models}</span></li>
-              <li><Check /><span><b>Capacity</b> — {vehicle.capacity}</span></li>
-              <li><Check /><span><b>Rate</b> — {vehicle.rate}</span></li>
-            </ul>
-            <a className="btn btn-gold" href="/#quote">Get your rate</a>
+        <div className="wrap">
+          <Reveal className="veh-spec">
+            <div className="veh-spec-media">
+              <img src={vehicle.img} alt={vehicle.title} loading="lazy" />
+            </div>
+            <div className="veh-spec-sheet">
+              <p className="eyebrow">SPEC SHEET</p>
+              <div className="veh-spec-pax"><Seat style={{ width: 26, height: 26, fill: "var(--brass)" }} /><b>{passengerCount}</b><span>passengers</span></div>
+              <div className="veh-spec-bullets">
+                <div><Bag />{bagsPart || "Professional chauffeur included"}</div>
+                <div><CarIcon />Models: {vehicle.models}</div>
+              </div>
+              <div className="veh-spec-rates">
+                <div><span>Flat rate</span><b>{vehicle.rate}</b></div>
+                <div><span>Hourly</span><b>{vehicle.hourlyRate}</b></div>
+              </div>
+              <a className="btn btn-gold" href="/#quote">Get your rate</a>
+            </div>
           </Reveal>
         </div>
       </section>

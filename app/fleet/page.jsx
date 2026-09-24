@@ -1,7 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { Car as CarIcon, Seat, Bag } from "@/components/icons.jsx";
+import { Car as CarIcon, Seat, Bag, Clock } from "@/components/icons.jsx";
 import { fleetPages, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
@@ -25,23 +25,26 @@ export default function Page() {
       <section className="sec">
         <div className="wrap">
           <div className="fleet-cards">
-            {fleetPages.map((f, i) => (
-              <Reveal key={f.slug} delay={i % 3} className="fleet-card">
-                <a href={f.href} className="fc-photo">
-                  <img src={f.img} alt={f.title} loading="lazy" />
-                  <span className="fc-price">{f.rate}</span>
-                </a>
-                <div className="fc-info">
-                  <h3><a href={f.href}>{f.title}</a></h3>
-                  <p className="fc-models">{f.models}</p>
-                  <div className="fc-specs">
-                    <div><CarIcon />{f.bestFor[0]}</div>
-                    <div><Seat />{f.capacity.split(",")[0]}</div>
-                    <div><Bag />{f.capacity.split(",")[1] || f.capacity}</div>
+            {fleetPages.map((f, i) => {
+              const [passengers, bagsPart] = f.capacity.split(",").map((s) => s.trim());
+              return (
+                <Reveal key={f.slug} delay={i % 3} className="fleet-card">
+                  <a href={f.href} className="fc-photo">
+                    <img src={f.img} alt={f.title} loading="lazy" />
+                    <span className="fc-price">{f.rate}</span>
+                  </a>
+                  <div className="fc-info">
+                    <h3><a href={f.href}>{f.title}</a></h3>
+                    <p className="fc-pax"><Seat />{passengers}</p>
+                    <div className="fc-specs">
+                      <div><Bag />{bagsPart || "Chauffeur included"}</div>
+                      <div><CarIcon />{f.models}</div>
+                      <div><Clock /><b>Hourly</b> {f.hourlyRate}</div>
+                    </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
