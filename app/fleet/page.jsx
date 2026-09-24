@@ -1,5 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
+import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
+import { Car as CarIcon, Seat } from "@/components/icons.jsx";
 import { fleetPages } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
@@ -19,19 +21,28 @@ export default function Page() {
         img={fleetPages[0].img}
         crumbs={[{ name: "Fleet", href: "/fleet/" }]}
       />
+
       <section className="sec">
         <div className="wrap">
-          <div className="svc">
-            {fleetPages.map((f) => (
-              <a key={f.slug} href={f.href}>
-                <img className="photo" src={f.img} alt="" loading="lazy" />
-                <div><h3>{f.title}</h3><p>{f.capacity}</p></div>
-              </a>
+          <div className="fleet-cards">
+            {fleetPages.map((f, i) => (
+              <Reveal key={f.slug} delay={i % 2} className="fleet-card">
+                <a href={f.href} className="fc-photo"><img src={f.img} alt={f.title} loading="lazy" /></a>
+                <div className="fc-info">
+                  <h3><a href={f.href}>{f.title}</a></h3>
+                  <p className="fc-models">{f.models}</p>
+                  <div className="fc-specs">
+                    <div><CarIcon />{f.bestFor[0]}</div>
+                    <div><Seat />{f.capacity}</div>
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
-      <Cta />
+
+      <Cta img={fleetPages[0].img} />
     </>
   );
 }

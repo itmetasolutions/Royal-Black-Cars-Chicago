@@ -3,9 +3,16 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
-import { Check } from "./icons.jsx";
+import { Check, Tag, Shield, Clock } from "./icons.jsx";
 import { serviceDetails, trustPoints } from "../lib/data.js";
 import { serviceSchema } from "../lib/schema.js";
+
+const quickFacts = [
+  [Tag, "Flat rate", "Agreed before you ride"],
+  [Shield, "Licensed & insured", "Every vehicle, every trip"],
+  [Clock, "24/7 dispatch", "Book any hour, day or night"],
+  [Check, "No surge, ever", "Same price no matter the hour"],
+];
 
 export default function ServicePageTemplate({ service }) {
   const related = serviceDetails.filter(s => s.slug !== service.slug).slice(0, 6).map(s => [s.title, s.href]);
@@ -20,6 +27,14 @@ export default function ServicePageTemplate({ service }) {
         img={service.img}
         crumbs={[{ name: "Services", href: "/services/" }, { name: service.title, href: service.href }]}
       />
+
+      <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
+        <Reveal className="quickfacts">
+          {quickFacts.map(([Icon, b, s]) => (
+            <div key={b}><Icon /><div><b>{b}</b><small>{s}</small></div></div>
+          ))}
+        </Reveal>
+      </div>
 
       <section className="sec">
         <div className="wrap split">

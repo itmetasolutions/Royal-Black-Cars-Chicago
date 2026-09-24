@@ -3,6 +3,7 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
+import { Plane } from "./icons.jsx";
 import { airportDetails, trustPoints } from "../lib/data.js";
 
 const steps = [
@@ -25,22 +26,32 @@ export default function AirportPageTemplate({ airport }) {
         crumbs={[{ name: "Airports", href: "/airports/" }, { name: airport.name, href: airport.href }]}
       />
 
+      <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
+        <Reveal className="ticket">
+          <div className="ticket-stub">
+            <Plane />
+            <b>{airport.code}</b>
+            <span>AIRPORT</span>
+          </div>
+          <div className="ticket-body">
+            <div><span className="tl">Rate</span><b>{airport.rate}{airport.rateNote ? ` · ${airport.rateNote}` : ""}</b></div>
+            <div><span className="tl">Drive time</span><b style={{ fontSize: "1.05rem" }}>{airport.driveTime}</b></div>
+            <div><span className="tl">Terminals</span><b style={{ fontSize: ".92rem", fontFamily: "inherit", fontWeight: 500 }}>{airport.terminals.split(" — ")[0]}</b></div>
+            <a className="btn btn-gold" href="/#quote" style={{ marginLeft: "auto" }}>Get your rate</a>
+          </div>
+        </Reveal>
+      </div>
+
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
             <img className="photo" src={airport.img} alt={airport.name} loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
-            <p className="eyebrow">RATE</p>
-            <table className="rate-table">
-              <tbody>
-                <tr><td>Rate{airport.rateNote ? ` (${airport.rateNote})` : ""}</td><td>{airport.rate}</td></tr>
-                <tr><td>Typical drive time</td><td style={{ fontFamily: "inherit", fontSize: ".94rem" }}>{airport.driveTime}</td></tr>
-              </tbody>
-            </table>
-            <p><strong>Terminals:</strong> {airport.terminals}</p>
-            <p><strong>Wait-time policy:</strong> {airport.waitPolicy}</p>
-            <a className="btn btn-gold" href="/#quote">Get your rate</a>
+            <p className="eyebrow">TERMINALS & WAIT TIME</p>
+            <h2>What to know before you land</h2>
+            <p style={{ color: "var(--muted)", marginBottom: 14 }}><strong style={{ color: "var(--text)" }}>Terminals:</strong> {airport.terminals}</p>
+            <p style={{ color: "var(--muted)" }}><strong style={{ color: "var(--text)" }}>Wait-time policy:</strong> {airport.waitPolicy}</p>
           </Reveal>
         </div>
       </section>

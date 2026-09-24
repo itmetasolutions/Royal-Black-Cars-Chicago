@@ -3,9 +3,9 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
-import { Check } from "./icons.jsx";
+import { Check, Pin, Route, Clock } from "./icons.jsx";
 import { trustPoints } from "../lib/data.js";
-import { allLocations, cityToCity, locationImage, locationFaqs } from "../lib/locations.js";
+import { allLocations, cityToCity, locationImage, locationFaqs, driveBars } from "../lib/locations.js";
 
 export default function LocationPageTemplate({ location }) {
   const img = locationImage(location);
@@ -23,6 +23,13 @@ export default function LocationPageTemplate({ location }) {
           crumbs={[{ name: "Service Areas", href: "/service-areas/" }, { name: location.name, href: location.href }]}
         />
 
+        <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
+          <Reveal className="local-bar">
+            <div><Route /><span><strong>{location.miles}</strong> door to door</span></div>
+            <div><Clock /><span><strong>{location.drive}</strong></span></div>
+          </Reveal>
+        </div>
+
         <section className="sec">
           <div className="wrap split">
             <Reveal className="media" slide>
@@ -39,10 +46,6 @@ export default function LocationPageTemplate({ location }) {
 
         <section className="sec" style={{ background: "var(--wash)" }}>
           <div className="wrap">
-            <div className="stat-grid" style={{ gridTemplateColumns: "repeat(2,1fr)", maxWidth: 560 }}>
-              <div className="stat-card"><span>Distance</span><b>{location.miles}</b></div>
-              <div className="stat-card"><span>Typical drive</span><b>{location.drive}</b></div>
-            </div>
             <div className="prose">
               <p>Rates are flat and quoted for the full trip before you book, with round-trip and wait-and-return options available. <a href="/long-distance-car-service/">See how long-distance bookings work</a>.</p>
             </div>
@@ -59,6 +62,7 @@ export default function LocationPageTemplate({ location }) {
   const related = allLocations
     .filter(l => !l.isRoute && l.cluster === location.cluster && l.slug !== location.slug)
     .map(l => [l.name, l.href]);
+  const bars = driveBars(location);
 
   return (
     <>
@@ -69,6 +73,15 @@ export default function LocationPageTemplate({ location }) {
         img={img}
         crumbs={[{ name: "Service Areas", href: "/service-areas/" }, { name: location.name, href: location.href }]}
       />
+
+      <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
+        <Reveal className="local-bar">
+          {location.landmarks?.map((l) => (
+            <div key={l}><Pin /><span>{l}</span></div>
+          ))}
+          <div><Route /><span>Via {location.highway}</span></div>
+        </Reveal>
+      </div>
 
       <section className="sec">
         <div className="wrap split">
@@ -91,10 +104,14 @@ export default function LocationPageTemplate({ location }) {
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">DRIVE TIMES</p><h2>From {location.name} to the airports</h2></Reveal>
-          <div className="stat-grid">
-            <Reveal className="stat-card"><span>O&apos;Hare (ORD)</span><b>{location.drive.ORD}</b></Reveal>
-            <Reveal delay={1} className="stat-card"><span>Midway (MDW)</span><b>{location.drive.MDW}</b></Reveal>
-            <Reveal delay={2} className="stat-card"><span>Chicago Executive (PWK)</span><b>{location.drive.PWK}</b></Reveal>
+          <div className="drive-bars">
+            {bars.map((b, i) => (
+              <Reveal key={b.label} delay={i} className="drive-bar-row">
+                <span className="al">{b.label}</span>
+                <span className="drive-bar-track"><span className="drive-bar-fill" style={{ width: `${b.pct}%` }} /></span>
+                <span className="av">{b.value}</span>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
