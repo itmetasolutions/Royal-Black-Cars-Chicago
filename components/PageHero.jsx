@@ -16,7 +16,7 @@ export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true
         {lead && <p className="lead">{lead}</p>}
         {cta && (
           <div className="hero-actions">
-            <a className="btn btn-gold" href="/#quote">Get your rate</a>
+            <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
             <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>
           </div>
         )}

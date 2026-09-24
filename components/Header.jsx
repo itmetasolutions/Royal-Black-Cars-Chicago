@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Car } from "./icons.jsx";
-import { PHONE, PHONE_HREF, serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
+import { serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
 import { clusters } from "../lib/locations.js";
 
 const navGroups = [
@@ -15,7 +15,7 @@ const navGroups = [
   },
 ];
 
-const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
+const plainLinks = [["/", "Home"], ["/about/", "About"], ["/contact/", "Contact"]];
 
 export default function Header() {
   const [stuck, setStuck] = useState(false);
@@ -60,7 +60,7 @@ export default function Header() {
             ))}
             {plainLinks.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
           </nav>
-          <a className="btn btn-gold" href="/#quote">Book a ride</a>
+          <a className="btn btn-gold" href="/get-a-quote/">Book a ride</a>
           <button className="burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}>
             <svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" strokeLinecap="round" /></svg>
           </button>
@@ -86,7 +86,6 @@ export default function Header() {
           </details>
         ))}
         {plainLinks.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-        <a href={PHONE_HREF}>{PHONE}</a>
       </div>
     </>
   );

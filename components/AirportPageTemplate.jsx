@@ -37,7 +37,7 @@ export default function AirportPageTemplate({ airport }) {
             <div><span className="tl">Rate</span><b>{airport.rate}{airport.rateNote ? ` · ${airport.rateNote}` : ""}</b></div>
             <div><span className="tl">Drive time</span><b style={{ fontSize: "1.05rem" }}>{airport.driveTime}</b></div>
             <div><span className="tl">Terminals</span><b style={{ fontSize: ".92rem", fontFamily: "inherit", fontWeight: 500 }}>{airport.terminals.split(" — ")[0]}</b></div>
-            <a className="btn btn-gold" href="/#quote" style={{ marginLeft: "auto" }}>Get your rate</a>
+            <a className="btn btn-gold" href="/get-a-quote/" style={{ marginLeft: "auto" }}>Get your rate</a>
           </div>
         </Reveal>
       </div>

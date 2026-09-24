@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
   title: "Our Fleet | Royal Black Cars Chicago",
-  description: "Luxury sedans, SUVs, the Mercedes S-Class, Sprinter vans, stretch limos and minibuses — every vehicle class we run, with capacity and rate guidance.",
+  description: "Luxury and executive sedans, luxury and executive SUVs, shuttle and executive Sprinters, a limousine, and a mini coach — every vehicle class we run, with capacity and rate guidance.",
   path: "/fleet/",
 });
 
@@ -17,7 +17,7 @@ export default function Page() {
       <PageHero
         eyebrow="FLEET"
         title="Pick your class"
-        lead="Late-model sedans, SUVs, Sprinters, stretch limos and coaches — sized to your trip, not the other way around."
+        lead="Late-model sedans, SUVs, Sprinters, a limousine and a mini coach — sized to your trip, not the other way around."
         img={fleetPages[0].img}
         crumbs={[{ name: "Fleet", href: "/fleet/" }]}
       />
@@ -36,11 +36,13 @@ export default function Page() {
                   <div className="fc-info">
                     <h3><a href={f.href}>{f.title}</a></h3>
                     <p className="fc-pax"><Seat />{passengers}</p>
+                    <p className="fc-desc">{f.body}</p>
                     <div className="fc-specs">
                       <div><Bag />{bagsPart || "Chauffeur included"}</div>
                       <div><CarIcon />{f.models}</div>
                       <div><Clock /><b>Hourly</b> {f.hourlyRate}</div>
                     </div>
+                    <a className="btn btn-gold" href={`/get-a-quote/?vehicle=${encodeURIComponent(f.title)}`} style={{ marginTop: 16, width: "100%" }}>Book Now</a>
                   </div>
                 </Reveal>
               );

@@ -43,7 +43,7 @@ export default function FleetPageTemplate({ vehicle }) {
                 <div><span>Flat rate</span><b>{vehicle.rate}</b></div>
                 <div><span>Hourly</span><b>{vehicle.hourlyRate}</b></div>
               </div>
-              <a className="btn btn-gold" href="/#quote">Get your rate</a>
+              <a className="btn btn-gold" href={`/get-a-quote/?vehicle=${encodeURIComponent(vehicle.title)}`}>Book Now</a>
             </div>
           </Reveal>
         </div>

@@ -70,7 +70,7 @@ export default function Footer() {
 
       <div className="mbar">
         <a className="btn btn-dark" href={PHONE_HREF} style={{ background: "var(--wash)", color: "var(--text)" }}>Call</a>
-        <a className="btn btn-gold" href="/#quote">Book a ride</a>
+        <a className="btn btn-gold" href="/get-a-quote/">Book a ride</a>
       </div>
     </>
   );

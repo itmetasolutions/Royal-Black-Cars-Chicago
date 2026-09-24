@@ -2,7 +2,7 @@ import FleetPageTemplate from "@/components/FleetPageTemplate.jsx";
 import { fleetPages } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
-const vehicle = fleetPages.find((f) => f.slug === "stretch-limo");
+const vehicle = fleetPages.find((f) => f.slug === "mini-coach-party-bus");
 
 export const metadata = pageMeta({
   title: `${vehicle.title} | Royal Black Cars Chicago Fleet`,

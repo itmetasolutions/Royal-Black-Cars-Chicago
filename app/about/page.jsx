@@ -44,7 +44,7 @@ export default function Page() {
             <h1 style={{ fontSize: "clamp(2.2rem,4.4vw,3.2rem)", maxWidth: "16ch" }}>A dependable alternative to rideshare, built for Chicago</h1>
             <p className="lead" style={{ marginTop: 18 }}>Royal Black Cars Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up.</p>
             <div className="hero-actions" style={{ marginTop: 28 }}>
-              <a className="btn btn-gold" href="/#quote">Get your rate</a>
+              <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
               <a className="btn btn-dark" href={PHONE_HREF}>{PHONE}</a>
             </div>
           </Reveal>

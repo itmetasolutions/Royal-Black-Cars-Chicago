@@ -46,23 +46,8 @@ export default function ServicePageTemplate({ service }) {
             <p className="eyebrow">WHAT&apos;S INCLUDED</p>
             <h2>Every {service.title.toLowerCase()} booking includes</h2>
             <ul className="tick">{service.included.map(i => <li key={i}><Check />{i}</li>)}</ul>
-            <a className="btn btn-gold" href="/#quote">Get your rate</a>
+            <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
           </Reveal>
-        </div>
-      </section>
-
-      <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">WHY RIDE WITH US</p><h2>The details most services skip</h2></Reveal>
-          <div className="feature-grid" style={{ marginTop: 36 }}>
-            {trustPoints.map((t, i) => (
-              <Reveal key={t.title} delay={i % 3} className="feature-card">
-                <Check />
-                <h3>{t.title}</h3>
-                <p>{t.text}</p>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -95,6 +80,21 @@ export default function ServicePageTemplate({ service }) {
               </div>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">WHY RIDE WITH US</p><h2>The details most services skip</h2></Reveal>
+          <div className="feature-grid" style={{ marginTop: 36 }}>
+            {trustPoints.map((t, i) => (
+              <Reveal key={t.title} delay={i % 3} className="feature-card">
+                <Check />
+                <h3>{t.title}</h3>
+                <p>{t.text}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

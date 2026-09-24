@@ -36,7 +36,7 @@ export default function VenuePageTemplate({ venue }) {
             <p className="eyebrow">EVENT NIGHT</p>
             <h2>{venue.note}</h2>
             <p className="lead" style={{ fontSize: "1rem" }}>Tell dispatch your event and seating section when you book — chauffeurs know the fastest legal drop-off point for {venue.name} and stage your car nearby as the event ends, rather than pre-booking a fixed pickup time.</p>
-            <a className="btn btn-gold" href="/#quote">Get your rate</a>
+            <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
           </Reveal>
         </div>
       </section>

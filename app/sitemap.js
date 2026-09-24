@@ -7,7 +7,7 @@ const base = "https://www.royalblackcarschicago.com";
 const staticPaths = [
   "/", "/services/", "/airports/", "/fleet/", "/service-areas/", "/venues/",
   "/corporate-accounts/", "/rates/", "/about/", "/faq/", "/contact/", "/blog/",
-  "/terms/", "/privacy/",
+  "/terms/", "/privacy/", "/get-a-quote/",
 ];
 
 export default function sitemap() {

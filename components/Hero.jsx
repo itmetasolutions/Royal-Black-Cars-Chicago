@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IMG, PHONE, PHONE_HREF } from "../lib/data.js";
+import { IMG, PHONE_HREF, fleetPages } from "../lib/data.js";
 
 export default function Hero() {
   const [trip, setTrip] = useState("airport");
-  const [note, setNote] = useState({ text: "Free cancellation up to 2 hours before pick-up.", ok: false });
   const [minDate, setMinDate] = useState("");
-  const [form, setForm] = useState({ pickup: "", drop: "", date: "", time: "", vehicle: "Luxury sedan" });
+  const [form, setForm] = useState({ pickup: "", drop: "", date: "", time: "", vehicle: fleetPages[0].title });
 
   useEffect(() => {
     const now = new Date();
@@ -23,8 +22,10 @@ export default function Hero() {
   const submit = (e) => {
     e.preventDefault();
     if (!form.pickup.trim()) return document.getElementById("pickup")?.focus();
-    // TODO: POST to your booking API here
-    setNote({ text: "Thanks — a dispatcher will text your flat rate within a few minutes.", ok: true });
+    const params = new URLSearchParams({
+      trip, pickup: form.pickup, drop: form.drop, date: form.date, time: form.time, vehicle: form.vehicle,
+    });
+    window.location.href = `/get-a-quote/?${params.toString()}`;
   };
 
   return (
@@ -44,8 +45,8 @@ export default function Hero() {
             </h1>
             <p className="lead">Vetted chauffeurs, late-model sedans and SUVs, flights tracked in real time. One flat rate agreed up front — no surge, no surprises.</p>
             <div className="hero-actions">
-              <a className="btn btn-gold" href="#quote">Get your rate</a>
-              <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>
+              <a className="btn btn-gold" href="/get-a-quote/">Get a Free Quote</a>
+              <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
             </div>
           </div>
 
@@ -74,11 +75,11 @@ export default function Hero() {
               <div className="field">
                 <label htmlFor="veh">Vehicle</label>
                 <select id="veh" value={form.vehicle} onChange={set("vehicle")}>
-                  {["Luxury sedan","Executive sedan","Midsize SUV","Full-size SUV","Premium luxury SUV","Executive SUV","Sprinter van","Stretch limo","Minibus"].map(v => <option key={v}>{v}</option>)}
+                  {fleetPages.map((f) => <option key={f.slug}>{f.title}</option>)}
                 </select>
               </div>
               <button className="btn btn-gold" type="submit">See my flat rate</button>
-              <p className="qnote" style={note.ok ? { color: "#8FD4AE" } : undefined}>{note.text}</p>
+              <p className="qnote">Free cancellation up to 2 hours before pick-up.</p>
             </form>
           </div>
         </div>
