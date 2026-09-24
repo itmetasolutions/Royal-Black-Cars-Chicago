@@ -74,25 +74,24 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Business & corporate: icon-list directory */}
+      {/* Business & corporate: image + text card grid */}
       <section className="sec">
         <div className="wrap">
           <Reveal className="section-head" style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Shield style={{ width: 22, height: 22, fill: "var(--brass)" }} />
             <h2 style={{ fontSize: "1.4rem" }}>Business &amp; corporate</h2>
           </Reveal>
-          <div className="svc-list" style={{ marginTop: 20 }}>
-            {businessSlugs.map((slug) => {
+          <div className="detail-grid" style={{ marginTop: 24 }}>
+            {businessSlugs.map((slug, i) => {
               const s = find(slug);
               return (
-                <a key={slug} href={s.href} className="svc-row">
-                  <span className="ic"><Check /></span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
+                <Reveal key={slug} delay={i} as="a" href={s.href} className="detail-card" style={{ display: "block" }}>
+                  <img src={s.img} alt="" loading="lazy" />
+                  <div className="dc-body">
                     <h3>{s.title}</h3>
                     <p>{s.lead}</p>
                   </div>
-                  <span className="go">&rarr;</span>
-                </a>
+                </Reveal>
               );
             })}
           </div>
