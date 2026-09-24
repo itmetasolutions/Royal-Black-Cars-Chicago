@@ -117,10 +117,18 @@ p{margin:0 0 1rem}
 .field{margin-bottom:9px;min-width:0}
 .field label{display:block;font:600 .74rem Inter,sans-serif;letter-spacing:.08em;color:rgba(255,255,255,.6);margin-bottom:6px}
 .field input,.field select{width:100%;max-width:100%;min-width:0;box-sizing:border-box;padding:13px 15px;border:1px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.06);color:#fff;font:400 .95rem Inter,sans-serif}
-/* iOS Safari ignores width/min-width on date & time inputs unless their internal
-   value part is also unlocked — this is the documented WebKit-only fix for that. */
-.field input[type="date"],.field input[type="time"]{min-width:0;-webkit-min-logical-width:0!important}
+/* iOS Safari sizes native date/time controls off their own default theme chrome
+   and ignores width/min-width set directly on them — stripping the native
+   appearance is what actually lets the box model (width:100%) take over; the
+   picker itself still opens on tap, only the default OS-drawn chrome is removed.
+   overflow:hidden on .field is a hard clamp underneath in case a given iOS
+   version still insists on rendering wide. */
+.field input[type="date"],.field input[type="time"]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;min-width:0;max-width:100%;-webkit-min-logical-width:0!important;
+}
 .field input[type="date"]::-webkit-date-and-time-value,.field input[type="time"]::-webkit-date-and-time-value{min-width:0;width:100%;text-align:left}
+.field:has(input[type="date"]),.field:has(input[type="time"]){overflow:hidden;border-radius:10px}
 .field input::placeholder{color:rgba(255,255,255,.45)}
 .field select option{color:#11161B}
 .field input:focus,.field select:focus{outline:none;border-color:var(--brass);background:rgba(255,255,255,.1)}
