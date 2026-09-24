@@ -12,7 +12,7 @@ const sharedFaqs = [
 ];
 
 export default function FleetPageTemplate({ vehicle }) {
-  const related = fleetPages.filter(f => f.slug !== vehicle.slug).map(f => [f.title, f.href]);
+  const related = fleetPages.filter(f => f.slug !== vehicle.slug).map(f => [f.title, f.href, f.img]);
 
   return (
     <>
@@ -34,6 +34,7 @@ export default function FleetPageTemplate({ vehicle }) {
             <ul className="tick">
               <li><Check /><span><b>Models</b> — {vehicle.models}</span></li>
               <li><Check /><span><b>Capacity</b> — {vehicle.capacity}</span></li>
+              <li><Check /><span><b>Rate</b> — {vehicle.rate}</span></li>
             </ul>
             <a className="btn btn-gold" href="/#quote">Get your rate</a>
           </Reveal>

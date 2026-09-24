@@ -3,7 +3,7 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
-import { Plane } from "./icons.jsx";
+import { Plane, Check } from "./icons.jsx";
 import { airportDetails, trustPoints } from "../lib/data.js";
 
 const steps = [
@@ -14,7 +14,7 @@ const steps = [
 ];
 
 export default function AirportPageTemplate({ airport }) {
-  const related = airportDetails.filter(a => a.slug !== airport.slug).map(a => [a.name, a.href]);
+  const related = airportDetails.filter(a => a.slug !== airport.slug).slice(0, 4).map(a => [a.name, a.href, a.img]);
 
   return (
     <>
@@ -71,16 +71,25 @@ export default function AirportPageTemplate({ airport }) {
       </section>
 
       <section className="sec">
-        <div className="wrap">
-          <div className="prose">{airport.body.map((p, i) => <p key={i}>{p}</p>)}</div>
+        <div className="wrap split rev">
+          <Reveal className="media" slide>
+            <img className="photo" src={airport.img2 || airport.img} alt={airport.name} loading="lazy" style={{ zIndex: 2 }} />
+          </Reveal>
+          <Reveal delay={1}>
+            <p className="eyebrow">GOOD TO KNOW</p>
+            <h2>{airport.name.split(" ")[0]} in detail</h2>
+            <div className="prose">{airport.body.map((p, i) => <p key={i}>{p}</p>)}</div>
+          </Reveal>
         </div>
       </section>
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <div className="feature-grid cols-3">
+          <Reveal className="section-head"><p className="eyebrow">WHY RIDE WITH US</p><h2>The same standard, every airport</h2></Reveal>
+          <div className="feature-grid cols-3" style={{ marginTop: 32 }}>
             {trustPoints.slice(0, 3).map((t, i) => (
               <Reveal key={t.title} delay={i} className="feature-card">
+                <Check />
                 <h3>{t.title}</h3>
                 <p>{t.text}</p>
               </Reveal>

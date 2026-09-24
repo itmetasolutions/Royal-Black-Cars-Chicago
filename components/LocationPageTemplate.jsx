@@ -12,7 +12,7 @@ export default function LocationPageTemplate({ location }) {
   const faqs = locationFaqs(location);
 
   if (location.isRoute) {
-    const related = cityToCity.filter(r => r.slug !== location.slug).map(r => [r.name, r.href]);
+    const related = cityToCity.filter(r => r.slug !== location.slug).map(r => [r.name, r.href, r.img]);
     return (
       <>
         <PageHero
@@ -61,7 +61,7 @@ export default function LocationPageTemplate({ location }) {
 
   const related = allLocations
     .filter(l => !l.isRoute && l.cluster === location.cluster && l.slug !== location.slug)
-    .map(l => [l.name, l.href]);
+    .map(l => [l.name, l.href, l.img]);
   const bars = driveBars(location);
 
   return (

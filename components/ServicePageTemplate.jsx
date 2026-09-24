@@ -15,7 +15,8 @@ const quickFacts = [
 ];
 
 export default function ServicePageTemplate({ service }) {
-  const related = serviceDetails.filter(s => s.slug !== service.slug).slice(0, 6).map(s => [s.title, s.href]);
+  const related = serviceDetails.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
+  const gallery = service.gallery || [service.img, service.img, service.img, service.img];
 
   return (
     <>
@@ -65,35 +66,35 @@ export default function ServicePageTemplate({ service }) {
         </div>
       </section>
 
-      <section className="sec">
-        <div className="wrap split">
-          <Reveal>
-            <p className="eyebrow">THE DETAILS</p>
-            <div className="prose">
-              {service.body.map((section, i) => (
-                <div key={i}>
+      <section className="sec" style={{ background: "var(--wash)" }}>
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>Everything worth knowing</h2></Reveal>
+          <div className="detail-grid">
+            {service.body.map((section, i) => (
+              <Reveal key={section.h} delay={i % 3} className="detail-card">
+                <img src={gallery[i]} alt="" loading="lazy" />
+                <div className="dc-body">
                   <h3>{section.h}</h3>
-                  {section.p.map((p, j) => <p key={j}>{p}</p>)}
+                  <p>{section.p[0]}</p>
                 </div>
-              ))}
+              </Reveal>
+            ))}
+            <Reveal delay={0} className="detail-card">
+              <img src={gallery[3]} alt="" loading="lazy" />
+              <div className="dc-body">
+                <h3>Best for</h3>
+                <ul className="tick" style={{ margin: 0 }}>{service.bestFor.slice(0, 3).map(b => <li key={b}><Check />{b}</li>)}</ul>
+              </div>
+            </Reveal>
+          </div>
+          {service.fleetLinks && (
+            <div style={{ marginTop: 30 }}>
+              <h3 style={{ marginBottom: 12, fontSize: "1.02rem" }}>Recommended vehicles</h3>
+              <div className="rl-grid" style={{ margin: 0 }}>
+                {service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
+              </div>
             </div>
-          </Reveal>
-          <Reveal delay={1} className="faq-aside">
-            {service.bestFor && (
-              <>
-                <h3 style={{ marginBottom: 12 }}>Best for</h3>
-                <ul className="tick">{service.bestFor.map(b => <li key={b}><Check />{b}</li>)}</ul>
-              </>
-            )}
-            {service.fleetLinks && (
-              <>
-                <h3 style={{ marginTop: 22, marginBottom: 12 }}>Recommended vehicles</h3>
-                <div className="rl-grid" style={{ margin: 0 }}>
-                  {service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
-                </div>
-              </>
-            )}
-          </Reveal>
+          )}
         </div>
       </section>
 

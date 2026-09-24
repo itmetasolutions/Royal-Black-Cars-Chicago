@@ -15,7 +15,7 @@ const checklist = [
 
 export default function VenuePageTemplate({ venue }) {
   const img = venueImage(venue);
-  const related = venueDetails.filter(v => v.slug !== venue.slug).map(v => [v.name, v.href]);
+  const related = venueDetails.filter(v => v.slug !== venue.slug).map(v => [v.name, v.href, v.img]);
 
   return (
     <>

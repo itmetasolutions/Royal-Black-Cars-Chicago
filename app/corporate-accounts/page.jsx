@@ -2,8 +2,8 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import PageFaq from "@/components/PageFaq.jsx";
 import Cta from "@/components/Cta.jsx";
-import { Check } from "@/components/icons.jsx";
-import { IMG, PHONE, PHONE_HREF, EMAIL } from "@/lib/data.js";
+import { Check, Shield, Clock, Tag } from "@/components/icons.jsx";
+import { PHONE, PHONE_HREF, EMAIL, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 const faqs = [
@@ -35,6 +35,12 @@ const setupSteps = [
   ["Ride, then one invoice", "Every trip is logged automatically; one itemized invoice goes to finance each month."],
 ];
 
+const details = [
+  { h: "Who this is for", p: "Companies with recurring travel — airport pickups for visiting clients, executives with regular downtown or suburb trips, sales teams running roadshows, or any team that would rather see one monthly invoice than a stack of expensed receipts.", img: PHOTOS.corporateOffice[1] },
+  { h: "How billing works", p: "Every ride under the account is logged by rider, date, route and cost centre. Invoices go out monthly, itemized so finance can allocate spend by department without chasing individual receipts.", img: PHOTOS.meeting[0] },
+  { h: "Setting up an account", p: "Call, text or email dispatch with your company details and typical travel needs, and we'll confirm billing terms and add your frequent travelers.", img: PHOTOS.handshake[1] },
+];
+
 export default function Page() {
   return (
     <>
@@ -42,14 +48,23 @@ export default function Page() {
         eyebrow="FOR BUSINESS"
         title="An account your finance team will accept"
         lead="Set up once, then booking a ride is a text — not a new account, and not an expensed receipt to track down."
-        img={IMG.corporate}
+        img={PHOTOS.corporateOffice[0]}
         crumbs={[{ name: "Corporate Accounts", href: "/corporate-accounts/" }]}
       />
+
+      <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
+        <Reveal className="quickfacts">
+          <div><Tag /><div><b>Monthly invoicing</b><small>Not a charge per ride</small></div></div>
+          <div><Shield /><div><b>NDA chauffeurs</b><small>Available on request</small></div></div>
+          <div><Clock /><div><b>A named dispatcher</b><small>Knows your travelers</small></div></div>
+          <div><Check /><div><b>Scales with you</b><small>One traveler to a full team</small></div></div>
+        </Reveal>
+      </div>
 
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={IMG.corporate} alt="Executive corporate car service in Chicago" loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={PHOTOS.handshake[0]} alt="Corporate car service in Chicago" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">WHAT&apos;S INCLUDED</p>
@@ -60,15 +75,19 @@ export default function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <div className="prose">
-            <h2>Who this is for</h2>
-            <p>Companies with recurring travel — airport pickups for visiting clients, executives with regular downtown or suburb trips, sales teams running roadshows, or any team that would rather see one monthly invoice than a stack of expensed receipts.</p>
-            <h2>How billing works</h2>
-            <p>Every ride under the account is logged by rider, date, route and cost centre. Invoices go out monthly, itemized so finance can allocate spend by department without chasing individual receipts.</p>
-            <h2>Setting up an account</h2>
-            <p>Call, text or email dispatch with your company details and typical travel needs, and we'll confirm billing terms and add your frequent travelers.</p>
+          <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>How a corporate account works</h2></Reveal>
+          <div className="detail-grid" style={{ gridTemplateColumns: "repeat(3,1fr)", marginTop: 32 }}>
+            {details.map((d, i) => (
+              <Reveal key={d.h} delay={i} className="detail-card">
+                <img src={d.img} alt="" loading="lazy" />
+                <div className="dc-body">
+                  <h3>{d.h}</h3>
+                  <p>{d.p}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 8 }}>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 30 }}>
             <a className="btn btn-gold" href={PHONE_HREF}>{PHONE}</a>
             <a className="btn btn-line" href={`mailto:${EMAIL}`} style={{ borderColor: "var(--line)", color: "var(--text)" }}>{EMAIL}</a>
           </div>
@@ -116,7 +135,7 @@ export default function Page() {
       </section>
 
       <PageFaq faqs={faqs} title="Corporate account questions" />
-      <Cta img={IMG.corporate} />
+      <Cta img={PHOTOS.corporateOffice[2]} />
     </>
   );
 }

@@ -18,7 +18,7 @@ export function generateMetadata({ params }) {
 export default function Page({ params }) {
   const post = findPost(params.slug);
   if (!post) notFound();
-  const related = posts.filter((p) => p.slug !== post.slug).map((p) => [p.title, `/blog/${p.slug}/`]);
+  const related = posts.filter((p) => p.slug !== post.slug).map((p) => [p.title, `/blog/${p.slug}/`, p.img]);
 
   return (
     <>

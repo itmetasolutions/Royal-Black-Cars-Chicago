@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { clusters, cityToCity, venueDetails, locationImage, venueImage } from "@/lib/locations.js";
-import { northwest, west, IMG } from "@/lib/data.js";
+import { northwest, west, IMG, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -84,7 +84,7 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta img={IMG.areaMap} />
+      <Cta img={PHOTOS.suburbGeneric[2]} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import ContactForm from "./ContactForm.jsx";
 import { Check } from "@/components/icons.jsx";
-import { PHONE, PHONE_HREF, EMAIL, IMG, trustPoints } from "@/lib/data.js";
+import { PHONE, PHONE_HREF, EMAIL, PHOTOS, trustPoints } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -18,7 +18,7 @@ export default function Page() {
         eyebrow="CONTACT"
         title="Talk to dispatch"
         lead="Call, text or email any time — dispatch answers day and night and can quote a trip on the spot."
-        img={IMG.hero}
+        img={PHOTOS.chauffeur[1]}
         crumbs={[{ name: "Contact", href: "/contact/" }]}
         cta={false}
       />

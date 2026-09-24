@@ -1,7 +1,6 @@
-import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { serviceDetails, airportDetails, fleetPages, IMG, trustPoints } from "@/lib/data.js";
+import { PHONE, PHONE_HREF, serviceDetails, airportDetails, fleetPages, PHOTOS, trustPoints } from "@/lib/data.js";
 import { allLocations, venueDetails } from "@/lib/locations.js";
 import { pageMeta } from "@/lib/seo.js";
 
@@ -20,16 +19,40 @@ const stats = [
   { n: `${areasCovered}+`, label: "neighborhoods, suburbs and venues with a dedicated page" },
 ];
 
+const closingCards = [
+  {
+    h: "Our approach", img: PHOTOS.chauffeur[1],
+    p: "Most operators compete on the same generic claims — 24/7 service, flight tracking, meet and greet. We treat those as the baseline, not the pitch, and compete instead on published pricing, a dispatcher who picks up, and knowing our corridors — O'Hare, the I-88 belt, PWK's FBOs — well enough to know their quirks.",
+  },
+  {
+    h: "Coverage", img: PHOTOS.skyline[1], href: "/service-areas/", linkLabel: "Full service area list",
+    p: "Daily service across downtown Chicago, the Northwest and West suburbs and the North Shore, plus O'Hare, Midway, Chicago Executive (PWK), DuPage and the region's other airports — plus long-distance runs to Milwaukee, Madison, Indianapolis, South Bend and Detroit.",
+  },
+  {
+    h: "Corporate accounts", img: PHOTOS.handshake[2], href: "/corporate-accounts/", linkLabel: "Set up an account",
+    p: "Businesses that book with us regularly move to a corporate account: monthly invoicing, a named dispatcher and NDA-signed chauffeurs for client-facing travel.",
+  },
+];
+
 export default function Page() {
   return (
     <>
-      <PageHero
-        eyebrow="ABOUT US"
-        title="A dependable alternative to rideshare, built for Chicago"
-        lead="Royal Black Cars Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up."
-        img={IMG.hero}
-        crumbs={[{ name: "About", href: "/about/" }]}
-      />
+      <section className="sec about-hero">
+        <div className="wrap split">
+          <Reveal>
+            <p className="eyebrow">ABOUT US</p>
+            <h1 style={{ fontSize: "clamp(2.2rem,4.4vw,3.2rem)", maxWidth: "16ch" }}>A dependable alternative to rideshare, built for Chicago</h1>
+            <p className="lead" style={{ marginTop: 18 }}>Royal Black Cars Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up.</p>
+            <div className="hero-actions" style={{ marginTop: 28 }}>
+              <a className="btn btn-gold" href="/#quote">Get your rate</a>
+              <a className="btn btn-dark" href={PHONE_HREF}>{PHONE}</a>
+            </div>
+          </Reveal>
+          <Reveal delay={1} className="media" slide>
+            <img className="photo" src={PHOTOS.chauffeur[2]} alt="Royal Black Cars Chicago chauffeur" loading="lazy" style={{ zIndex: 2 }} />
+          </Reveal>
+        </div>
+      </section>
 
       <section className="stat-band sec" style={{ padding: "48px 0" }}>
         <div className="wrap">
@@ -44,7 +67,7 @@ export default function Page() {
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={IMG.corporate} alt="Royal Black Cars Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={PHOTOS.corporateOffice[0]} alt="Royal Black Cars Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">WHAT WE DO</p>
@@ -79,19 +102,23 @@ export default function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <div className="prose">
-            <h2>Our approach</h2>
-            <p>Most operators in this market compete on the same generic claims — 24/7 service, flight tracking, meet and greet. We treat those as the baseline, not the pitch. What we actually compete on is the part that's harder to fake: publishing real pricing instead of "call for a quote," running a dispatch desk that picks up rather than a call centre queue, and covering the specific corridors — O'Hare and Midway, the I-88 corporate belt, PWK's FBOs — well enough to know their quirks, not just their addresses.</p>
-            <p>That's also why this site links to specific pages for specific trips rather than one generic booking form. An O'Hare pickup, a McCormick Place convention shuttle and a Naperville client visit are different jobs with different logistics, and each one gets its own page with real detail — rates, drive times, what's included — instead of a single page pretending to cover everything equally well.</p>
-            <h2>Coverage</h2>
-            <p>We run daily service across downtown Chicago, the Northwest and West suburbs and the North Shore, plus O'Hare, Midway, Chicago Executive (PWK), DuPage and the region's other airports. Long-distance bookings cover Milwaukee, Madison, Indianapolis, South Bend and Detroit. See the <a href="/service-areas/">full service area list</a>.</p>
-            <h2>Corporate accounts</h2>
-            <p>Businesses that book with us regularly move to a corporate account: monthly invoicing, a named dispatcher and NDA-signed chauffeurs for client-facing travel. Details are on the <a href="/corporate-accounts/">corporate accounts page</a>.</p>
+          <Reveal className="section-head"><p className="eyebrow">MORE ABOUT US</p><h2>Approach, coverage and corporate accounts</h2></Reveal>
+          <div className="detail-grid" style={{ gridTemplateColumns: "repeat(3,1fr)", marginTop: 32 }}>
+            {closingCards.map((c, i) => (
+              <Reveal key={c.h} delay={i} className="detail-card">
+                <img src={c.img} alt="" loading="lazy" />
+                <div className="dc-body">
+                  <h3>{c.h}</h3>
+                  <p>{c.p}</p>
+                  {c.href && <a href={c.href} style={{ display: "inline-block", marginTop: 10, color: "var(--brass)", fontWeight: 600, fontSize: ".88rem" }}>{c.linkLabel} &rarr;</a>}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      <Cta img={IMG.corporate} />
+      <Cta img={PHOTOS.chauffeur[0]} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Plane, Check } from "@/components/icons.jsx";
-import { airportDetails, IMG } from "@/lib/data.js";
+import { airportDetails, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const metadata = pageMeta({
@@ -21,7 +21,7 @@ export default function Page() {
         eyebrow="AIRPORTS"
         title="Every Chicago-area airport, one dispatch desk"
         lead="Commercial, private and regional — flights tracked, chauffeurs briefed on the right terminal or FBO."
-        img={IMG.airport}
+        img={PHOTOS.airportTerminal[1]}
         crumbs={[{ name: "Airports", href: "/airports/" }]}
       />
 
@@ -64,7 +64,7 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta img={IMG.airport} />
+      <Cta img={PHOTOS.runway[2]} />
     </>
   );
 }
