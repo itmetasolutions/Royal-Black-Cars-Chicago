@@ -51,9 +51,9 @@ export default function Header() {
                           </div>
                         ))
                       : g.links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-                  </div>
-                  <div className="mega-panel-more">
-                    <a href={g.hub}>See all {g.label.toLowerCase()} &rarr;</a>
+                    <div className="mega-more" style={{ gridColumn: "1 / -1" }}>
+                      <a href={g.hub}>See all {g.label.toLowerCase()} &rarr;</a>
+                    </div>
                   </div>
                 </div>
               </div>
