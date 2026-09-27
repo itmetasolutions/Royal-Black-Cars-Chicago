@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Car } from "./icons.jsx";
 import { serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
 import { clusters } from "../lib/locations.js";
@@ -18,6 +19,7 @@ const navGroups = [
 const plainLinks = [["/", "Home"], ["/about/", "About"], ["/contact/", "Contact"]];
 
 export default function Header() {
+  const pathname = usePathname();
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -31,6 +33,8 @@ export default function Header() {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <>

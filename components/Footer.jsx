@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { Car, Facebook, Instagram, XformerlyTwitter, LinkedIn } from "./icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL } from "../lib/data.js";
 
@@ -33,6 +36,9 @@ const cols = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <>
       <footer>
