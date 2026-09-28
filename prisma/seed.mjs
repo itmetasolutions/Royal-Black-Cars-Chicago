@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import {
   serviceDetails, airportDetails, fleetPages, faqsFull,
 } from "../lib/data.js";
+import { venueDetails } from "../lib/locations.js";
 import { posts } from "../lib/blog.js";
 
 const prisma = new PrismaClient();
@@ -72,6 +73,17 @@ async function main() {
       metaTitle: `${f.title} | Royal Black Cars Chicago Fleet`,
       metaDescription: f.body || "",
       focusKeyword: f.title,
+    });
+  }
+
+  console.log(`Seeding ${venueDetails.length} venue pages...`);
+  for (const v of venueDetails) {
+    await upsertTemplatePage("venue", v.slug, v.name, {
+      href: v.href, area: v.area, note: v.note, img: v.img, faqs: v.faqs || [],
+    }, {
+      metaTitle: `${v.name} Car Service | Royal Black Cars Chicago`,
+      metaDescription: `Drop-off and pickup transportation for ${v.name}, ${v.area}.`,
+      focusKeyword: `${v.name} car service`,
     });
   }
 

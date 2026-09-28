@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db.js";
 import TemplatePageEditor from "@/components/admin/TemplatePageEditor.jsx";
 import CorePageForm from "@/components/admin/CorePageForm.jsx";
 
-const TYPES = ["service", "airport", "fleet", "core"];
+const TYPES = ["service", "airport", "fleet", "venue", "core"];
 
 export default async function EditPage({ params }) {
   const { type, id } = await params;

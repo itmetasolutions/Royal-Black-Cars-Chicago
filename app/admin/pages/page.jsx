@@ -2,10 +2,11 @@ import Link from "next/link";
 import { prisma } from "@/lib/db.js";
 
 export default async function PagesHub() {
-  const [services, airports, fleet, core] = await Promise.all([
+  const [services, airports, fleet, venues, core] = await Promise.all([
     prisma.templatePage.count({ where: { type: "service" } }),
     prisma.templatePage.count({ where: { type: "airport" } }),
     prisma.templatePage.count({ where: { type: "fleet" } }),
+    prisma.templatePage.count({ where: { type: "venue" } }),
     prisma.corePage.count(),
   ]);
 
@@ -13,6 +14,7 @@ export default async function PagesHub() {
     ["service", "Service pages", services, "Edit any, or add a new one with its own slug, content and SEO fields."],
     ["airport", "Airport pages", airports, "Edit any, or add a new one with its own slug, content and SEO fields."],
     ["fleet", "Fleet pages", fleet, "Edit any, or add a new one with its own slug, content and SEO fields."],
+    ["venue", "Venue pages", venues, "Edit any, or add a new one with its own slug, content and SEO fields."],
     ["core", "Core pages", core, "Edit content and SEO — these can't be added or removed."],
   ];
 

@@ -7,9 +7,11 @@ import PairsField from "./fields/PairsField.jsx";
 import FaqEditor from "./fields/FaqEditor.jsx";
 import SectionsField from "./fields/SectionsField.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
+import ImageField from "./fields/ImageField.jsx";
 
-const TYPE_LABEL = { service: "Service", airport: "Airport", fleet: "Fleet vehicle" };
-const LIST_HREF = { service: "/admin/pages/service", airport: "/admin/pages/airport", fleet: "/admin/pages/fleet" };
+const TYPE_LABEL = { service: "Service", airport: "Airport", fleet: "Fleet vehicle", venue: "Venue" };
+const LIST_HREF = { service: "/admin/pages/service", airport: "/admin/pages/airport", fleet: "/admin/pages/fleet", venue: "/admin/pages/venue" };
+const URL_PREFIX = { service: "", airport: "airports", fleet: "fleet", venue: "venues" };
 
 export default function TemplatePageEditor({ type, page }) {
   const router = useRouter();
@@ -68,14 +70,11 @@ export default function TemplatePageEditor({ type, page }) {
           <div className="adm-field">
             <label>Slug {!isNew && "(fixed after creation)"}</label>
             <input value={slug} onChange={(e) => setSlug(e.target.value)} disabled={!isNew} required pattern="[a-z0-9-]+" />
-            <small>URL: {type === "service" ? `/${slug || "slug"}/` : `/${type === "airport" ? "airports" : "fleet"}/${slug || "slug"}/`}</small>
+            <small>URL: /{URL_PREFIX[type] ? `${URL_PREFIX[type]}/` : ""}{slug || "slug"}/</small>
           </div>
         </div>
 
-        <div className="adm-field" style={{ maxWidth: 700 }}>
-          <label>Hero image URL</label>
-          <input value={data.img || ""} onChange={setField("img")} placeholder="https://..." />
-        </div>
+        <ImageField label="Hero image" value={data.img} onChange={setFieldValue("img")} />
 
         {type === "service" && (
           <>
@@ -105,10 +104,7 @@ export default function TemplatePageEditor({ type, page }) {
               <label>Drive time</label>
               <input value={data.driveTime || ""} onChange={setField("driveTime")} />
             </div>
-            <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Second image URL</label>
-              <input value={data.img2 || ""} onChange={setField("img2")} />
-            </div>
+            <ImageField label="Second image" value={data.img2} onChange={setFieldValue("img2")} />
             <LinesField label="About this airport (body paragraphs)" value={data.body} onChange={setFieldValue("body")} />
             <div className="adm-field" style={{ maxWidth: 700 }}>
               <label>Terminals</label>
@@ -137,6 +133,19 @@ export default function TemplatePageEditor({ type, page }) {
             </div>
             <LinesField label="Best for" value={data.bestFor} onChange={setFieldValue("bestFor")} />
             <PairsField label="Popular services" value={data.services} onChange={setFieldValue("services")} />
+          </>
+        )}
+
+        {type === "venue" && (
+          <>
+            <div className="adm-field" style={{ maxWidth: 700 }}>
+              <label>Area</label>
+              <input value={data.area || ""} onChange={setField("area")} placeholder='e.g. "Near West Side"' />
+            </div>
+            <div className="adm-field" style={{ maxWidth: 700 }}>
+              <label>Event-night note</label>
+              <textarea value={data.note || ""} onChange={setField("note")} rows={3} placeholder="Drop-off/pickup guidance for this venue" />
+            </div>
           </>
         )}
 

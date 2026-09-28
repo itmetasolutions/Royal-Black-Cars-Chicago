@@ -13,29 +13,31 @@ const checklist = [
   "No parking, no rideshare surge pricing after the event",
 ];
 
-export default function VenuePageTemplate({ venue }) {
+export default function VenuePageTemplate({ venue, allVenues = venueDetails }) {
   const img = venueImage(venue);
-  const related = venueDetails.filter(v => v.slug !== venue.slug).map(v => [v.name, v.href, v.img]);
+  const name = venue.title || venue.name;
+  const related = allVenues.filter(v => v.slug !== venue.slug).slice(0, 4).map(v => [v.title || v.name, v.href, v.img]);
+  const faqs = venue.faqs?.length ? venue.faqs : venueFaqs(venue);
 
   return (
     <>
       <PageHero
         eyebrow="VENUE TRANSPORTATION"
-        title={venue.name}
-        lead={`Drop-off and pickup for ${venue.name}, ${venue.area}.`}
+        title={name}
+        lead={`Drop-off and pickup for ${name}, ${venue.area}.`}
         img={img}
-        crumbs={[{ name: "Venues", href: "/venues/" }, { name: venue.name, href: venue.href }]}
+        crumbs={[{ name: "Venues", href: "/venues/" }, { name, href: venue.href }]}
       />
 
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={img} alt={venue.name} loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={img} alt={name} loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">EVENT NIGHT</p>
             <h2>{venue.note}</h2>
-            <p className="lead" style={{ fontSize: "1rem" }}>Tell dispatch your event and seating section when you book — chauffeurs know the fastest legal drop-off point for {venue.name} and stage your car nearby as the event ends, rather than pre-booking a fixed pickup time.</p>
+            <p className="lead" style={{ fontSize: "1rem" }}>Tell dispatch your event and seating section when you book — chauffeurs know the fastest legal drop-off point for {name} and stage your car nearby as the event ends, rather than pre-booking a fixed pickup time.</p>
             <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
           </Reveal>
         </div>
@@ -48,7 +50,7 @@ export default function VenuePageTemplate({ venue }) {
         </div>
       </section>
 
-      <PageFaq faqs={venueFaqs(venue)} title={`Questions about ${venue.name}`} />
+      <PageFaq faqs={faqs} title={`Questions about ${name}`} />
       <RelatedLinks title="Other venues" links={related} hub={["All venues", "/venues/"]} />
       <Cta img={img} />
     </>

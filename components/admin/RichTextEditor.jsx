@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import ImageExt from "@tiptap/extension-image";
+import MediaLibraryModal from "./MediaLibraryModal.jsx";
 
-function Toolbar({ editor }) {
+function Toolbar({ editor, onOpenLibrary }) {
   if (!editor) return null;
 
   const btn = (active, onClick, label, title) => (
@@ -27,11 +29,6 @@ function Toolbar({ editor }) {
     editor.chain().focus().setLink({ href: url }).run();
   };
 
-  const setImage = () => {
-    const url = window.prompt("Image URL");
-    if (url) editor.chain().focus().setImage({ src: url }).run();
-  };
-
   return (
     <div className="adm-rte-toolbar">
       {btn(editor.isActive("bold"), () => editor.chain().focus().toggleBold().run(), "B")}
@@ -42,7 +39,7 @@ function Toolbar({ editor }) {
       {btn(editor.isActive("orderedList"), () => editor.chain().focus().toggleOrderedList().run(), "1. List")}
       {btn(editor.isActive("blockquote"), () => editor.chain().focus().toggleBlockquote().run(), "❝")}
       {btn(editor.isActive("link"), setLink, "Link")}
-      {btn(false, setImage, "Image")}
+      {btn(false, onOpenLibrary, "Image")}
       {btn(false, () => editor.chain().focus().undo().run(), "↺", "Undo")}
       {btn(false, () => editor.chain().focus().redo().run(), "↻", "Redo")}
     </div>
@@ -50,6 +47,7 @@ function Toolbar({ editor }) {
 }
 
 export default function RichTextEditor({ value, onChange }) {
+  const [libraryOpen, setLibraryOpen] = useState(false);
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -65,9 +63,18 @@ export default function RichTextEditor({ value, onChange }) {
     <div className="adm-field" style={{ maxWidth: 800 }}>
       <label>Content</label>
       <div className="adm-rte">
-        <Toolbar editor={editor} />
+        <Toolbar editor={editor} onOpenLibrary={() => setLibraryOpen(true)} />
         <EditorContent editor={editor} className="adm-rte-content" />
       </div>
+      {libraryOpen && (
+        <MediaLibraryModal
+          onClose={() => setLibraryOpen(false)}
+          onSelect={(url) => {
+            editor.chain().focus().setImage({ src: url }).run();
+            setLibraryOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }

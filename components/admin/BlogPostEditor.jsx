@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import RichTextEditor from "./RichTextEditor.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
+import ImageField from "./fields/ImageField.jsx";
 
 const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
@@ -74,18 +75,13 @@ export default function BlogPostEditor({ post }) {
             <small>URL: /blog/{slug || "slug"}/</small>
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
-          <div className="adm-field">
-            <label>Featured image URL</label>
-            <input value={img} onChange={(e) => setImg(e.target.value)} placeholder="https://..." />
-          </div>
-          <div className="adm-field">
-            <label>Status</label>
-            <select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="published">Published</option>
-              <option value="draft">Draft</option>
-            </select>
-          </div>
+        <ImageField label="Featured image" value={img} onChange={setImg} />
+        <div className="adm-field" style={{ maxWidth: 300 }}>
+          <label>Status</label>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
         </div>
         <div className="adm-field" style={{ maxWidth: 700 }}>
           <label>Excerpt</label>

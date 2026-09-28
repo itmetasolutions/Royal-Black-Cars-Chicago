@@ -1,24 +1,27 @@
 import { notFound } from "next/navigation";
 import VenuePageTemplate from "@/components/VenuePageTemplate.jsx";
-import { venueDetails, findVenue } from "@/lib/locations.js";
+import { getTemplatePage, getAllTemplatePages } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
 
-export function generateStaticParams() {
-  return venueDetails.map((v) => ({ slug: v.slug }));
-}
+export const dynamic = "force-dynamic";
 
-export function generateMetadata({ params }) {
-  const venue = findVenue(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const venue = await getTemplatePage("venue", slug);
   if (!venue) return {};
   return pageMeta({
-    title: `${venue.name} Car Service | Royal Black Cars Chicago`,
-    description: `Drop-off and pickup transportation for ${venue.name}, ${venue.area}.`,
+    title: venue.seo.metaTitle || `${venue.title} Car Service | Royal Black Cars Chicago`,
+    description: venue.seo.metaDescription || `Drop-off and pickup transportation for ${venue.title}, ${venue.area}.`,
     path: venue.href,
   });
 }
 
-export default function Page({ params }) {
-  const venue = findVenue(params.slug);
+export default async function Page({ params }) {
+  const { slug } = await params;
+  const [venue, allVenues] = await Promise.all([
+    getTemplatePage("venue", slug),
+    getAllTemplatePages("venue"),
+  ]);
   if (!venue) notFound();
-  return <VenuePageTemplate venue={venue} />;
+  return <VenuePageTemplate venue={venue} allVenues={allVenues} />;
 }

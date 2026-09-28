@@ -606,17 +606,27 @@ footer a:hover{color:var(--brass)}
 /* ============ ADMIN CMS ============ */
 .adm-bare{min-height:100vh;display:grid;place-items:center;background:var(--wash);padding:24px}
 .adm-shell{min-height:100vh;background:var(--wash)}
-.adm-topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:var(--ink);color:#fff}
-.adm-brand{font-family:Fraunces,serif;font-size:1.1rem}
-.adm-brand b{font-weight:600}
+.adm-topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;background:var(--ink);color:#fff;box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.adm-brand{font-family:Fraunces,serif;font-size:1.1rem;display:flex;align-items:center;gap:10px}
+.adm-brand b{font-weight:600;color:var(--brass-2)}
 .adm-topbar-right{display:flex;align-items:center;gap:14px}
 .adm-user{font-size:.86rem;color:rgba(255,255,255,.7)}
 .adm-body-row{display:flex;min-height:calc(100vh - 60px)}
-.adm-sidebar{width:200px;flex:none;background:var(--card);border-right:1px solid var(--line);padding:20px 0}
-.adm-nav-link{display:block;padding:11px 24px;font-size:.92rem;color:var(--muted);font-weight:500}
+.adm-sidebar{width:216px;flex:none;background:var(--card);border-right:1px solid var(--line);padding:16px 12px}
+.adm-nav-link{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:.9rem;color:var(--muted);font-weight:500;border-radius:9px;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;cursor:pointer;font-family:inherit}
 .adm-nav-link:hover{color:var(--text);background:var(--wash)}
-.adm-nav-link.active{color:var(--text);background:var(--wash);border-right:3px solid var(--brass);font-weight:600}
-.adm-main{flex:1;padding:32px;min-width:0}
+.adm-nav-link.active{color:var(--text);background:rgba(190,150,80,.12);font-weight:600}
+.adm-nav-icon{width:17px;height:17px;flex:none;opacity:.75}
+.adm-nav-link.active .adm-nav-icon{opacity:1;color:var(--brass-2)}
+.adm-nav-toggle{justify-content:flex-start;position:relative}
+.adm-nav-chev{flex:none;margin-left:auto;width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg);transition:transform .18s ease;opacity:.6}
+.adm-nav-chev.open{transform:rotate(-135deg)}
+.adm-nav-sub{max-height:0;overflow:hidden;transition:max-height .22s ease;padding-left:16px}
+.adm-nav-sub.open{max-height:260px}
+.adm-nav-sublink{display:block;padding:8px 12px;margin:1px 0;font-size:.86rem;color:var(--muted);border-radius:8px;border-left:2px solid var(--line)}
+.adm-nav-sublink:hover{color:var(--text);background:var(--wash)}
+.adm-nav-sublink.active{color:var(--text);font-weight:600;border-left-color:var(--brass)}
+.adm-main{flex:1;padding:32px;min-width:0;max-width:1180px}
 .adm-main h1{font-family:Fraunces,serif;font-size:1.6rem;margin:0 0 6px}
 .adm-sub{color:var(--muted);font-size:.94rem;margin:0 0 28px}
 .adm-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:20px}
@@ -660,3 +670,38 @@ footer a:hover{color:var(--brass)}
 .adm-rte-content .ProseMirror blockquote{border-left:3px solid var(--brass);margin:0 0 14px;padding-left:14px;color:var(--muted)}
 .adm-rte-content .ProseMirror img{max-width:100%;border-radius:8px}
 .adm-rte-content .ProseMirror a{color:var(--brass-2);text-decoration:underline}
+
+/* dashboard */
+.adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
+.adm-stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.adm-stat b{display:block;font-family:Fraunces,serif;font-size:1.9rem;line-height:1.1;color:var(--text)}
+.adm-stat span{display:block;font-size:.82rem;color:var(--muted);margin-top:6px}
+.adm-quicklinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.adm-quicklink{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;color:inherit}
+.adm-quicklink:hover{border-color:var(--brass)}
+.adm-quicklink .adm-ql-icon{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:10px;background:rgba(190,150,80,.14);color:var(--brass-2)}
+.adm-quicklink b{display:block;font-size:.92rem}
+.adm-quicklink span{display:block;font-size:.8rem;color:var(--muted);margin-top:2px}
+
+/* media library */
+.adm-media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.adm-media-item{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--wash);aspect-ratio:1;cursor:pointer}
+.adm-media-item img{width:100%;height:100%;object-fit:cover;display:block}
+.adm-media-item:hover{border-color:var(--brass)}
+.adm-media-item.selected{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass)}
+.adm-media-item-name{position:absolute;left:0;right:0;bottom:0;padding:5px 8px;font-size:.68rem;background:rgba(10,12,15,.72);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adm-media-empty{color:var(--muted);font-size:.9rem;padding:30px 0;text-align:center}
+.adm-media-dropzone{border:2px dashed var(--line);border-radius:var(--r);padding:28px;text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:18px}
+.adm-media-dropzone.active{border-color:var(--brass);color:var(--text)}
+
+/* image field + picker modal */
+.adm-image-field{display:flex;gap:12px;align-items:center}
+.adm-image-preview{width:88px;height:88px;flex:none;border-radius:10px;overflow:hidden;background:var(--wash);border:1px solid var(--line);display:grid;place-items:center}
+.adm-image-preview img{width:100%;height:100%;object-fit:cover}
+.adm-image-preview.empty{color:var(--muted);font-size:.7rem;text-align:center}
+.adm-modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(10,12,15,.6);display:flex;align-items:center;justify-content:center;padding:24px}
+.adm-modal{width:100%;max-width:760px;max-height:86vh;overflow:auto;background:var(--card);border-radius:var(--r);box-shadow:0 40px 90px rgba(0,0,0,.35);padding:26px}
+.adm-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.adm-modal-head h2{margin:0;font-size:1.1rem}
+.adm-modal-close{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:none;font-size:1.1rem;cursor:pointer;color:var(--muted)}
+.adm-modal-close:hover{color:var(--text);background:var(--wash)}
