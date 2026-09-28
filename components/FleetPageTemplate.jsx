@@ -11,8 +11,8 @@ const sharedFaqs = [
   { q: "Can I switch vehicle class after booking?", a: "Yes, subject to availability — contact dispatch as early as possible if your group size changes." },
 ];
 
-export default function FleetPageTemplate({ vehicle }) {
-  const related = fleetPages.filter(f => f.slug !== vehicle.slug).map(f => [f.title, f.href, f.img]);
+export default function FleetPageTemplate({ vehicle, allVehicles = fleetPages }) {
+  const related = allVehicles.filter(f => f.slug !== vehicle.slug).map(f => [f.title, f.href, f.img]);
   const [passengersPart, bagsPart] = vehicle.capacity.split(",").map((s) => s.trim());
   const passengerCount = passengersPart.replace(/\s*passengers?$/i, "");
 

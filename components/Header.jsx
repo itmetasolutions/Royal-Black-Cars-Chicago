@@ -6,15 +6,10 @@ import { Car } from "./icons.jsx";
 import { serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
 import { clusters } from "../lib/locations.js";
 
-const navGroups = [
-  { label: "Services", hub: "/services/", links: serviceDetails.map((s) => [s.href, s.title]), cols: 3 },
-  { label: "Airports", hub: "/airports/", links: airportDetails.map((a) => [a.href, a.name]), cols: 1 },
-  { label: "Fleet", hub: "/fleet/", links: fleetPages.map((f) => [f.href, f.title]), cols: 1 },
-  {
-    label: "Areas", hub: "/service-areas/", cols: 4,
-    groups: clusters.map((c) => [c.name, c.locations.slice(0, 3).map((l) => [l.href, l.name])]),
-  },
-];
+const defaultServiceLinks = serviceDetails.map((s) => [s.href, s.title]);
+const defaultAirportLinks = airportDetails.map((a) => [a.href, a.name]);
+const defaultFleetLinks = fleetPages.map((f) => [f.href, f.title]);
+const areaGroups = clusters.map((c) => [c.name, c.locations.slice(0, 3).map((l) => [l.href, l.name])]);
 
 const plainLinks = [["/", "Home"], ["/about/", "About"], ["/contact/", "Contact"]];
 
@@ -22,6 +17,25 @@ export default function Header() {
   const pathname = usePathname();
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
+  // Renders instantly from the static fallback, then upgrades to live DB
+  // content (so admin-added/removed pages show up without a redeploy).
+  const [live, setLive] = useState(null);
+
+  const navGroups = [
+    { label: "Services", hub: "/services/", links: live?.services || defaultServiceLinks, cols: 3 },
+    { label: "Airports", hub: "/airports/", links: live?.airports || defaultAirportLinks, cols: 1 },
+    { label: "Fleet", hub: "/fleet/", links: live?.fleet || defaultFleetLinks, cols: 1 },
+    { label: "Areas", hub: "/service-areas/", cols: 4, groups: areaGroups },
+  ];
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/nav")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => { if (data && !cancelled) setLive(data); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setStuck(window.scrollY > 40);

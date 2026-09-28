@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { IMG, PHONE_HREF, fleetPages } from "../lib/data.js";
 
-export default function Hero() {
+export default function Hero({ heroData }) {
   const [trip, setTrip] = useState("airport");
   const [minDate, setMinDate] = useState("");
   const [form, setForm] = useState({ pickup: "", drop: "", date: "", time: "", vehicle: fleetPages[0].title });
@@ -39,11 +39,11 @@ export default function Hero() {
         <div className="hero-grid">
           <div>
             <h1>
-              <span><i>Chicago&apos;s black car</i></span>
-              <span><i>service, priced</i></span>
-              <span><i>before you ride.</i></span>
+              <span><i>{heroData?.heroLine1 || "Chicago's black car"}</i></span>
+              <span><i>{heroData?.heroLine2 || "service, priced"}</i></span>
+              <span><i>{heroData?.heroLine3 || "before you ride."}</i></span>
             </h1>
-            <p className="lead">Vetted chauffeurs, late-model sedans and SUVs, flights tracked in real time. One flat rate agreed up front — no surge, no surprises.</p>
+            <p className="lead">{heroData?.heroLead || "Vetted chauffeurs, late-model sedans and SUVs, flights tracked in real time. One flat rate agreed up front — no surge, no surprises."}</p>
             <div className="hero-actions">
               <a className="btn btn-gold" href="/get-a-quote/">Get a Free Quote</a>
               <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>

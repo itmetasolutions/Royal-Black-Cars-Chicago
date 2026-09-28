@@ -13,8 +13,8 @@ const steps = [
   ["Drive off", "One flat rate, tolls and standard wait time included. No meter, no surge."],
 ];
 
-export default function AirportPageTemplate({ airport }) {
-  const related = airportDetails.filter(a => a.slug !== airport.slug).slice(0, 4).map(a => [a.name, a.href, a.img]);
+export default function AirportPageTemplate({ airport, allAirports = airportDetails }) {
+  const related = allAirports.filter(a => a.slug !== airport.slug).slice(0, 4).map(a => [a.name, a.href, a.img]);
 
   return (
     <>

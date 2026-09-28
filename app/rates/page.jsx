@@ -3,14 +3,20 @@ import Reveal from "@/components/Reveal.jsx";
 import PageFaq from "@/components/PageFaq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Check, Clock, Route, Shield, Plane } from "@/components/icons.jsx";
-import { airportDetails, fleetPages, PHOTOS } from "@/lib/data.js";
+import { PHOTOS } from "@/lib/data.js";
+import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
 
-export const metadata = pageMeta({
-  title: "Rates & Instant Quote | Royal Black Cars Chicago",
-  description: "Flat airport rates from downtown Chicago, what's included in every fare, and how hourly, long-distance and fleet pricing works.",
-  path: "/rates/",
-});
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata() {
+  const page = await getCorePage("rates");
+  return pageMeta({
+    title: page?.seo.metaTitle || "Rates & Instant Quote | Royal Black Cars Chicago",
+    description: page?.seo.metaDescription || "Flat airport rates from downtown Chicago, what's included in every fare, and how hourly, long-distance and fleet pricing works.",
+    path: "/rates/",
+  });
+}
 
 const included = [
   "Tolls, parking and gratuity",
@@ -40,7 +46,12 @@ const rateFaqs = [
   { q: "How do I get a quote for a suburb not listed here?", a: "Call, text or use the online quote form with your address — dispatch will confirm a flat rate for any of our service areas." },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const [airportDetails, fleetPages, corePage] = await Promise.all([
+    getAllTemplatePages("airport"),
+    getAllTemplatePages("fleet"),
+    getCorePage("rates"),
+  ]);
   const priority = airportDetails.filter((a) => a.rate !== "Custom quote");
 
   return (
@@ -48,7 +59,7 @@ export default function Page() {
       <PageHero
         eyebrow="RATES"
         title="One flat rate, agreed before you ride"
-        lead="No meter, no surge pricing. Airport rates are published below; every other trip is quoted before you book."
+        lead={corePage?.heroLead}
         img={PHOTOS.corporateOffice[2]}
         crumbs={[{ name: "Rates", href: "/rates/" }]}
       />

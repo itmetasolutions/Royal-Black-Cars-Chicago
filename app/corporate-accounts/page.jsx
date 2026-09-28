@@ -4,7 +4,10 @@ import PageFaq from "@/components/PageFaq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Check, Shield, Clock, Tag } from "@/components/icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL, PHOTOS } from "@/lib/data.js";
+import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+
+export const dynamic = "force-dynamic";
 
 const faqs = [
   { q: "Is there a minimum number of riders to open an account?", a: "No — accounts scale from a single frequent traveler to a full company directory." },
@@ -14,11 +17,14 @@ const faqs = [
   { q: "What happens if a traveler leaves the company?", a: "Tell your dispatcher and they're removed from the account immediately — no lingering access." },
 ];
 
-export const metadata = pageMeta({
-  title: "Corporate Accounts | Royal Black Cars Chicago",
-  description: "Monthly invoicing, a named dispatcher and NDA-signed chauffeurs for executive travel and roadshows across Chicago.",
-  path: "/corporate-accounts/",
-});
+export async function generateMetadata() {
+  const page = await getCorePage("corporate-accounts");
+  return pageMeta({
+    title: page?.seo.metaTitle || "Corporate Accounts | Royal Black Cars Chicago",
+    description: page?.seo.metaDescription || "Monthly invoicing, a named dispatcher and NDA-signed chauffeurs for executive travel and roadshows across Chicago.",
+    path: "/corporate-accounts/",
+  });
+}
 
 const points = [
   "One login for the whole company, with cost centres and trip codes",
@@ -41,13 +47,14 @@ const details = [
   { h: "Setting up an account", p: "Call, text or email dispatch with your company details and typical travel needs, and we'll confirm billing terms and add your frequent travelers.", img: PHOTOS.handshake[1] },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const corePage = await getCorePage("corporate-accounts");
   return (
     <>
       <PageHero
         eyebrow="FOR BUSINESS"
         title="An account your finance team will accept"
-        lead="Set up once, then booking a ride is a text — not a new account, and not an expensed receipt to track down."
+        lead={corePage?.heroLead}
         img={PHOTOS.corporateOffice[0]}
         crumbs={[{ name: "Corporate Accounts", href: "/corporate-accounts/" }]}
       />

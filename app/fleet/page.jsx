@@ -2,8 +2,11 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Car as CarIcon, Seat, Bag, Clock } from "@/components/icons.jsx";
-import { fleetPages, PHOTOS } from "@/lib/data.js";
+import { PHOTOS } from "@/lib/data.js";
+import { getAllTemplatePages } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
   title: "Our Fleet | Royal Black Cars Chicago",
@@ -11,14 +14,16 @@ export const metadata = pageMeta({
   path: "/fleet/",
 });
 
-export default function Page() {
+export default async function Page() {
+  const fleetPages = await getAllTemplatePages("fleet");
+
   return (
     <>
       <PageHero
         eyebrow="FLEET"
         title="Pick your class"
         lead="Late-model sedans, SUVs, Sprinters, a limousine and a mini coach — sized to your trip, not the other way around."
-        img={fleetPages[0].img}
+        img={fleetPages[0]?.img}
         crumbs={[{ name: "Fleet", href: "/fleet/" }]}
       />
 

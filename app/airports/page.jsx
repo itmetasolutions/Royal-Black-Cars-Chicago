@@ -2,8 +2,11 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Plane, Check } from "@/components/icons.jsx";
-import { airportDetails, PHOTOS } from "@/lib/data.js";
+import { PHOTOS } from "@/lib/data.js";
+import { getAllTemplatePages } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
   title: "Chicago Airport Car Service | O'Hare, Midway & More",
@@ -11,7 +14,9 @@ export const metadata = pageMeta({
   path: "/airports/",
 });
 
-export default function Page() {
+export default async function Page() {
+  const rows = await getAllTemplatePages("airport");
+  const airportDetails = rows.map((r) => ({ ...r, name: r.title }));
   const priority = airportDetails.filter((a) => a.rate !== "Custom quote");
   const secondary = airportDetails.filter((a) => a.rate === "Custom quote");
 

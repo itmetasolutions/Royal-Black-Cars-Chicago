@@ -14,8 +14,8 @@ const quickFacts = [
   [Check, "No surge, ever", "Same price no matter the hour"],
 ];
 
-export default function ServicePageTemplate({ service }) {
-  const related = serviceDetails.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
+export default function ServicePageTemplate({ service, allServices = serviceDetails }) {
+  const related = allServices.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
   const gallery = service.gallery || [service.img, service.img, service.img, service.img];
 
   return (

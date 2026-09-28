@@ -44,3 +44,43 @@ model SiteSetting {
 
   @@map("site_settings")
 }
+
+// CMS Phase 2: content for the templated page types (Services, Airports,
+// Fleet) and the fixed set of core pages. `data`/`fields` hold the
+// template-specific content as JSON so one model can serve every type in
+// its group without a rigid column per field.
+model TemplatePage {
+  id     String @id @default(cuid())
+  type   String // "service" | "airport" | "fleet"
+  slug   String
+  title  String
+  data   Json
+
+  metaTitle         String?
+  metaDescription   String?
+  focusKeyword      String?
+  secondaryKeywords String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([type, slug])
+  @@index([type])
+  @@map("template_pages")
+}
+
+model CorePage {
+  id     String @id @default(cuid())
+  key    String @unique // "home" | "about" | "contact" | "faq" | "rates" | "corporate-accounts" | "terms" | "privacy"
+  title  String
+  fields Json
+
+  metaTitle         String?
+  metaDescription   String?
+  focusKeyword      String?
+  secondaryKeywords String?
+
+  updatedAt DateTime @updatedAt
+
+  @@map("core_pages")
+}

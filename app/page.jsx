@@ -10,13 +10,24 @@ import VenuesHome from "@/components/VenuesHome.jsx";
 import Faq from "@/components/Faq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { faqPage } from "@/lib/schema.js";
+import { getCorePage } from "@/lib/cms.js";
+import { pageMeta } from "@/lib/seo.js";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata() {
+  const page = await getCorePage("home");
+  if (!page?.seo.metaTitle) return {};
+  return pageMeta({ title: page.seo.metaTitle, description: page.seo.metaDescription, path: "/" });
+}
+
+export default async function Home() {
+  const page = await getCorePage("home");
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }} />
       <Marquee top />
-      <Hero />
+      <Hero heroData={page} />
       <Services />
       <AirportSplit />
       <Fleet />

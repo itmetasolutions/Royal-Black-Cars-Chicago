@@ -1,8 +1,10 @@
-import { serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
 import { allLocations, venueDetails } from "../lib/locations.js";
 import { posts } from "../lib/blog.js";
+import { getAllTemplatePages } from "../lib/cms.js";
 
 const base = "https://www.royalblackcarschicago.com";
+
+export const dynamic = "force-dynamic";
 
 const staticPaths = [
   "/", "/services/", "/airports/", "/fleet/", "/service-areas/", "/venues/",
@@ -10,12 +12,17 @@ const staticPaths = [
   "/terms/", "/privacy/", "/get-a-quote/",
 ];
 
-export default function sitemap() {
+export default async function sitemap() {
+  const [services, airports, fleet] = await Promise.all([
+    getAllTemplatePages("service"),
+    getAllTemplatePages("airport"),
+    getAllTemplatePages("fleet"),
+  ]);
   const paths = [
     ...staticPaths,
-    ...serviceDetails.map((s) => s.href),
-    ...airportDetails.map((a) => a.href),
-    ...fleetPages.map((f) => f.href),
+    ...services.map((s) => s.href),
+    ...airports.map((a) => a.href),
+    ...fleet.map((f) => f.href),
     ...allLocations.map((l) => l.href),
     ...venueDetails.map((v) => v.href),
     ...posts.map((p) => `/blog/${p.slug}/`),
