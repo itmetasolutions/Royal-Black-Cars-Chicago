@@ -18,7 +18,7 @@ export async function generateMetadata() {
   });
 }
 
-const included = [
+const defaultIncluded = [
   "Tolls, parking and gratuity",
   "60 minutes of free wait time at O'Hare and Midway",
   "Live flight tracking and automatic pick-up adjustment",
@@ -38,7 +38,7 @@ const pricingSteps = [
   ["Rate locked", "That number doesn't change — a slow route or extra traffic is on us, not your bill."],
 ];
 
-const rateFaqs = [
+const defaultRateFaqs = [
   { q: "Why does the rate stay the same even in bad traffic?", a: "Because it's quoted flat for the route and vehicle class, not metered by time — a slower drive doesn't change what you agreed to." },
   { q: "Are there hidden fees on top of the quoted rate?", a: "No — tolls, standard wait time and gratuity are already included for point-to-point and airport trips." },
   { q: "Why do some airports show \"Custom quote\" instead of a rate?", a: "Lower-volume or longer-distance airports (DuPage, Milwaukee, Gary, Rockford) are priced based on your exact pickup point rather than a single downtown rate." },
@@ -53,14 +53,16 @@ export default async function Page() {
     getCorePage("rates"),
   ]);
   const priority = airportDetails.filter((a) => a.rate !== "Custom quote");
+  const included = corePage?.included?.length ? corePage.included : defaultIncluded;
+  const rateFaqs = corePage?.faqs?.length ? corePage.faqs : defaultRateFaqs;
 
   return (
     <>
       <PageHero
         eyebrow="RATES"
-        title="One flat rate, agreed before you ride"
+        title={corePage?.heroTitle || "One flat rate, agreed before you ride"}
         lead={corePage?.heroLead}
-        img={PHOTOS.corporateOffice[2]}
+        img={corePage?.heroImg || PHOTOS.corporateOffice[2]}
         crumbs={[{ name: "Rates", href: "/rates/" }]}
       />
 
@@ -134,7 +136,7 @@ export default async function Page() {
       </section>
 
       <PageFaq faqs={rateFaqs} eyebrow="PRICING QUESTIONS" title="About our rates" />
-      <Cta img={PHOTOS.corporateOffice[1]} />
+      <Cta img={corePage?.ctaImg || PHOTOS.corporateOffice[1]} />
     </>
   );
 }

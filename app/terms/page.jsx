@@ -23,7 +23,7 @@ export default async function Page() {
 
   return (
     <>
-      <PageHero eyebrow="LEGAL" title="Terms & Conditions" img={PHOTOS.loop[2]} crumbs={[{ name: "Terms", href: "/terms/" }]} cta={false} />
+      <PageHero eyebrow="LEGAL" title="Terms & Conditions" img={page?.heroImg || PHOTOS.loop[2]} crumbs={[{ name: "Terms", href: "/terms/" }]} cta={false} />
       <section className="sec">
         <div className="wrap">
           <div className="prose">

@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
 
-const faqs = [
+const defaultFaqs = [
   { q: "Is there a minimum number of riders to open an account?", a: "No — accounts scale from a single frequent traveler to a full company directory." },
   { q: "Can we set spending limits per traveler?", a: "Yes — cost centres and trip codes can be structured however your finance team needs to track spend." },
   { q: "How is a corporate account different from just expensing rides?", a: "One monthly invoice instead of a stack of individual receipts, a named dispatcher who knows your travelers, and NDA-signed chauffeurs available on request." },
@@ -26,7 +26,7 @@ export async function generateMetadata() {
   });
 }
 
-const points = [
+const defaultPoints = [
   "One login for the whole company, with cost centres and trip codes",
   "Monthly invoicing instead of a card charge per ride",
   "A named dispatcher who learns your frequent travelers",
@@ -41,21 +41,22 @@ const setupSteps = [
   ["Ride, then one invoice", "Every trip is logged automatically; one itemized invoice goes to finance each month."],
 ];
 
-const details = [
-  { h: "Who this is for", p: "Companies with recurring travel — airport pickups for visiting clients, executives with regular downtown or suburb trips, sales teams running roadshows, or any team that would rather see one monthly invoice than a stack of expensed receipts.", img: PHOTOS.corporateOffice[1] },
-  { h: "How billing works", p: "Every ride under the account is logged by rider, date, route and cost centre. Invoices go out monthly, itemized so finance can allocate spend by department without chasing individual receipts.", img: PHOTOS.meeting[0] },
-  { h: "Setting up an account", p: "Call, text or email dispatch with your company details and typical travel needs, and we'll confirm billing terms and add your frequent travelers.", img: PHOTOS.handshake[1] },
-];
-
 export default async function Page() {
   const corePage = await getCorePage("corporate-accounts");
+  const points = corePage?.points?.length ? corePage.points : defaultPoints;
+  const faqs = corePage?.faqs?.length ? corePage.faqs : defaultFaqs;
+  const details = [
+    { h: corePage?.detail1Heading || "Who this is for", p: corePage?.detail1Text || "Companies with recurring travel — airport pickups for visiting clients, executives with regular downtown or suburb trips, sales teams running roadshows, or any team that would rather see one monthly invoice than a stack of expensed receipts.", img: corePage?.detail1Img || PHOTOS.corporateOffice[1] },
+    { h: corePage?.detail2Heading || "How billing works", p: corePage?.detail2Text || "Every ride under the account is logged by rider, date, route and cost centre. Invoices go out monthly, itemized so finance can allocate spend by department without chasing individual receipts.", img: corePage?.detail2Img || PHOTOS.meeting[0] },
+    { h: corePage?.detail3Heading || "Setting up an account", p: corePage?.detail3Text || "Call, text or email dispatch with your company details and typical travel needs, and we'll confirm billing terms and add your frequent travelers.", img: corePage?.detail3Img || PHOTOS.handshake[1] },
+  ];
   return (
     <>
       <PageHero
         eyebrow="FOR BUSINESS"
-        title="An account your finance team will accept"
+        title={corePage?.heroTitle || "An account your finance team will accept"}
         lead={corePage?.heroLead}
-        img={PHOTOS.corporateOffice[0]}
+        img={corePage?.heroImg || PHOTOS.corporateOffice[0]}
         crumbs={[{ name: "Corporate Accounts", href: "/corporate-accounts/" }]}
       />
 
@@ -71,7 +72,7 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={PHOTOS.handshake[0]} alt="Corporate car service in Chicago" loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={corePage?.mediaImg || PHOTOS.handshake[0]} alt="Corporate car service in Chicago" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">WHAT&apos;S INCLUDED</p>
@@ -142,7 +143,7 @@ export default async function Page() {
       </section>
 
       <PageFaq faqs={faqs} title="Corporate account questions" />
-      <Cta img={PHOTOS.corporateOffice[2]} />
+      <Cta img={corePage?.ctaImg || PHOTOS.corporateOffice[2]} />
     </>
   );
 }

@@ -35,9 +35,9 @@ export default async function Page() {
   ];
 
   const closingCards = [
-    { h: page?.closingCard1Heading, p: page?.closingCard1Text, img: PHOTOS.chauffeur[1] },
-    { h: page?.closingCard2Heading, p: page?.closingCard2Text, img: PHOTOS.skyline[1], href: "/service-areas/", linkLabel: "Full service area list" },
-    { h: page?.closingCard3Heading, p: page?.closingCard3Text, img: PHOTOS.handshake[2], href: "/corporate-accounts/", linkLabel: "Set up an account" },
+    { h: page?.closingCard1Heading, p: page?.closingCard1Text, img: page?.closingCard1Img || PHOTOS.chauffeur[1] },
+    { h: page?.closingCard2Heading, p: page?.closingCard2Text, img: page?.closingCard2Img || PHOTOS.skyline[1], href: "/service-areas/", linkLabel: "Full service area list" },
+    { h: page?.closingCard3Heading, p: page?.closingCard3Text, img: page?.closingCard3Img || PHOTOS.handshake[2], href: "/corporate-accounts/", linkLabel: "Set up an account" },
   ];
 
   return (
@@ -55,7 +55,7 @@ export default async function Page() {
             </div>
           </Reveal>
           <Reveal delay={1} className="media" slide>
-            <img className="photo" src={PHOTOS.chauffeur[2]} alt="Royal Black Cars Chicago chauffeur" loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={page?.heroImg || PHOTOS.chauffeur[2]} alt="Royal Black Cars Chicago chauffeur" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
         </div>
       </section>
@@ -73,7 +73,7 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={PHOTOS.corporateOffice[0]} alt="Royal Black Cars Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={page?.whatWeDoImg || PHOTOS.corporateOffice[0]} alt="Royal Black Cars Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">WHAT WE DO</p>
@@ -124,7 +124,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <Cta img={PHOTOS.chauffeur[0]} />
+      <Cta img={page?.ctaImg || PHOTOS.chauffeur[0]} />
     </>
   );
 }

@@ -23,7 +23,7 @@ export default async function Page() {
 
   return (
     <>
-      <PageHero eyebrow="LEGAL" title="Privacy Policy" img={PHOTOS.skyline[2]} crumbs={[{ name: "Privacy", href: "/privacy/" }]} cta={false} />
+      <PageHero eyebrow="LEGAL" title="Privacy Policy" img={page?.heroImg || PHOTOS.skyline[2]} crumbs={[{ name: "Privacy", href: "/privacy/" }]} cta={false} />
       <section className="sec">
         <div className="wrap">
           <div className="prose">

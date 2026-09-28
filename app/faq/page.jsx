@@ -24,14 +24,14 @@ export default async function Page() {
     <>
       <PageHero
         eyebrow="GOOD TO KNOW"
-        title="Questions riders ask"
+        title={page?.heroTitle || "Questions riders ask"}
         lead={page?.heroLead}
-        img={PHOTOS.sedan[0]}
+        img={page?.heroImg || PHOTOS.sedan[0]}
         crumbs={[{ name: "FAQ", href: "/faq/" }]}
         cta={false}
       />
       <PageFaq faqs={faqs} eyebrow="ALL QUESTIONS" title="Everything, in one place" />
-      <Cta img={PHOTOS.sedan[2]} />
+      <Cta img={page?.ctaImg || PHOTOS.sedan[2]} />
     </>
   );
 }

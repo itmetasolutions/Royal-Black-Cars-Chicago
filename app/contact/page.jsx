@@ -24,9 +24,9 @@ export default async function Page() {
     <>
       <PageHero
         eyebrow="CONTACT"
-        title="Talk to dispatch"
+        title={page?.heroTitle || "Talk to dispatch"}
         lead={page?.heroLead}
-        img={PHOTOS.chauffeur[1]}
+        img={page?.heroImg || PHOTOS.chauffeur[1]}
         crumbs={[{ name: "Contact", href: "/contact/" }]}
         cta={false}
       />

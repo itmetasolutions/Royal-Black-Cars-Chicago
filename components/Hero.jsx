@@ -32,7 +32,7 @@ export default function Hero({ heroData }) {
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true">
-        <img className="photo" src={IMG.hero} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
+        <img className="photo" src={heroData?.heroImg || IMG.hero} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
       </div>
       <div className="hero-scrim" aria-hidden="true" />
 
