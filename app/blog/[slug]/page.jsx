@@ -2,30 +2,45 @@ import { notFound } from "next/navigation";
 import PageHero from "@/components/PageHero.jsx";
 import RelatedLinks from "@/components/RelatedLinks.jsx";
 import Cta from "@/components/Cta.jsx";
-import { posts, findPost } from "@/lib/blog.js";
+import { getBlogPost, getPublishedBlogPosts } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { articleSchema } from "@/lib/schema.js";
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
-export function generateMetadata({ params }) {
-  const post = findPost(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const post = await getBlogPost(slug);
   if (!post) return {};
-  return pageMeta({ title: `${post.title} | Royal Black Cars Chicago`, description: post.description, path: `/blog/${post.slug}/` });
+  return pageMeta({
+    title: post.metaTitle || `${post.title} | Royal Black Cars Chicago`,
+    description: post.metaDescription || post.excerpt,
+    path: `/blog/${post.slug}/`,
+  });
 }
 
-export default function Page({ params }) {
-  const post = findPost(params.slug);
+export default async function Page({ params }) {
+  const { slug } = await params;
+  const [post, allPosts] = await Promise.all([getBlogPost(slug), getPublishedBlogPosts()]);
   if (!post) notFound();
-  const related = posts.filter((p) => p.slug !== post.slug).map((p) => [p.title, `/blog/${p.slug}/`, p.img]);
+  const related = allPosts.filter((p) => p.slug !== post.slug).map((p) => [p.title, `/blog/${p.slug}/`, p.img]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema({
+            title: post.title, description: post.excerpt, image: post.img,
+            datePublished: post.publishedAt, dateModified: post.updatedAt,
+            url: `https://www.royalblackcarschicago.com/blog/${post.slug}/`,
+          })),
+        }}
+      />
       <PageHero
         eyebrow="GUIDE"
         title={post.title}
-        lead={post.description}
+        lead={post.excerpt}
         img={post.img}
         crumbs={[{ name: "Blog", href: "/blog/" }, { name: post.title, href: `/blog/${post.slug}/` }]}
         cta={false}
@@ -33,9 +48,9 @@ export default function Page({ params }) {
       <section className="sec">
         <div className="wrap">
           <p className="byline">
-            <b>Royal Black Cars Chicago</b> · {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+            <b>Royal Black Cars Chicago</b> · {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
           </p>
-          <div className="prose">{post.body.map((p, i) => <p key={i}>{p}</p>)}</div>
+          <div className="prose" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
       </section>
       <RelatedLinks title="More guides" links={related} hub={["All guides", "/blog/"]} />

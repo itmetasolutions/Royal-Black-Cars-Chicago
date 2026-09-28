@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import {
   serviceDetails, airportDetails, fleetPages, faqsFull,
 } from "../lib/data.js";
+import { posts } from "../lib/blog.js";
 
 const prisma = new PrismaClient();
 
@@ -21,6 +22,14 @@ async function upsertCorePage(key, title, fields, seo = {}) {
     where: { key },
     create: { key, title, fields, ...seo },
     update: { title, fields, ...seo },
+  });
+}
+
+async function upsertBlogPost(slug, fields, seo = {}) {
+  await prisma.blogPost.upsert({
+    where: { slug },
+    create: { slug, ...fields, ...seo },
+    update: { ...fields, ...seo },
   });
 }
 
@@ -140,6 +149,21 @@ async function main() {
     metaTitle: "Privacy Policy | Royal Black Cars Chicago",
     metaDescription: "How Royal Black Cars Chicago collects, uses and protects your information.",
   });
+
+  console.log(`Seeding ${posts.length} blog posts...`);
+  for (const p of posts) {
+    await upsertBlogPost(p.slug, {
+      title: p.title,
+      excerpt: p.description,
+      contentHtml: p.body.map((para) => `<p>${para}</p>`).join(""),
+      img: p.img,
+      status: "published",
+      publishedAt: new Date(p.date),
+    }, {
+      metaTitle: `${p.title} | Royal Black Cars Chicago`,
+      metaDescription: p.description,
+    });
+  }
 
   console.log("Seed complete.");
 }

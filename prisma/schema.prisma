@@ -84,3 +84,25 @@ model CorePage {
 
   @@map("core_pages")
 }
+
+// CMS Phase 3: blog. contentHtml is rich text from the admin's editor,
+// rendered as-is on the public post page — safe because only authenticated
+// admins can write it, never public/user input.
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  contentHtml String
+  img         String?
+  status      String   @default("published") // "draft" | "published"
+  publishedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  metaTitle         String?
+  metaDescription   String?
+  focusKeyword      String?
+  secondaryKeywords String?
+
+  @@map("blog_posts")
+}

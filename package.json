@@ -13,6 +13,11 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@tiptap/extension-image": "^3.31.3",
+    "@tiptap/extension-link": "^3.31.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
     "jose": "^6.2.12",
     "next": "^15.5.26",
     "prisma": "^6.19.3",

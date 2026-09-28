@@ -638,3 +638,19 @@ footer a:hover{color:var(--brass)}
 .adm-login-card{width:100%;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:34px;box-shadow:0 24px 56px rgba(10,12,15,.12)}
 .adm-login-card h1{font-family:Fraunces,serif;font-size:1.4rem;margin:0 0 6px;text-align:center}
 .adm-login-card p{color:var(--muted);font-size:.88rem;text-align:center;margin:0 0 24px}
+
+/* rich text editor (blog post content) */
+.adm-rte{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.adm-rte-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:var(--wash)}
+.adm-rte-btn{padding:6px 10px;border:1px solid transparent;border-radius:6px;background:none;color:var(--text);font:600 .82rem Inter,sans-serif;cursor:pointer}
+.adm-rte-btn:hover{background:var(--card);border-color:var(--line)}
+.adm-rte-btn[data-active="true"]{background:var(--ink);color:#fff}
+.adm-rte-content{padding:16px;min-height:280px}
+.adm-rte-content .ProseMirror{outline:none;min-height:260px;color:var(--text);font-size:.96rem;line-height:1.7}
+.adm-rte-content .ProseMirror p{margin:0 0 14px}
+.adm-rte-content .ProseMirror h2{font-size:1.3rem;margin:20px 0 10px;font-family:Fraunces,serif}
+.adm-rte-content .ProseMirror h3{font-size:1.1rem;margin:16px 0 8px;font-family:Fraunces,serif}
+.adm-rte-content .ProseMirror ul,.adm-rte-content .ProseMirror ol{margin:0 0 14px;padding-left:22px}
+.adm-rte-content .ProseMirror blockquote{border-left:3px solid var(--brass);margin:0 0 14px;padding-left:14px;color:var(--muted)}
+.adm-rte-content .ProseMirror img{max-width:100%;border-radius:8px}
+.adm-rte-content .ProseMirror a{color:var(--brass-2);text-decoration:underline}

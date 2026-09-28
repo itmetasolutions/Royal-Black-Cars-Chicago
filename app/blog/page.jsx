@@ -1,9 +1,11 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { posts } from "@/lib/blog.js";
+import { getPublishedBlogPosts } from "@/lib/cms.js";
 import { PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
   title: "Blog | Royal Black Cars Chicago",
@@ -15,8 +17,13 @@ function fmt(d) {
   return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
-export default function Page() {
+export default async function Page() {
+  const posts = await getPublishedBlogPosts();
+  if (!posts.length) {
+    return <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" img={PHOTOS.chauffeur[0]} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />;
+  }
   const [featured, ...rest] = posts;
+
   return (
     <>
       <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" img={PHOTOS.chauffeur[0]} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
@@ -29,30 +36,32 @@ export default function Page() {
           <Reveal delay={1}>
             <p className="eyebrow">LATEST GUIDE</p>
             <h2><a href={`/blog/${featured.slug}/`}>{featured.title}</a></h2>
-            <p className="lead" style={{ fontSize: "1rem" }}>{featured.description}</p>
-            <p className="byline" style={{ marginTop: 18 }}><b>Royal Black Cars Chicago</b> · {fmt(featured.date)}</p>
+            <p className="lead" style={{ fontSize: "1rem" }}>{featured.excerpt}</p>
+            <p className="byline" style={{ marginTop: 18 }}><b>Royal Black Cars Chicago</b> · {fmt(featured.publishedAt)}</p>
             <a className="btn btn-dark" href={`/blog/${featured.slug}/`}>Read the guide</a>
           </Reveal>
         </div>
       </section>
 
-      <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap">
-          <p className="eyebrow">MORE GUIDES</p>
-          <div style={{ marginTop: 20 }}>
-            {rest.map((p) => (
-              <a key={p.slug} href={`/blog/${p.slug}/`} className="post-row" style={{ color: "inherit" }}>
-                <img src={p.img} alt="" loading="lazy" />
-                <div>
-                  <p className="date">{fmt(p.date)}</p>
-                  <h3>{p.title}</h3>
-                  <p>{p.description}</p>
-                </div>
-              </a>
-            ))}
+      {rest.length > 0 && (
+        <section className="sec" style={{ background: "var(--wash)" }}>
+          <div className="wrap">
+            <p className="eyebrow">MORE GUIDES</p>
+            <div style={{ marginTop: 20 }}>
+              {rest.map((p) => (
+                <a key={p.slug} href={`/blog/${p.slug}/`} className="post-row" style={{ color: "inherit" }}>
+                  <img src={p.img} alt="" loading="lazy" />
+                  <div>
+                    <p className="date">{fmt(p.publishedAt)}</p>
+                    <h3>{p.title}</h3>
+                    <p>{p.excerpt}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Cta img={PHOTOS.limo[2]} />
     </>
