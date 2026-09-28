@@ -1,5 +1,6 @@
 import Breadcrumbs from "./Breadcrumbs.jsx";
-import { PHONE, PHONE_HREF } from "../lib/data.js";
+import BookNowButton from "./BookNowButton.jsx";
+import { PHONE_HREF } from "../lib/data.js";
 
 export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true, img }) {
   return (
@@ -16,8 +17,9 @@ export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true
         {lead && <p className="lead">{lead}</p>}
         {cta && (
           <div className="hero-actions">
-            <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
-            <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>
+            <BookNowButton className="btn btn-gold" />
+            <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
+            <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
           </div>
         )}
       </div>

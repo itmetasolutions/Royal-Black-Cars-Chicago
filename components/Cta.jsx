@@ -1,4 +1,5 @@
-import { PHONE, PHONE_HREF, IMG } from "../lib/data.js";
+import { PHONE_HREF, IMG } from "../lib/data.js";
+import BookNowButton from "./BookNowButton.jsx";
 
 export default function Cta({ img }) {
   return (
@@ -10,8 +11,9 @@ export default function Cta({ img }) {
         <h2>Your car is one minute away</h2>
         <p>Get a flat rate online, or speak to a dispatcher at any hour.</p>
         <div className="cta-b">
-          <a className="btn btn-gold" href="/get-a-quote/">Get a free quote</a>
-          <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>
+          <BookNowButton className="btn btn-gold" />
+          <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
+          <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
         </div>
       </div>
     </section>

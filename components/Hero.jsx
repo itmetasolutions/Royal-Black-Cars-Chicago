@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { IMG, PHONE_HREF, fleetPages } from "../lib/data.js";
+import BookNowButton from "./BookNowButton.jsx";
 
 export default function Hero({ heroData }) {
   const [trip, setTrip] = useState("airport");
@@ -45,7 +46,8 @@ export default function Hero({ heroData }) {
             </h1>
             <p className="lead">{heroData?.heroLead || "Vetted chauffeurs, late-model sedans and SUVs, flights tracked in real time. One flat rate agreed up front — no surge, no surprises."}</p>
             <div className="hero-actions">
-              <a className="btn btn-gold" href="/get-a-quote/">Get a Free Quote</a>
+              <BookNowButton className="btn btn-gold" />
+              <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
               <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
             </div>
           </div>

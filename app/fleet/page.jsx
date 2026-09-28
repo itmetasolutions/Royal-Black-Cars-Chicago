@@ -47,7 +47,7 @@ export default async function Page() {
                       <div><CarIcon />{f.models}</div>
                       <div><Clock /><b>Hourly</b> {f.hourlyRate}</div>
                     </div>
-                    <a className="btn btn-gold" href={`/get-a-quote/?vehicle=${encodeURIComponent(f.title)}`} style={{ marginTop: 16, width: "100%" }}>Book Now</a>
+                    <a className="btn btn-gold" href={`/get-a-quote/?vehicle=${encodeURIComponent(f.title)}`} style={{ marginTop: 16, width: "100%" }}>Get A Free Quote</a>
                   </div>
                 </Reveal>
               );

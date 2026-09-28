@@ -94,9 +94,9 @@ export default async function Page() {
               </Reveal>
             ))}
           </div>
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 30 }}>
-            <a className="btn btn-gold" href={PHONE_HREF}>{PHONE}</a>
-            <a className="btn btn-line" href={`mailto:${EMAIL}`} style={{ borderColor: "var(--line)", color: "var(--text)" }}>{EMAIL}</a>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginTop: 30 }}>
+            <a className="btn btn-gold" href={PHONE_HREF}>Call Now</a>
+            <a href={`mailto:${EMAIL}`} style={{ color: "var(--text)" }}>Or email {EMAIL}</a>
           </div>
         </div>
       </section>

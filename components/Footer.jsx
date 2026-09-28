@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Car, Facebook, Instagram, XformerlyTwitter, LinkedIn } from "./icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL } from "../lib/data.js";
+import BookNowButton from "./BookNowButton.jsx";
 
 // Placeholder hrefs — swap in the real profile URLs when they're ready.
 const social = [
@@ -75,8 +76,8 @@ export default function Footer() {
       </footer>
 
       <div className="mbar">
-        <a className="btn btn-dark" href={PHONE_HREF} style={{ background: "var(--wash)", color: "var(--text)" }}>Call</a>
-        <a className="btn btn-gold" href="/get-a-quote/">Book a ride</a>
+        <a className="btn btn-dark" href={PHONE_HREF} style={{ background: "var(--wash)", color: "var(--text)" }}>Call Now</a>
+        <BookNowButton className="btn btn-gold" />
       </div>
     </>
   );

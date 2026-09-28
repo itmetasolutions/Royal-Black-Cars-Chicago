@@ -1,5 +1,5 @@
 import Reveal from "./Reveal.jsx";
-import { faqs, PHONE, PHONE_HREF } from "../lib/data.js";
+import { faqs, PHONE_HREF } from "../lib/data.js";
 
 export default function Faq() {
   return (
@@ -11,7 +11,7 @@ export default function Faq() {
           <div className="faq-aside" style={{ marginTop: 28 }}>
             <h3 style={{ marginBottom: 10 }}>Still unsure?</h3>
             <p>Dispatch answers in under a minute, day or night, and can quote a trip on the phone.</p>
-            <a className="btn btn-gold" href={PHONE_HREF}>{PHONE}</a>
+            <a className="btn btn-gold" href={PHONE_HREF}>Call Now</a>
           </div>
         </Reveal>
         <Reveal className="faq" delay={1}>

@@ -39,7 +39,7 @@ export default function LocationPageTemplate({ location }) {
               <p className="eyebrow">LONG DISTANCE</p>
               <h2>One car, the whole way</h2>
               <p className="lead" style={{ fontSize: "1rem" }}>{location.name} is one of our regular long-distance routes: one chauffeur and one vehicle for the entire drive, door to door, with no flight, no connection and no rental counter at the other end.</p>
-              <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
+              <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
             </Reveal>
           </div>
         </section>
@@ -96,7 +96,7 @@ export default function LocationPageTemplate({ location }) {
               {location.landmarks?.length ? `, near ${location.landmarks.join(" and ")}` : ""}. Chauffeurs run this route
               regularly via {location.highway}, so pickup timing accounts for real traffic patterns, not just map-app estimates.
             </p>
-            <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
+            <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
           </Reveal>
         </div>
       </section>

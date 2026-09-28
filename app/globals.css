@@ -145,13 +145,19 @@ p{margin:0 0 1rem}
 .qnote{font-size:.82rem;color:rgba(255,255,255,.65);text-align:center;margin:8px 0 0}
 
 /* ---------- MARQUEE TRUST ---------- */
-.marquee{background:var(--ink2);color:#fff;overflow:hidden;padding:17px 0;white-space:nowrap}
+.marquee{background:var(--brass-2);color:#3A2E14;overflow:hidden;padding:17px 0;white-space:nowrap}
 .marquee-top{padding-top:calc(88px + 17px)}
-.mq-track{display:inline-flex;gap:60px;animation:slide 34s linear infinite;font-size:.92rem;color:rgba(255,255,255,.8)}
-.mq-track b{color:#fff;font-weight:600}
+.mq-track{display:inline-flex;gap:60px;animation:slide 34s linear infinite;font-size:.92rem;color:#5A491F}
+.mq-track b{color:#241C0B;font-weight:600}
 .mq-track span{display:inline-flex;align-items:center;gap:10px}
-.mq-track svg{width:16px;height:16px;fill:var(--brass)}
+.mq-track svg{width:16px;height:16px;fill:#241C0B}
 @keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- BOOKING MODAL (Moovs) ---------- */
+.booking-modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,12,15,.7);display:flex;align-items:center;justify-content:center;padding:20px}
+.booking-modal{position:relative;width:100%;max-width:460px;height:min(88vh,760px);background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.4)}
+.booking-modal-close{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:rgba(17,22,27,.85);color:#fff;font-size:1.3rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.booking-modal-iframe{width:100%;height:100%;border:0;display:block}
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none}.hero-bg{animation:none;transform:none}.hero h1 span i,.hero .lead,.hero-actions,.quote{animation:none;opacity:1;transform:none}}
 
 /* ---------- SPLIT SECTIONS ---------- */

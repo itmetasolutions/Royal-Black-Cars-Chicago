@@ -1,6 +1,7 @@
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { PHONE, PHONE_HREF, PHOTOS, trustPoints } from "@/lib/data.js";
+import BookNowButton from "@/components/BookNowButton.jsx";
+import { PHONE_HREF, PHOTOS, trustPoints } from "@/lib/data.js";
 import { allLocations, venueDetails } from "@/lib/locations.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
@@ -48,8 +49,9 @@ export default async function Page() {
             <h1 style={{ fontSize: "clamp(2.2rem,4.4vw,3.2rem)", maxWidth: "16ch" }}>{page?.heroTitle}</h1>
             <p className="lead" style={{ marginTop: 18 }}>{page?.heroLead}</p>
             <div className="hero-actions" style={{ marginTop: 28 }}>
-              <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
-              <a className="btn btn-dark" href={PHONE_HREF}>{PHONE}</a>
+              <BookNowButton className="btn btn-gold" />
+              <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
+              <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
             </div>
           </Reveal>
           <Reveal delay={1} className="media" slide>

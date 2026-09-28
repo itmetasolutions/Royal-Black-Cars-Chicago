@@ -44,7 +44,7 @@ export default async function Page() {
               </p>
               <p><strong>Office:</strong> {page?.officeNote}</p>
             </div>
-            <a className="btn btn-gold" href={PHONE_HREF}>{PHONE}</a>
+            <a className="btn btn-gold" href={PHONE_HREF}>Call Now</a>
           </Reveal>
           <Reveal delay={1} className="faq-aside">
             <h2 style={{ marginBottom: 16 }}>Send a message</h2>

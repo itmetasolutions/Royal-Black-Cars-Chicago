@@ -1,6 +1,8 @@
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header.jsx";
 import Footer from "@/components/Footer.jsx";
+import BookingProvider from "@/components/BookingProvider.jsx";
 import { localBusiness } from "@/lib/schema.js";
 
 export const metadata = {
@@ -32,9 +34,21 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <Script id="moovs-operator" strategy="afterInteractive">
+          {`window["moovsAPI"] = window["moovsAPI"] || [];
+            window["moovsAPI"].push(["operator", "bda0c52a-b900-11f1-b674-e34de33d718a"]);
+            (function(m, oo, v, s) {
+              s = m.createElement(oo);
+              s.src = v;
+              s.async = 1;
+              m.head.appendChild(s);
+            })(document, "script", "https://static.moovs.app");`}
+        </Script>
+        <BookingProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </BookingProvider>
       </body>
     </html>
   );

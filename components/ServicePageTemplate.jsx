@@ -46,7 +46,7 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
             <p className="eyebrow">WHAT&apos;S INCLUDED</p>
             <h2>Every {service.title.toLowerCase()} booking includes</h2>
             <ul className="tick">{service.included.map(i => <li key={i}><Check />{i}</li>)}</ul>
-            <a className="btn btn-gold" href="/get-a-quote/">Get your rate</a>
+            <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
           </Reveal>
         </div>
       </section>
