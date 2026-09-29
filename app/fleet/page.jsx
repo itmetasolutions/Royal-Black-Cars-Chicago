@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
+import BookNowButton from "@/components/BookNowButton.jsx";
 import { Car as CarIcon, Seat, Bag, Clock } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages } from "@/lib/cms.js";
@@ -47,7 +48,7 @@ export default async function Page() {
                       <div><CarIcon />{f.models}</div>
                       <div><Clock /><b>Hourly</b> {f.hourlyRate}</div>
                     </div>
-                    <a className="btn btn-gold" href={`/get-a-quote/?vehicle=${encodeURIComponent(f.title)}`} style={{ marginTop: 16, width: "100%" }}>Get A Free Quote</a>
+                    <BookNowButton className="btn btn-gold" style={{ marginTop: "auto", width: "100%" }} />
                   </div>
                 </Reveal>
               );

@@ -3,6 +3,7 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
+import BookNowButton from "./BookNowButton.jsx";
 import { Check, Seat, Bag, Car as CarIcon } from "./icons.jsx";
 import { fleetPages } from "../lib/data.js";
 
@@ -43,7 +44,10 @@ export default function FleetPageTemplate({ vehicle, allVehicles = fleetPages })
                 <div><span>Flat rate</span><b>{vehicle.rate}</b></div>
                 <div><span>Hourly</span><b>{vehicle.hourlyRate}</b></div>
               </div>
-              <a className="btn btn-gold" href={`/get-a-quote/?vehicle=${encodeURIComponent(vehicle.title)}`}>Get A Free Quote</a>
+              <div className="hero-actions" style={{ marginTop: 6, opacity: 1, animation: "none" }}>
+                <BookNowButton className="btn btn-gold" />
+                <a className="btn btn-line" style={{ borderColor: "var(--line)", color: "var(--text)" }} href={`/get-a-quote/?vehicle=${encodeURIComponent(vehicle.title)}`}>Get A Free Quote</a>
+              </div>
             </div>
           </Reveal>
         </div>
