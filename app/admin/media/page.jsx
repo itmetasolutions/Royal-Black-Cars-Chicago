@@ -69,8 +69,8 @@ export default function MediaLibraryPage() {
         <div className="adm-card">
           <p className="adm-msg err" style={{ margin: 0 }}>
             Storage isn't connected yet. In the Vercel dashboard, go to Storage → Create Database → Blob, connect it to
-            this project, then redeploy (or add <code>BLOB_READ_WRITE_TOKEN</code> to your local <code>.env</code> for
-            testing here).
+            this project, then redeploy. This uses Vercel's own runtime credentials, so it only works once deployed —
+            add <code>BLOB_READ_WRITE_TOKEN</code> to your local <code>.env</code> if you also want to test uploads here.
           </p>
         </div>
       )}

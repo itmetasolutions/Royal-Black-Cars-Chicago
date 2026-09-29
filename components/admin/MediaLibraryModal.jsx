@@ -58,8 +58,8 @@ export default function MediaLibraryModal({ onSelect, onClose }) {
 
         {notConfigured && (
           <p className="adm-msg err" style={{ marginTop: 0 }}>
-            Media library storage isn't connected yet. Add a <code>BLOB_READ_WRITE_TOKEN</code> environment variable
-            (Vercel dashboard → Storage → create a Blob store) to enable uploads.
+            Media library storage isn't connected yet. Connect a Blob store to this project (Vercel dashboard →
+            Storage) — this only works once deployed, since it relies on Vercel's own runtime credentials.
           </p>
         )}
 
