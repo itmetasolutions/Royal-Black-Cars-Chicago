@@ -111,11 +111,10 @@ p{margin:0 0 1rem}
 /* quote card */
 .quote{background:rgba(255,255,255,.07);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:22px;opacity:0;animation:fadeUp .9s .74s forwards}
 .quote h2{font-size:1.4rem;margin-bottom:12px;color:#fff}
-.quote-moovs{padding:14px;max-width:400px;margin-left:auto}
-.quote-moovs h2{padding:0 6px;font-size:1.15rem;margin-bottom:8px}
-.hero-moovs-iframe{width:100%;height:min(58vh,440px);border:0;border-radius:12px;display:block;background:#fff}
-@media (max-width:900px){.quote-moovs{max-width:420px;margin-left:0}}
-@media (max-width:640px){.hero-moovs-iframe{height:min(52vh,400px)}}
+.quote-moovs{padding:16px}
+.quote-moovs h2{padding:0 6px;font-size:1.25rem;margin-bottom:10px}
+.hero-moovs-iframe{width:100%;min-width:340px;height:min(70vh,620px);border:0;border-radius:12px;display:block;background:#fff}
+@media (max-width:640px){.hero-moovs-iframe{height:min(64vh,560px)}}
 
 /* standalone quote-page form card — same field styling as .quote, solid background
    since this one sits in a normal content section rather than over a hero photo */
