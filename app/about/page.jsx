@@ -1,7 +1,8 @@
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import BookNowButton from "@/components/BookNowButton.jsx";
-import { PHONE_HREF, PHOTOS, trustPoints } from "@/lib/data.js";
+import PageHero from "@/components/PageHero.jsx";
+import { Check, Shield, Clock, Tag } from "@/components/icons.jsx";
+import { PHOTOS, trustPoints } from "@/lib/data.js";
 import { allLocations, venueDetails } from "@/lib/locations.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
@@ -42,25 +43,24 @@ export default async function Page() {
 
   return (
     <>
-      <section className="sec about-hero">
-        <div className="wrap split">
-          <Reveal>
-            <p className="eyebrow">ABOUT US</p>
-            <h1 style={{ fontSize: "clamp(2.2rem,4.4vw,3.2rem)", maxWidth: "16ch" }}>{page?.heroTitle}</h1>
-            <p className="lead" style={{ marginTop: 18 }}>{page?.heroLead}</p>
-            <div className="hero-actions" style={{ marginTop: 28 }}>
-              <BookNowButton className="btn btn-gold" />
-              <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
-              <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
-            </div>
-          </Reveal>
-          <Reveal delay={1} className="media" slide>
-            <img className="photo" src={page?.heroImg || PHOTOS.chauffeur[2]} alt="Royal Black Cars Chicago chauffeur" loading="lazy" style={{ zIndex: 2 }} />
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="ABOUT US"
+        title={page?.heroTitle || "A Chicago black car service built on kept promises"}
+        lead={page?.heroLead}
+        img={page?.heroImg || PHOTOS.chauffeur[2]}
+        crumbs={[{ name: "About", href: "/about/" }]}
+      />
 
-      <section className="stat-band sec" style={{ padding: "48px 0" }}>
+      <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
+        <Reveal className="quickfacts">
+          <div><Shield /><div><b>Licensed &amp; insured</b><small>Commercial cover on every vehicle</small></div></div>
+          <div><Tag /><div><b>Flat pricing</b><small>Agreed before you ride</small></div></div>
+          <div><Check /><div><b>Vetted chauffeurs</b><small>Background-checked and trained</small></div></div>
+          <div><Clock /><div><b>Dispatch that answers</b><small>Day or night, no queue</small></div></div>
+        </Reveal>
+      </div>
+
+      <section className="stat-band sec" style={{ padding: "48px 0", marginTop: 64 }}>
         <div className="wrap">
           <div className="stat-row">
             {stats.map((s) => (
