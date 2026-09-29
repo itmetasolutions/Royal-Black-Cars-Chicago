@@ -15,7 +15,7 @@ export default function ContactForm() {
   };
 
   if (sent) {
-    return <p className="qnote" style={{ color: "#8FD4AE", textAlign: "left", fontSize: "1rem" }}>Thanks — dispatch will reply within a few minutes during business hours, or first thing the next morning overnight.</p>;
+    return <p className="qnote" style={{ color: "var(--ok)", textAlign: "left", fontSize: "1rem" }}>Thanks — dispatch will reply within a few minutes during business hours, or first thing the next morning overnight.</p>;
   }
 
   return (
