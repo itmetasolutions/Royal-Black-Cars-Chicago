@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal.jsx";
+import BookNowButton from "./BookNowButton.jsx";
 import { Seat, Bag, Clock } from "./icons.jsx";
 import { fleet } from "../lib/data.js";
 
@@ -96,6 +97,7 @@ export default function Fleet() {
                     <div><Bag />{v.bags}</div>
                   </div>
                   <p className="veh-hourly"><Clock />Hourly — <b>{v.hourlyRate}</b></p>
+                  <BookNowButton className="btn btn-gold" style={{ width: "100%", marginTop: 16 }} />
                 </div>
               </article>
             ))}
