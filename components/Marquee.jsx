@@ -9,9 +9,9 @@ const items = [
   [<Check key="c5" />, "No surge pricing, ever"],
 ];
 
-export default function Marquee({ top = false }) {
+export default function Marquee({ className = "" }) {
   return (
-    <div className={`marquee${top ? " marquee-top" : ""}`} aria-label="Service highlights">
+    <div className={`marquee${className ? ` ${className}` : ""}`} aria-label="Service highlights">
       <div className="mq-track">
         {[0, 1].map(dup => items.map(([icon, label], i) => (
           <span key={`${dup}-${i}`}>{icon}{label}</span>

@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero.jsx";
-import Marquee from "@/components/Marquee.jsx";
 import Services from "@/components/Services.jsx";
 import AirportSplit from "@/components/AirportSplit.jsx";
 import Fleet from "@/components/Fleet.jsx";
@@ -26,7 +25,6 @@ export default async function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }} />
-      <Marquee top />
       <Hero heroData={page} />
       <Services />
       <AirportSplit />

@@ -2,6 +2,7 @@
 
 import { IMG, PHONE_HREF } from "../lib/data.js";
 import BookNowButton from "./BookNowButton.jsx";
+import Marquee from "./Marquee.jsx";
 
 export default function Hero({ heroData }) {
   return (
@@ -38,6 +39,8 @@ export default function Hero({ heroData }) {
           </div>
         </div>
       </div>
+
+      <Marquee className="hero-marquee" />
     </section>
   );
 }
