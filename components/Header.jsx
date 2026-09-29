@@ -11,7 +11,28 @@ import ThemeToggle from "./ThemeToggle.jsx";
 const defaultServiceLinks = serviceDetails.map((s) => [s.href, s.title]);
 const defaultAirportLinks = airportDetails.map((a) => [a.href, a.name]);
 const defaultFleetLinks = fleetPages.map((f) => [f.href, f.title]);
-const areaGroups = clusters.map((c) => [c.name, c.locations.slice(0, 3).map((l) => [l.href, l.name])]);
+const areaGroups = clusters.map((c) => [c.name, c.locations.slice(0, 4).map((l) => [l.href, l.name])]);
+
+// Short second line + badge under each mega-menu link, keyed by href so links
+// coming from the live /api/nav feed pick them up too (and simply render
+// without a sublabel when the page is new).
+const short = (text, max = 64) => {
+  if (!text) return null;
+  if (text.length <= max) return text;
+  return `${text.slice(0, text.lastIndexOf(" ", max))}…`;
+};
+
+const navMeta = {};
+serviceDetails.forEach((s) => { navMeta[s.href] = { sub: short(s.lead) }; });
+airportDetails.forEach((a) => { navMeta[a.href] = { badge: a.code, sub: a.driveTime }; });
+fleetPages.forEach((f) => { navMeta[f.href] = { sub: f.capacity }; });
+
+const groupBlurbs = {
+  Services: "Every way we drive Chicago — airport runs, corporate travel, events and hourly work, all at a flat rate agreed before you ride.",
+  Airports: "O'Hare, Midway and the private terminals, with your flight tracked and a meet-and-greet inside arrivals.",
+  Fleet: "Sedans, SUVs, Sprinters and coaches — late-model, chauffeur-driven and sized to the party.",
+  Areas: "Neighborhoods, suburbs and venues we cover daily, each with its own page and local pickup notes.",
+};
 
 const homeLink = ["/", "Home"];
 const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
@@ -26,8 +47,8 @@ export default function Header() {
 
   const navGroups = [
     { label: "Services", hub: "/services/", links: live?.services || defaultServiceLinks, cols: 3 },
-    { label: "Airports", hub: "/airports/", links: live?.airports || defaultAirportLinks, cols: 1 },
-    { label: "Fleet", hub: "/fleet/", links: live?.fleet || defaultFleetLinks, cols: 1 },
+    { label: "Airports", hub: "/airports/", links: live?.airports || defaultAirportLinks, cols: 2 },
+    { label: "Fleet", hub: "/fleet/", links: live?.fleet || defaultFleetLinks, cols: 2 },
     { label: "Areas", hub: "/service-areas/", cols: 4, groups: areaGroups },
   ];
 
@@ -64,17 +85,40 @@ export default function Header() {
               <div key={g.label} className="nav-item">
                 <a href={g.hub}>{g.label}<i className="chev" aria-hidden="true" /></a>
                 <div className="mega">
-                  <div className="mega-panel" style={{ gridTemplateColumns: `repeat(${g.cols},1fr)` }}>
-                    {g.groups
-                      ? g.groups.map(([title, links]) => (
-                          <div key={title} className="mega-col">
-                            <p>{title}</p>
-                            {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-                          </div>
-                        ))
-                      : g.links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-                    <div className="mega-more" style={{ gridColumn: "1 / -1" }}>
-                      <a href={g.hub}>See all {g.label.toLowerCase()} &rarr;</a>
+                  <div className="mega-panel">
+                    <div className="mega-intro">
+                      <p className="mega-kicker">{g.label}</p>
+                      <p className="mega-blurb">{groupBlurbs[g.label]}</p>
+                      <a className="mega-cta" href={g.hub}>See all {g.label.toLowerCase()} &rarr;</a>
+                    </div>
+                    <div className="mega-body">
+                      {g.groups ? (
+                        <div className="mega-groups" style={{ "--mega-cols": g.cols }}>
+                          {g.groups.map(([title, links]) => (
+                            <div key={title} className="mega-col">
+                              <p>{title}</p>
+                              {links.map(([href, label]) => (
+                                <a key={href} href={href}><span className="mega-t">{label}</span></a>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="mega-links" style={{ "--mega-cols": g.cols }}>
+                          {g.links.map(([href, label]) => {
+                            const m = navMeta[href] || {};
+                            return (
+                              <a key={href} href={href}>
+                                {m.badge && <i className="mega-badge">{m.badge}</i>}
+                                <span>
+                                  <span className="mega-t">{label}</span>
+                                  {m.sub && <small>{m.sub}</small>}
+                                </span>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

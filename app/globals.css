@@ -57,21 +57,34 @@ p{margin:0 0 1rem}
 .adm-theme-toggle{width:34px;height:34px}
 .adm-theme-toggle svg{width:16px;height:16px}
 
-/* header mega-dropdowns — hover/focus reveal, transparent padding bridges the gap so the pointer never leaves the hoverable area */
-.nav-item{position:relative;display:flex;align-items:center}
+/* header mega-dropdowns — one full-width sheet per group, pinned under the
+   fixed header. Items span the full header height so the pointer never
+   crosses a dead gap on its way down into the panel. */
+.nav-item{position:static;display:flex;align-items:center;align-self:stretch}
 .nav-item>a{display:flex;align-items:center;gap:6px}
 .nav-item .chev{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .2s;flex:none}
 .nav-item:hover .chev,.nav-item:focus-within .chev{transform:rotate(225deg);margin-top:3px}
-.mega{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(4px);padding-top:18px;opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;pointer-events:none}
+.mega{position:fixed;top:calc(88px + env(safe-area-inset-top,0));left:50%;width:min(1160px,calc(100vw - 40px));transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;pointer-events:none}
 .nav-item:hover .mega,.nav-item:focus-within .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
-.mega-panel{display:grid;gap:2px 34px;background:var(--ink2);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);box-shadow:0 30px 70px rgba(5,7,9,.5);padding:26px 28px 0;min-width:230px;position:relative;overflow:hidden;isolation:isolate}
-.mega-panel::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--brass-2),var(--brass))}
-.mega-col p{font:600 .7rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-2);margin:0 0 10px}
-.mega-panel a{display:block;padding:7px 0;font-size:.9rem;color:rgba(255,255,255,.75)!important;transition:color .15s,transform .15s}
-.mega-panel a:hover{color:#fff!important;transform:translateX(2px)}
-.mega-more{grid-column:1/-1;margin:16px -28px 0;padding:13px 28px;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.09);border-radius:0 0 calc(var(--r) - 1px) calc(var(--r) - 1px)}
-.mega-more a{color:var(--brass-2)!important;font-weight:600;padding:0!important;transform:none!important}
-.mega-more a:hover{color:var(--brass)!important}
+.mega-panel{display:grid;grid-template-columns:262px 1fr;background:var(--ink2);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);box-shadow:0 34px 80px rgba(5,7,9,.55);position:relative;overflow:hidden;isolation:isolate}
+.mega-panel::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--brass-2),var(--brass));z-index:1}
+.mega-intro{padding:30px 26px;background:linear-gradient(160deg,rgba(194,154,78,.16),rgba(255,255,255,.02) 62%);border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column}
+.mega-kicker{font-family:Fraunces,serif;font-size:1.45rem;color:#fff;margin:0}
+.mega-blurb{margin:12px 0 0;font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.6)}
+.mega-cta{margin-top:auto;padding-top:20px;color:var(--brass-2)!important;font-weight:600;font-size:.86rem}
+.mega-cta:hover{color:var(--brass)!important}
+.mega-body{padding:24px 26px;max-height:min(66vh,560px);overflow-y:auto}
+.mega-links,.mega-groups{display:grid;grid-template-columns:repeat(var(--mega-cols,3),1fr);gap:4px 16px}
+.mega-links a{display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border-radius:10px;color:rgba(255,255,255,.88)!important;transition:background .15s,color .15s}
+.mega-links a:hover{background:rgba(255,255,255,.07)}
+.mega-links a::after{display:none}
+.mega-links small{display:block;margin-top:3px;font-size:.76rem;line-height:1.45;color:rgba(255,255,255,.5);font-weight:400}
+.mega-t{display:block;font-size:.9rem;font-weight:500;line-height:1.35}
+.mega-badge{flex:none;min-width:38px;padding:4px 0;text-align:center;border-radius:6px;background:rgba(194,154,78,.16);border:1px solid rgba(194,154,78,.3);color:var(--brass-2);font:600 .68rem/1.4 Inter,sans-serif;letter-spacing:.06em;font-style:normal;margin-top:1px}
+.mega-col p{font:600 .68rem Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--brass-2);margin:0 0 6px;padding:0 12px}
+.mega-groups a{display:block;padding:8px 12px;border-radius:10px;font-size:.88rem;color:rgba(255,255,255,.75)!important;transition:background .15s,color .15s}
+.mega-groups a:hover{background:rgba(255,255,255,.07);color:#fff!important}
+.mega-groups a::after{display:none}
 
 /* mobile drawer accordions for the same grouped nav — explicit resets so the
    global FAQ details/summary rules (card bg, gradient-cross icon) can't bleed in */
