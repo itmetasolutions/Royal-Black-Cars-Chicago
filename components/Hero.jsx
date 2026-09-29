@@ -1,14 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { IMG, PHONE_HREF } from "../lib/data.js";
 import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 
 export default function Hero({ heroData }) {
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  const heroImg = heroData?.heroImg || IMG.hero;
+
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true">
-        <img className="photo" src={heroData?.heroImg || IMG.hero} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
+        {reducedMotion ? (
+          <img className="photo" src={heroImg} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
+        ) : (
+          <video
+            className="photo"
+            src="/video/hero-motion.mp4"
+            poster={heroImg}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ zIndex: 1 }}
+          />
+        )}
       </div>
       <div className="hero-scrim" aria-hidden="true" />
 
