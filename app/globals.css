@@ -328,8 +328,6 @@ details p{color:var(--muted);font-size:.96rem;margin:0;padding:0 24px 22px;max-w
 .drive-bar-row .av{font-size:.86rem;color:var(--muted);text-align:right;white-space:nowrap}
 
 /* About page's own hero — light, split, no dark banner (deliberately unlike every other page) */
-.about-hero{padding-top:164px}
-.about-hero .eyebrow{margin-top:0}
 
 /* single-item feature banner (e.g. a one-service category) */
 .feature-banner{position:relative;border-radius:var(--r);overflow:hidden;min-height:280px;display:flex;align-items:flex-end;padding:36px;isolation:isolate}
@@ -557,7 +555,6 @@ footer a:hover{color:var(--brass)}
   .hero .lead{font-size:.94rem;margin-top:10px}
   .hero-actions{margin-top:18px}
   .page-hero{padding:128px 0 44px}
-  .about-hero{padding-top:128px}
   .page-hero h1{font-size:clamp(1.9rem,8vw,2.6rem)}
   .quote{padding:20px}
   .quote-moovs{padding:8px}

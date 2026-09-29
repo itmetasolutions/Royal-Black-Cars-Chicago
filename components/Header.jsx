@@ -13,7 +13,8 @@ const defaultAirportLinks = airportDetails.map((a) => [a.href, a.name]);
 const defaultFleetLinks = fleetPages.map((f) => [f.href, f.title]);
 const areaGroups = clusters.map((c) => [c.name, c.locations.slice(0, 3).map((l) => [l.href, l.name])]);
 
-const plainLinks = [["/", "Home"], ["/about/", "About"], ["/contact/", "Contact"]];
+const homeLink = ["/", "Home"];
+const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
 
 export default function Header() {
   const pathname = usePathname();
@@ -58,6 +59,7 @@ export default function Header() {
         <div className="wrap hdr-in">
           <a className="brand" href="/"><i><Car /></i><span>Royal <b>Black Cars</b></span></a>
           <nav className="nav" aria-label="Main">
+            <a href={homeLink[0]}>{homeLink[1]}</a>
             {navGroups.map((g) => (
               <div key={g.label} className="nav-item">
                 <a href={g.hub}>{g.label}<i className="chev" aria-hidden="true" /></a>
@@ -90,6 +92,7 @@ export default function Header() {
 
       <div className={`drawer${open ? " open" : ""}`} onClick={(e) => e.target.tagName === "A" && setOpen(false)}>
         <button className="close" aria-label="Close menu" onClick={() => setOpen(false)}>&times;</button>
+        <a href={homeLink[0]}>{homeLink[1]}</a>
         {navGroups.map((g) => (
           <details key={g.label}>
             <summary>{g.label}</summary>
