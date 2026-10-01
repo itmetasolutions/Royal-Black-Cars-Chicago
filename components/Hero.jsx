@@ -6,12 +6,14 @@ import Marquee from "./Marquee.jsx";
 
 // Looping background clip for the hero. The still below it stays in the markup
 // as the poster and the fallback: it is what shows while the clip buffers, if
-// the file is missing, and for anyone who asked for reduced motion.
-const HERO_VIDEO = "/videos/hero-loop.mp4";
+// the file is missing, and for anyone who asked for reduced motion (handled in
+// CSS, so there is no first paint with the video before an effect can run).
+const HERO_VIDEO = "/video/hero-motion.mp4";
 
 export default function Hero({ heroData }) {
   const still = heroData?.heroImg || IMG.hero;
   const video = heroData?.heroVideo || HERO_VIDEO;
+
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true">
