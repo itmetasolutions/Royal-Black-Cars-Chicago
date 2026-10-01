@@ -3,8 +3,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/db.js";
 import DeleteRowButton from "@/components/admin/DeleteRowButton.jsx";
 
-const TYPES = ["service", "airport", "fleet", "venue", "core"];
-const TITLES = { service: "Service pages", airport: "Airport pages", fleet: "Fleet pages", venue: "Venue pages", core: "Core pages" };
+const TYPES = ["service", "airport", "fleet", "venue", "area", "core"];
+const TITLES = { service: "Service pages", airport: "Airport pages", fleet: "Fleet pages", venue: "Venue pages", area: "Service area pages", core: "Core pages" };
 
 export default async function TemplatePageList({ params }) {
   const { type } = await params;

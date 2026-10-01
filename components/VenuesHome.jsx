@@ -1,11 +1,7 @@
 import Reveal from "./Reveal.jsx";
-import { venueDetails } from "../lib/locations.js";
 import { homeField } from "../lib/homeDefaults.js";
 
-export default function VenuesHome({ page }) {
-  const venues = homeField(page, "venuesFeatured")
-    .map((name) => venueDetails.find((v) => v.name === name))
-    .filter(Boolean);
+export default function VenuesHome({ page, cards = [] }) {
 
   return (
     <section className="sec">
@@ -18,10 +14,10 @@ export default function VenuesHome({ page }) {
           <a className="btn btn-line" href="/venues/">{homeField(page, "venuesLinkLabel")}</a>
         </Reveal>
         <div className="strip" style={{ marginTop: 28 }}>
-          {venues.map((v, i) => (
-            <Reveal key={v.slug} delay={i} as="a" href={v.href} className="strip-card">
-              <img src={v.img} alt={v.name} loading="lazy" />
-              <span>{v.name}<small>{v.area}</small></span>
+          {cards.map((v, i) => (
+            <Reveal key={v.href} delay={i} as="a" href={v.href} className="strip-card">
+              <img src={v.img} alt={v.title} loading="lazy" />
+              <span>{v.title}<small>{v.meta}</small></span>
             </Reveal>
           ))}
         </div>

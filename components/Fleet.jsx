@@ -4,10 +4,29 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal.jsx";
 import BookNowButton from "./BookNowButton.jsx";
 import { Seat, Bag, Clock } from "./icons.jsx";
-import { fleet } from "../lib/data.js";
+import { fleet as fallbackFleet } from "../lib/data.js";
+import { toCard } from "../lib/cards.js";
 import { homeField } from "../lib/homeDefaults.js";
 
-export default function Fleet({ page: cms }) {
+export default function Fleet({ page: cms, vehicles }) {
+  // Each vehicle renders its own card fields where set, falling back to the
+  // page's spec fields, so a card edited in the admin updates here too.
+  const fleet = (vehicles?.length ? vehicles : fallbackFleet).map((v) => {
+    const card = toCard("fleet", v);
+    const [seats, bags] = (v.capacity || "").split(",").map((x) => x.trim());
+    return {
+      ...v,
+      title: card.title,
+      img: card.img,
+      models: v.cardText || v.models || card.text,
+      seats: v.seats || seats || "",
+      bags: v.bags || bags || "Chauffeur included",
+      hourlyRate: v.hourlyRate || "",
+      tag: v.tag || card.badge || "",
+      href: card.href,
+    };
+  });
+
   const rail = useRef(null);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(1);

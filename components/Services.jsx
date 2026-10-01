@@ -1,8 +1,7 @@
 import Reveal from "./Reveal.jsx";
 import { homeField } from "../lib/homeDefaults.js";
 
-export default function Services({ page }) {
-  const cards = homeField(page, "serviceCards");
+export default function Services({ page, cards = [] }) {
 
   return (
     <section className="sec">
@@ -13,7 +12,7 @@ export default function Services({ page }) {
         </Reveal>
         <div className="svc">
           {cards.map((s, i) => (
-            <Reveal as="a" key={s.title} href={s.href} delay={i % 3}>
+            <Reveal as="a" key={s.href} href={s.href} delay={i % 3}>
               <img className="photo" src={s.img} alt="" loading="lazy" />
               <div><h3>{s.title}</h3><p>{s.text}</p></div>
             </Reveal>

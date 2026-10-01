@@ -2,17 +2,18 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal.jsx";
-import { clusters, venueDetails } from "../lib/locations.js";
+import { clusters as fallbackClusters, venueDetails } from "../lib/locations.js";
 import { homeField } from "../lib/homeDefaults.js";
 
-const tabs = [
-  ...clusters.map((c) => ({ id: c.name, label: c.name, locations: c.locations, hub: "/service-areas/" })),
-  { id: "Venues", label: "Venues", locations: venueDetails, hub: "/venues/" },
-];
+export default function ServiceAreas({ page, clusters, venues }) {
+  const groups = clusters?.length ? clusters : fallbackClusters;
+  const tabs = [
+    ...groups.map((c) => ({ id: c.name, label: c.name, locations: c.locations, hub: "/service-areas/" })),
+    { id: "Venues", label: "Venues", locations: venues?.length ? venues : venueDetails, hub: "/venues/" },
+  ];
 
-export default function ServiceAreas({ page }) {
   const [active, setActive] = useState(tabs[0].id);
-  const tab = tabs.find((t) => t.id === active);
+  const tab = tabs.find((t) => t.id === active) || tabs[0];
 
   return (
     <section className="sec areas-band">

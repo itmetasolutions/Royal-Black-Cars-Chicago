@@ -7,7 +7,9 @@ import { Check, Pin, Route, Clock } from "./icons.jsx";
 import { trustPoints } from "../lib/data.js";
 import { allLocations, cityToCity, locationImage, locationFaqs, driveBars } from "../lib/locations.js";
 
-export default function LocationPageTemplate({ location }) {
+// `siblings` carries the other areas from the CMS when the page is served
+// from it; it falls back to the shipped list so the template still works alone.
+export default function LocationPageTemplate({ location, siblings }) {
   const img = locationImage(location);
   const faqs = locationFaqs(location);
 
@@ -59,7 +61,7 @@ export default function LocationPageTemplate({ location }) {
     );
   }
 
-  const related = allLocations
+  const related = (siblings?.length ? siblings : allLocations)
     .filter(l => !l.isRoute && l.cluster === location.cluster && l.slug !== location.slug)
     .map(l => [l.name, l.href, l.img]);
   const bars = driveBars(location);

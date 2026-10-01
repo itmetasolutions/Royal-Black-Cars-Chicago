@@ -740,6 +740,21 @@ footer a:hover{color:var(--brass)}
 .adm-upload-item.is-uploading .adm-upload-pos{border-color:var(--brass);color:var(--brass-2)}
 .adm-upload-item.is-done .adm-upload-status{color:#2f8f5b}
 .adm-upload-item.is-failed .adm-upload-status{color:#c0392b}
+.adm-card-editor{display:grid;grid-template-columns:1fr 260px;gap:24px;align-items:start}
+.adm-card-fields{min-width:0}
+.adm-card-preview{position:sticky;top:20px}
+.adm-card-preview-label{display:block;font:600 .7rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.adm-card-preview-box{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);box-shadow:0 10px 26px rgba(17,22,27,.07)}
+.adm-card-preview-box img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.adm-card-preview-noimg{aspect-ratio:3/2;display:grid;place-items:center;background:var(--wash);color:var(--muted);font-size:.78rem}
+.adm-card-preview-body{padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.adm-card-preview-body b{font-size:.94rem;color:var(--text)}
+.adm-card-preview-body small{font-size:.74rem;color:var(--muted)}
+.adm-card-preview-body p{margin:4px 0 0;font-size:.8rem;line-height:1.5;color:var(--muted)}
+.adm-card-preview-badge{align-self:flex-start;padding:3px 9px;border-radius:6px;background:rgba(194,154,78,.14);border:1px solid rgba(194,154,78,.3);color:var(--brass-2);font:600 .68rem Inter,sans-serif;letter-spacing:.05em}
+.adm-card-preview-price{margin-top:6px;font-weight:600;font-size:.88rem;color:var(--text)}
+.adm-card-preview-href{display:block;margin-top:8px;font-size:.72rem;color:var(--muted);word-break:break-all}
+@media (max-width:900px){.adm-card-editor{grid-template-columns:1fr}.adm-card-preview{position:static;max-width:300px}}
 .adm-price-input{width:100%;max-width:160px;padding:7px 10px;font-size:.84rem;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--text)}
 .adm-media-item:hover{border-color:var(--brass)}
 .adm-media-item.selected{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass)}

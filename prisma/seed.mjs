@@ -4,8 +4,9 @@
 import { PrismaClient } from "@prisma/client";
 import {
   serviceDetails, airportDetails, fleetPages, faqsFull, PHOTOS, IMG,
+  services as homeServiceCards, airports as homeAirportTiles,
 } from "../lib/data.js";
-import { venueDetails } from "../lib/locations.js";
+import { venueDetails, allLocations } from "../lib/locations.js";
 import { homeDefaults } from "../lib/homeDefaults.js";
 import { pageDefaults } from "../lib/pageDefaults.js";
 import { posts } from "../lib/blog.js";
@@ -44,6 +45,16 @@ async function main() {
       img: s.img, gallery: s.gallery || [], included: s.included || [],
       body: s.body || [], bestFor: s.bestFor || [], fleetLinks: s.fleetLinks || [],
       faqs: s.faqs || [],
+      // The home grid used to carry its own short labels for these; they move
+      // onto the page as card fields so the grid looks the same but is now
+      // edited in one place.
+      ...(homeServiceCards.find((c) => c.href === s.href)
+        ? {
+            cardTitle: homeServiceCards.find((c) => c.href === s.href).title,
+            cardText: homeServiceCards.find((c) => c.href === s.href).text,
+            cardImg: homeServiceCards.find((c) => c.href === s.href).img,
+          }
+        : {}),
     }, {
       metaTitle: `${s.title} | Royal Black Cars Chicago`,
       metaDescription: s.lead,
@@ -58,6 +69,13 @@ async function main() {
       driveTime: a.driveTime, img: a.img, img2: a.img2 || "",
       body: a.body || [], terminals: a.terminals, waitPolicy: a.waitPolicy,
       faqs: a.faqs || [],
+      ...(homeAirportTiles.find((t) => t.href === a.href)
+        ? {
+            cardTitle: homeAirportTiles.find((t) => t.href === a.href).name,
+            cardText: homeAirportTiles.find((t) => t.href === a.href).note,
+            cardPrice: homeAirportTiles.find((t) => t.href === a.href).rate,
+          }
+        : {}),
     }, {
       metaTitle: `${a.name} Car Service | Royal Black Cars Chicago`,
       metaDescription: `Flat-rate pickups and drop-offs, ${a.driveTime}.`,
@@ -86,6 +104,34 @@ async function main() {
       metaTitle: `${v.name} Car Service | Royal Black Cars Chicago`,
       metaDescription: `Drop-off and pickup transportation for ${v.name}, ${v.area}.`,
       focusKeyword: `${v.name} car service`,
+    });
+  }
+
+  console.log(`Seeding ${allLocations.length} service area pages...`);
+  for (const l of allLocations) {
+    await upsertTemplatePage("area", l.slug, l.name, {
+      href: l.href,
+      cluster: l.cluster || "",
+      landmarks: l.landmarks || [],
+      highway: l.highway || "",
+      // Drive times are flattened so each one is its own field in the admin.
+      driveORD: typeof l.drive === "object" ? l.drive.ORD || "" : "",
+      driveMDW: typeof l.drive === "object" ? l.drive.MDW || "" : "",
+      drivePWK: typeof l.drive === "object" ? l.drive.PWK || "" : "",
+      isRoute: !!l.isRoute,
+      miles: l.miles || "",
+      drive: l.isRoute && typeof l.drive === "string" ? l.drive : "",
+      img: l.img || "",
+      body: l.body || [],
+      faqs: l.faqs || [],
+    }, {
+      metaTitle: l.isRoute
+        ? `${l.name} Car Service | Royal Black Cars Chicago`
+        : `${l.name} Black Car Service | Royal Black Cars Chicago`,
+      metaDescription: l.isRoute
+        ? `Door-to-door ${l.name.toLowerCase()} car service.`
+        : `Black car and airport transportation in ${l.name}, IL — flat rates to O'Hare, Midway and Chicago Executive.`,
+      focusKeyword: `${l.name} car service`,
     });
   }
 

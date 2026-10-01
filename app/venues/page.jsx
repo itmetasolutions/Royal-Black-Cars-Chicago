@@ -2,6 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Cta from "@/components/Cta.jsx";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import { toCard } from "@/lib/cards.js";
 import { IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
@@ -31,10 +32,10 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap">
           <div className="svc">
-            {venues.map((v) => (
-              <a key={v.slug} href={v.href}>
-                <img className="photo" src={v.img || IMG.hero} alt="" loading="lazy" />
-                <div><h3>{v.title}</h3><p>{v.area}</p></div>
+            {venues.map((v) => toCard("venue", v)).map((c) => (
+              <a key={c.href} href={c.href}>
+                <img className="photo" src={c.img || IMG.hero} alt="" loading="lazy" />
+                <div><h3>{c.title}</h3><p>{c.meta}</p></div>
               </a>
             ))}
           </div>

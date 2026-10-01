@@ -22,9 +22,7 @@ const SCHEMAS = {
     ["__services", "Services grid", "group"],
     ["servicesEyebrow", "Eyebrow", "text"],
     ["servicesHeading", "Heading", "text"],
-    ["serviceCards", "Service cards", "cards", {
-      spec: [["img", "Image", "image"], ["title", "Title", "text"], ["text", "Description", "textarea"], ["href", "Link", "text"]],
-    }],
+    ["serviceCardSlugs", "Featured services (one slug per line — card content comes from each service page)", "lines"],
 
     ["__airports", "Airports section", "group"],
     ["airportImg", "Photo", "image"],
@@ -35,9 +33,7 @@ const SCHEMAS = {
     ["airportHeading", "Heading", "text"],
     ["airportLead", "Lead paragraph", "textarea"],
     ["airportPoints", "Bullet points", "lines"],
-    ["airportTiles", "Airport tiles", "cards", {
-      spec: [["code", "Code", "text"], ["name", "Name", "text"], ["note", "Note", "text"], ["rate", "Rate", "text"], ["href", "Link", "text"]],
-    }],
+    ["airportTileSlugs", "Featured airports (one slug per line — tile content comes from each airport page)", "lines"],
     ["airportMoreLabel", "Bottom link label", "text"],
     ["airportMoreHref", "Bottom link URL", "text"],
 
@@ -75,7 +71,7 @@ const SCHEMAS = {
     ["venuesEyebrow", "Eyebrow", "text"],
     ["venuesHeading", "Heading", "text"],
     ["venuesLinkLabel", "Button label", "text"],
-    ["venuesFeatured", "Featured venues", "lines"],
+    ["venuesFeatured", "Featured venues (one name or slug per line — card content comes from each venue page)", "lines"],
 
     ["__faq", "FAQ section", "group"],
     ["faqEyebrow", "Eyebrow", "text"],

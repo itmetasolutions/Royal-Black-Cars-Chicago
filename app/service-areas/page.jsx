@@ -1,11 +1,15 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { clusters, cityToCity, venueDetails, locationImage, venueImage } from "@/lib/locations.js";
+import { clusters as fallbackClusters, cityToCity as fallbackRoutes, venueDetails as fallbackVenues, locationImage, venueImage } from "@/lib/locations.js";
 import { northwest, west, IMG, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
-import { getCorePage } from "@/lib/cms.js";
+import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import { clustersFrom, routesFrom } from "@/lib/areas.js";
+
+// Served per request so areas added or edited in the admin appear here.
+export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
   title: "Chicago Service Areas | Royal Black Cars",
@@ -14,8 +18,21 @@ export const metadata = pageMeta({
 });
 
 export default async function Page() {
-  const corePage = await getCorePage("service-areas");
+  const [corePage, areaPages, venuePages] = await Promise.all([
+    getCorePage("service-areas"),
+    getAllTemplatePages("area"),
+    getAllTemplatePages("venue"),
+  ]);
   const f = fieldsFor("service-areas", corePage);
+
+  // Clusters, routes and venues all come from their own admin pages now.
+  const cmsClusters = clustersFrom(areaPages);
+  const clusters = cmsClusters.length ? cmsClusters : fallbackClusters;
+  const cmsRoutes = routesFrom(areaPages);
+  const cityToCity = cmsRoutes.length ? cmsRoutes : fallbackRoutes;
+  const venueDetails = venuePages?.length
+    ? venuePages.map((v) => ({ ...v, name: v.cardTitle || v.title, href: v.href || `/venues/${v.slug}/` }))
+    : fallbackVenues;
   const priorityNames = new Set(clusters.flatMap((c) => c.locations.map((l) => l.name)));
   const alsoNorthwest = northwest.filter((n) => !priorityNames.has(n));
   const alsoWest = west.filter((n) => !priorityNames.has(n));

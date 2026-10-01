@@ -6,6 +6,7 @@ import { Car as CarIcon, Seat, Bag, Clock } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import { toCard } from "@/lib/cards.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
@@ -34,12 +35,13 @@ export default async function Page() {
         <div className="wrap">
           <div className="fleet-cards">
             {fleetPages.map((f, i) => {
-              const [passengers, bagsPart] = f.capacity.split(",").map((s) => s.trim());
+              const card = toCard("fleet", f);
+              const [passengers, bagsPart] = (f.capacity || "").split(",").map((s) => s.trim());
               return (
                 <Reveal key={f.slug} delay={i % 3} className="fleet-card">
                   <a href={f.href} className="fc-photo">
-                    <img src={f.img} alt={f.title} loading="lazy" />
-                    <span className="fc-price">{f.rate}</span>
+                    <img src={card.img} alt={card.title} loading="lazy" />
+                    <span className="fc-price">{card.price}</span>
                   </a>
                   <div className="fc-info">
                     <h3><a href={f.href}>{f.title}</a></h3>

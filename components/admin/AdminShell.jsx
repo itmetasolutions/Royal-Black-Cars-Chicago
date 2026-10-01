@@ -9,6 +9,7 @@ const PAGE_TYPES = [
   { href: "/admin/pages/airport", label: "Airports" },
   { href: "/admin/pages/fleet", label: "Fleet" },
   { href: "/admin/pages/venue", label: "Venues" },
+  { href: "/admin/pages/area", label: "Service areas" },
   { href: "/admin/pages/core", label: "Core pages" },
 ];
 

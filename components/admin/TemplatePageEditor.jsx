@@ -8,10 +8,33 @@ import FaqEditor from "./fields/FaqEditor.jsx";
 import SectionsField from "./fields/SectionsField.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
+import { toCard } from "@/lib/cards.js";
 
-const TYPE_LABEL = { service: "Service", airport: "Airport", fleet: "Fleet vehicle", venue: "Venue" };
-const LIST_HREF = { service: "/admin/pages/service", airport: "/admin/pages/airport", fleet: "/admin/pages/fleet", venue: "/admin/pages/venue" };
-const URL_PREFIX = { service: "", airport: "airports", fleet: "fleet", venue: "venues" };
+const TYPE_LABEL = { service: "Service", airport: "Airport", fleet: "Fleet vehicle", venue: "Venue", area: "Service area" };
+const LIST_HREF = {
+  service: "/admin/pages/service", airport: "/admin/pages/airport", fleet: "/admin/pages/fleet",
+  venue: "/admin/pages/venue", area: "/admin/pages/area",
+};
+const URL_PREFIX = { service: "", airport: "airports", fleet: "fleet", venue: "venues", area: "service-areas" };
+
+// Where each type's card shows up, so the editor can say what the first
+// section actually controls.
+const CARD_APPEARS = {
+  service: "the home page services grid, the services hub and related links",
+  airport: "the home page airport tiles, the airports hub and related links",
+  fleet: "the home page fleet slider, the fleet hub and vehicle suggestions",
+  venue: "the home page venues strip and the venues hub",
+  area: "the service area band on the home page and the service areas hub",
+};
+
+// Extra card fields beyond title/text/image, per type.
+const CARD_EXTRAS = {
+  airport: [["cardBadge", "Badge (defaults to the airport code)"], ["cardPrice", "Price shown on the card (defaults to the rate)"]],
+  fleet: [["cardMeta", "Small print (defaults to the capacity)"]],
+  venue: [["cardMeta", "Small print (defaults to the area)"]],
+  area: [["cardMeta", "Small print (defaults to the cluster)"]],
+  service: [],
+};
 
 export default function TemplatePageEditor({ type, page }) {
   const router = useRouter();
@@ -28,6 +51,9 @@ export default function TemplatePageEditor({ type, page }) {
 
   const setField = (key) => (e) => setData({ ...data, [key]: e.target.value });
   const setFieldValue = (key) => (val) => setData({ ...data, [key]: val });
+
+  // Live preview of exactly what every card of this page will render.
+  const preview = toCard(type, { ...data, slug, title });
 
   const submit = async (e) => {
     e.preventDefault();
@@ -60,8 +86,58 @@ export default function TemplatePageEditor({ type, page }) {
 
   return (
     <form onSubmit={submit}>
+      {/* ---------- 1. the card ---------- */}
       <div className="adm-card">
-        <h2>{TYPE_LABEL[type]} details</h2>
+        <h2>Card details</h2>
+        <p className="adm-sub">
+          How this page appears wherever it is shown as a card — {CARD_APPEARS[type]}. Leave a field blank to use the
+          page content below instead.
+        </p>
+
+        <div className="adm-card-editor">
+          <div className="adm-card-fields">
+            <div className="adm-field">
+              <label>Card title</label>
+              <input value={data.cardTitle || ""} onChange={setField("cardTitle")} placeholder={title || "Page title"} />
+              <small>Defaults to the page title. Use this for a shorter name on cards.</small>
+            </div>
+            <div className="adm-field">
+              <label>Card text</label>
+              <textarea value={data.cardText || ""} onChange={setField("cardText")} rows={3} />
+            </div>
+            {(CARD_EXTRAS[type] || []).map(([key, label]) => (
+              <div className="adm-field" key={key}>
+                <label>{label}</label>
+                <input value={data[key] || ""} onChange={setField(key)} />
+              </div>
+            ))}
+            <ImageField label="Card image (defaults to the hero image)" value={data.cardImg} onChange={setFieldValue("cardImg")} />
+          </div>
+
+          <div className="adm-card-preview">
+            <span className="adm-card-preview-label">Card preview</span>
+            <div className="adm-card-preview-box">
+              {preview?.img
+                ? <img src={preview.img} alt="" />
+                : <div className="adm-card-preview-noimg">No image</div>}
+              <div className="adm-card-preview-body">
+                {preview?.badge && <span className="adm-card-preview-badge">{preview.badge}</span>}
+                <b>{preview?.title || "Untitled"}</b>
+                {preview?.meta && <small>{preview.meta}</small>}
+                {preview?.text && <p>{preview.text}</p>}
+                {preview?.price && <span className="adm-card-preview-price">{preview.price}</span>}
+              </div>
+            </div>
+            <small className="adm-card-preview-href">{preview?.href}</small>
+          </div>
+        </div>
+      </div>
+
+      {/* ---------- 2. the page ---------- */}
+      <div className="adm-card">
+        <h2>Page details</h2>
+        <p className="adm-sub">The content of the page itself at {preview?.href}.</p>
+
         <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
           <div className="adm-field">
             <label>Title</label>
@@ -146,6 +222,50 @@ export default function TemplatePageEditor({ type, page }) {
               <label>Event-night note</label>
               <textarea value={data.note || ""} onChange={setField("note")} rows={3} placeholder="Drop-off/pickup guidance for this venue" />
             </div>
+          </>
+        )}
+
+        {type === "area" && (
+          <>
+            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
+              <div className="adm-field">
+                <label>Cluster</label>
+                <input value={data.cluster || ""} onChange={setField("cluster")} placeholder='e.g. "Downtown", "Northwest suburbs"' />
+                <small>Groups this area on the home page and the service areas page.</small>
+              </div>
+              <div className="adm-field">
+                <label>Nearest highway</label>
+                <input value={data.highway || ""} onChange={setField("highway")} placeholder='e.g. "I-90/94"' />
+              </div>
+            </div>
+            <div className="adm-field" style={{ maxWidth: 700 }}>
+              <label>Intro paragraph</label>
+              <textarea value={data.intro || ""} onChange={setField("intro")} rows={3} />
+            </div>
+            <LinesField label="Landmarks" value={data.landmarks} onChange={setFieldValue("landmarks")} />
+            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, maxWidth: 700 }}>
+              <div className="adm-field"><label>Drive time to O&apos;Hare</label><input value={data.driveORD || ""} onChange={setField("driveORD")} placeholder="30–40 min" /></div>
+              <div className="adm-field"><label>Drive time to Midway</label><input value={data.driveMDW || ""} onChange={setField("driveMDW")} placeholder="20–30 min" /></div>
+              <div className="adm-field"><label>Drive time to PWK</label><input value={data.drivePWK || ""} onChange={setField("drivePWK")} placeholder="35–50 min" /></div>
+            </div>
+            <LinesField label="Body paragraphs" value={data.body} onChange={setFieldValue("body")} />
+            <div className="adm-field" style={{ maxWidth: 700 }}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={!!data.isRoute}
+                  onChange={(e) => setData({ ...data, isRoute: e.target.checked })}
+                  style={{ width: "auto", marginRight: 8 }}
+                />
+                This is a long-distance route rather than a neighborhood
+              </label>
+            </div>
+            {data.isRoute && (
+              <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
+                <div className="adm-field"><label>Distance</label><input value={data.miles || ""} onChange={setField("miles")} placeholder="92 miles" /></div>
+                <div className="adm-field"><label>Drive time</label><input value={data.drive || ""} onChange={setField("drive")} placeholder="1 hr 45 min" /></div>
+              </div>
+            )}
           </>
         )}
 

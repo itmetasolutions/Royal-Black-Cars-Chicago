@@ -5,6 +5,7 @@ import { Plane, Car as CarIcon, Shield, Clock, Tag, Check } from "@/components/i
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import { toCard } from "@/lib/cards.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
@@ -70,10 +71,11 @@ export default async function Page() {
           </Reveal>
           <div className="strip" style={{ marginTop: 24 }}>
             {airportSlugs.map((slug) => find(slug)).filter(Boolean).map((s) => {
+              const c = toCard("service", s);
               return (
-                <a key={s.slug} href={s.href} className="strip-card">
-                  <img src={s.img} alt="" loading="lazy" />
-                  <span>{s.title}</span>
+                <a key={c.href} href={c.href} className="strip-card">
+                  <img src={c.img} alt="" loading="lazy" />
+                  <span>{c.title}</span>
                 </a>
               );
             })}
@@ -90,12 +92,13 @@ export default async function Page() {
           </Reveal>
           <div className="detail-grid" style={{ marginTop: 24 }}>
             {businessSlugs.map((slug) => find(slug)).filter(Boolean).map((s, i) => {
+              const c = toCard("service", s);
               return (
-                <Reveal key={s.slug} delay={i} as="a" href={s.href} className="detail-card" style={{ display: "block" }}>
-                  <img src={s.img} alt="" loading="lazy" />
+                <Reveal key={c.href} delay={i} as="a" href={c.href} className="detail-card" style={{ display: "block" }}>
+                  <img src={c.img} alt="" loading="lazy" />
                   <div className="dc-body">
-                    <h3>{s.title}</h3>
-                    <p>{s.lead}</p>
+                    <h3>{c.title}</h3>
+                    <p>{c.text}</p>
                   </div>
                 </Reveal>
               );
@@ -131,10 +134,11 @@ export default async function Page() {
           </Reveal>
           <div className="svc" style={{ marginTop: 24 }}>
             {occasionSlugs.map((slug) => find(slug)).filter(Boolean).map((s) => {
+              const c = toCard("service", s);
               return (
-                <a key={s.slug} href={s.href}>
-                  <img className="photo" src={s.img} alt="" loading="lazy" />
-                  <div><h3>{s.title}</h3><p>{s.lead}</p></div>
+                <a key={c.href} href={c.href}>
+                  <img className="photo" src={c.img} alt="" loading="lazy" />
+                  <div><h3>{c.title}</h3><p>{c.text}</p></div>
                 </a>
               );
             })}
@@ -147,10 +151,10 @@ export default async function Page() {
           <div className="wrap">
             <Reveal className="section-head"><p className="eyebrow">{f("moreEyebrow")}</p><h2 style={{ fontSize: "1.4rem" }}>{f("moreHeading")}</h2></Reveal>
             <div className="svc" style={{ marginTop: 24 }}>
-              {more.map((s) => (
-                <a key={s.slug} href={s.href}>
-                  <img className="photo" src={s.img} alt="" loading="lazy" />
-                  <div><h3>{s.title}</h3><p>{s.lead}</p></div>
+              {more.map((s) => toCard("service", s)).map((c) => (
+                <a key={c.href} href={c.href}>
+                  <img className="photo" src={c.img} alt="" loading="lazy" />
+                  <div><h3>{c.title}</h3><p>{c.text}</p></div>
                 </a>
               ))}
             </div>
