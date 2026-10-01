@@ -6,6 +6,7 @@ import { Check, Clock, Route, Shield, Plane } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +53,7 @@ export default async function Page() {
     getAllTemplatePages("fleet"),
     getCorePage("rates"),
   ]);
+  const f = fieldsFor("rates", corePage);
   const priority = airportDetails.filter((a) => a.rate !== "Custom quote");
   const included = corePage?.included?.length ? corePage.included : defaultIncluded;
   const rateFaqs = corePage?.faqs?.length ? corePage.faqs : defaultRateFaqs;
@@ -68,7 +70,7 @@ export default async function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">FLAT AIRPORT RATES</p><h2>From downtown, in a luxury sedan</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("flatEyebrow")}</p><h2>{f("flatHeading")}</h2></Reveal>
           <div className="airport-cards" style={{ marginTop: 32 }}>
             {priority.map((a, i) => (
               <Reveal key={a.code} delay={i} className="airport-card">
@@ -88,12 +90,12 @@ export default async function Page() {
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap split">
           <Reveal>
-            <p className="eyebrow">WHAT&apos;S INCLUDED</p>
-            <h2>Every quoted rate already includes</h2>
+            <p className="eyebrow">{f("includedEyebrow")}</p>
+            <h2>{f("includedHeading")}</h2>
             <ul className="tick">{included.map((i) => <li key={i}><Check />{i}</li>)}</ul>
           </Reveal>
           <Reveal delay={1} className="faq-aside">
-            <h3 style={{ marginBottom: 14 }}>By vehicle class</h3>
+            <h3 style={{ marginBottom: 14 }}>{f("byClassHeading")}</h3>
             <div style={{ display: "grid", gap: 10 }}>
               {fleetPages.map((f) => (
                 <a key={f.slug} href={f.href} style={{ display: "flex", justifyContent: "space-between", gap: 10, fontSize: ".92rem", padding: "8px 0", borderBottom: "1px solid var(--line)" }}>
@@ -108,7 +110,7 @@ export default async function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">OTHER PRICING</p><h2>Beyond a flat airport rate</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("otherEyebrow")}</p><h2>{f("otherHeading")}</h2></Reveal>
           <div className="feature-grid cols-3" style={{ marginTop: 32 }}>
             {otherPricing.map(([Icon, title, text, href], i) => (
               <Reveal key={title} delay={i} as="a" href={href} className="feature-card">
@@ -123,7 +125,7 @@ export default async function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">HOW YOUR RATE IS SET</p><h2>Four inputs, one number — before you book</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("howEyebrow")}</p><h2>{f("howHeading")}</h2></Reveal>
           <div className="steps">
             {pricingSteps.map(([title, text], i) => (
               <Reveal key={title} delay={i % 3} className="step">

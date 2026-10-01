@@ -6,6 +6,7 @@ import { PHOTOS, trustPoints } from "@/lib/data.js";
 import { allLocations, venueDetails } from "@/lib/locations.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,7 @@ export default async function Page() {
     getAllTemplatePages("fleet"),
     getCorePage("about"),
   ]);
+  const f = fieldsFor("about", page);
 
   const stats = [
     { n: `${services.length}`, label: "services covered, from airport runs to conventions" },
@@ -76,7 +78,7 @@ export default async function Page() {
             <img className="photo" src={page?.whatWeDoImg || PHOTOS.corporateOffice[0]} alt="Royal Black Cars Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
-            <p className="eyebrow">WHAT WE DO</p>
+            <p className="eyebrow">{f("whatWeDoEyebrow")}</p>
             <h2>{page?.whatWeDoHeading}</h2>
             <div className="prose">
               <p>{page?.whatWeDoP1}</p>
@@ -92,8 +94,8 @@ export default async function Page() {
             <q>{page?.quoteText}</q>
           </Reveal>
           <Reveal delay={1}>
-            <p className="eyebrow">OUR STANDARD</p>
-            <h2 style={{ fontSize: "1.7rem", marginBottom: 20 }}>What that promise looks like ride to ride</h2>
+            <p className="eyebrow">{f("standardEyebrow")}</p>
+            <h2 style={{ fontSize: "1.7rem", marginBottom: 20 }}>{f("standardHeading")}</h2>
             <div className="mini-grid">
               {trustPoints.map((t) => (
                 <div key={t.title} className="feature-card">
@@ -108,7 +110,7 @@ export default async function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">MORE ABOUT US</p><h2>Approach, coverage and corporate accounts</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("moreEyebrow")}</p><h2>{f("moreHeading")}</h2></Reveal>
           <div className="detail-grid cols-3" style={{ marginTop: 32 }}>
             {closingCards.map((c, i) => (
               <Reveal key={c.h} delay={i} className="detail-card">

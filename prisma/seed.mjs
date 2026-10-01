@@ -109,6 +109,7 @@ async function main() {
   }
 
   await upsertCorePage("about", "About Us", {
+    ...pageDefaults["about"],
     heroImg: PHOTOS.chauffeur[2],
     heroTitle: "A dependable alternative to rideshare, built for Chicago",
     heroLead: "Royal Black Cars Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up.",
@@ -133,6 +134,7 @@ async function main() {
   });
 
   await upsertCorePage("contact", "Contact", {
+    ...pageDefaults["contact"],
     heroImg: PHOTOS.chauffeur[1],
     heroTitle: "Talk to dispatch",
     heroLead: "Call, text or email any time — dispatch answers day and night and can quote a trip on the spot.",
@@ -155,6 +157,7 @@ async function main() {
   });
 
   await upsertCorePage("rates", "Rates", {
+    ...pageDefaults["rates"],
     heroImg: PHOTOS.corporateOffice[2],
     heroTitle: "One flat rate, agreed before you ride",
     heroLead: "Published flat rates for the busiest airports, plus how hourly, long-distance and corporate pricing works.",
@@ -178,6 +181,7 @@ async function main() {
   });
 
   await upsertCorePage("corporate-accounts", "Corporate Accounts", {
+    ...pageDefaults["corporate-accounts"],
     heroImg: PHOTOS.corporateOffice[0],
     heroTitle: "An account your finance team will accept",
     heroLead: "Set up once, then booking a ride is a text — not a new account, and not an expensed receipt to track down.",

@@ -5,6 +5,7 @@ import { Check } from "@/components/icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL, PHOTOS, trustPoints } from "@/lib/data.js";
 import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,7 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const page = await getCorePage("contact");
+  const f = fieldsFor("contact", page);
 
   return (
     <>
@@ -34,7 +36,7 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap split">
           <Reveal>
-            <p className="eyebrow">GET IN TOUCH</p>
+            <p className="eyebrow">{f("introEyebrow")}</p>
             <h2>{page?.introHeading}</h2>
             <div className="prose">
               <p>
@@ -47,7 +49,7 @@ export default async function Page() {
             <a className="btn btn-gold" href={PHONE_HREF}>Call Now</a>
           </Reveal>
           <Reveal delay={1} className="faq-aside">
-            <h2 style={{ marginBottom: 16 }}>Send a message</h2>
+            <h2 style={{ marginBottom: 16 }}>{f("formHeading")}</h2>
             <ContactForm />
           </Reveal>
         </div>
@@ -55,7 +57,7 @@ export default async function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">WHY CLIENTS CALL US</p><h2>Every trip, the same standard</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("whyEyebrow")}</p><h2>{f("whyHeading")}</h2></Reveal>
           <div className="feature-grid" style={{ marginTop: 32 }}>
             {trustPoints.map((t, i) => (
               <Reveal key={t.title} delay={i % 3} className="feature-card">

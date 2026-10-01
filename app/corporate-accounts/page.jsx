@@ -6,6 +6,7 @@ import { Check, Shield, Clock, Tag } from "@/components/icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL, PHOTOS } from "@/lib/data.js";
 import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,7 @@ const setupSteps = [
 
 export default async function Page() {
   const corePage = await getCorePage("corporate-accounts");
+  const f = fieldsFor("corporate-accounts", corePage);
   const points = corePage?.points?.length ? corePage.points : defaultPoints;
   const faqs = corePage?.faqs?.length ? corePage.faqs : defaultFaqs;
   const details = [
@@ -75,7 +77,7 @@ export default async function Page() {
             <img className="photo" src={corePage?.mediaImg || PHOTOS.handshake[0]} alt="Corporate car service in Chicago" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
-            <p className="eyebrow">WHAT&apos;S INCLUDED</p>
+            <p className="eyebrow">{f("includedEyebrow")}</p>
             <ul className="tick">{points.map((p) => <li key={p}><Check />{p}</li>)}</ul>
           </Reveal>
         </div>
@@ -83,7 +85,7 @@ export default async function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>How a corporate account works</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("detailsEyebrow")}</p><h2>{f("detailsHeading")}</h2></Reveal>
           <div className="detail-grid cols-3" style={{ marginTop: 32 }}>
             {details.map((d, i) => (
               <Reveal key={d.h} delay={i} className="detail-card">
@@ -104,7 +106,7 @@ export default async function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">GETTING STARTED</p><h2>Set up in four steps</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("startedEyebrow")}</p><h2>{f("startedHeading")}</h2></Reveal>
           <div className="steps">
             {setupSteps.map(([title, text], i) => (
               <Reveal key={title} delay={i % 3} className="step">
@@ -118,10 +120,10 @@ export default async function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">WHY IT'S WORTH SETTING UP</p><h2>Expensing rides vs. a corporate account</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("worthEyebrow")}</p><h2>{f("worthHeading")}</h2></Reveal>
           <div className="split" style={{ marginTop: 32 }}>
             <Reveal className="feature-card" style={{ padding: 30 }}>
-              <h3 style={{ marginBottom: 14 }}>Without an account</h3>
+              <h3 style={{ marginBottom: 14 }}>{f("withoutHeading")}</h3>
               <ul className="tick">
                 <li>Every rider expenses their own ride individually</li>
                 <li>No single dispatcher who knows your team</li>
@@ -130,7 +132,7 @@ export default async function Page() {
               </ul>
             </Reveal>
             <Reveal delay={1} className="feature-card" style={{ padding: 30, borderColor: "var(--brass)" }}>
-              <h3 style={{ marginBottom: 14 }}>With a corporate account</h3>
+              <h3 style={{ marginBottom: 14 }}>{f("withHeading")}</h3>
               <ul className="tick">
                 <li><Check />One monthly invoice, itemized by rider and cost centre</li>
                 <li><Check />A named dispatcher who knows your frequent travelers</li>
