@@ -1,5 +1,19 @@
 import { NextResponse } from "next/server";
 import { put, list, del } from "@vercel/blob";
+import { prisma } from "@/lib/db.js";
+
+// Alt text and dimensions live in our own table, keyed by blob URL — the blob
+// store holds the file only. A failure here must not take the library down,
+// so the listing still returns the files with empty metadata.
+async function metaByUrl(urls) {
+  try {
+    const rows = await prisma.mediaAsset.findMany({ where: { url: { in: urls } } });
+    return Object.fromEntries(rows.map((r) => [r.url, r]));
+  } catch (err) {
+    console.error("[media] metadata read failed:", err);
+    return {};
+  }
+}
 
 // This project's Blob store is connected via Vercel's OIDC-based auth
 // (BLOB_STORE_ID + the platform-injected VERCEL_OIDC_TOKEN), not the
@@ -16,7 +30,17 @@ export async function GET() {
   }
   const { blobs } = await list({ limit: 200 });
   blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
-  return NextResponse.json({ ok: true, blobs });
+  const meta = await metaByUrl(blobs.map((b) => b.url));
+  return NextResponse.json({
+    ok: true,
+    blobs: blobs.map((b) => ({
+      ...b,
+      filename: b.pathname.split("/").pop(),
+      alt: meta[b.url]?.alt || "",
+      width: meta[b.url]?.width ?? null,
+      height: meta[b.url]?.height ?? null,
+    })),
+  });
 }
 
 export async function POST(req) {
@@ -33,7 +57,26 @@ export async function POST(req) {
   }
   const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, "-");
   const blob = await put(`media/${Date.now()}-${safeName}`, file, { access: "public" });
-  return NextResponse.json({ ok: true, blob });
+
+  // The browser measures the image before sending it, so dimensions are stored
+  // without decoding the file again on the server.
+  const width = Number(form.get("width")) || null;
+  const height = Number(form.get("height")) || null;
+  const alt = (form.get("alt") || "").toString().slice(0, 300);
+  try {
+    await prisma.mediaAsset.upsert({
+      where: { url: blob.url },
+      create: { url: blob.url, alt, width, height },
+      update: { alt, width, height },
+    });
+  } catch (err) {
+    console.error("[media] metadata write failed:", err);
+  }
+
+  return NextResponse.json({
+    ok: true,
+    blob: { ...blob, filename: blob.pathname.split("/").pop(), size: file.size, alt, width, height, uploadedAt: new Date().toISOString() },
+  });
 }
 
 export async function DELETE(req) {
@@ -44,5 +87,10 @@ export async function DELETE(req) {
   const url = searchParams.get("url");
   if (!url) return NextResponse.json({ ok: false, error: "Missing url." }, { status: 400 });
   await del(url);
+  try {
+    await prisma.mediaAsset.deleteMany({ where: { url } });
+  } catch (err) {
+    console.error("[media] metadata delete failed:", err);
+  }
   return NextResponse.json({ ok: true });
 }
