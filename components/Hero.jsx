@@ -4,11 +4,30 @@ import { IMG, PHONE_HREF } from "../lib/data.js";
 import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 
+// Looping background clip for the hero. The still below it stays in the markup
+// as the poster and the fallback: it is what shows while the clip buffers, if
+// the file is missing, and for anyone who asked for reduced motion.
+const HERO_VIDEO = "/videos/hero-loop.mp4";
+
 export default function Hero({ heroData }) {
+  const still = heroData?.heroImg || IMG.hero;
+  const video = heroData?.heroVideo || HERO_VIDEO;
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true">
-        <img className="photo" src={heroData?.heroImg || IMG.hero} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
+        <img className="photo" src={still} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
+        {video && (
+          <video
+            className="hero-video"
+            src={video}
+            poster={still}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        )}
       </div>
       <div className="hero-scrim" aria-hidden="true" />
 

@@ -113,6 +113,8 @@ p{margin:0 0 1rem}
 .hero-bg{position:absolute;inset:0;background-image:var(--img-hero);background-size:cover;background-position:center;transform:scale(1.06);animation:zoomOut 2.4s cubic-bezier(.22,.8,.3,1) forwards}
 @keyframes zoomOut{to{transform:scale(1)}}
 .hero-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.hero-video{display:none}}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,17,.82) 0%,rgba(11,14,17,.28) 42%,rgba(11,14,17,.92) 100%)}
 .hero-in{position:relative;width:100%;padding:clamp(24px,4vw,48px) 0}
 .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(40px,5vw,72px);align-items:center}
