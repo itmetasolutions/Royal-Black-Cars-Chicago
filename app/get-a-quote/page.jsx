@@ -4,6 +4,8 @@ import QuoteForm from "@/components/QuoteForm.jsx";
 import { Check } from "@/components/icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL, PHOTOS, trustPoints } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
+import { getCorePage } from "@/lib/cms.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const metadata = pageMeta({
   title: "Get a Free Quote | Royal Black Cars Chicago",
@@ -11,13 +13,15 @@ export const metadata = pageMeta({
   path: "/get-a-quote/",
 });
 
-export default function Page() {
+export default async function Page() {
+  const corePage = await getCorePage("get-a-quote");
+  const f = fieldsFor("get-a-quote", corePage);
   return (
     <>
       <PageHero
-        eyebrow="GET A QUOTE"
-        title="Get your free, flat-rate quote"
-        lead="Tell us about your trip and a dispatcher confirms your rate — no obligation, no surprise charges later."
+        eyebrow={f("heroEyebrow")}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
         img={PHOTOS.chauffeur[2]}
         crumbs={[{ name: "Get a Quote", href: "/get-a-quote/" }]}
         cta={false}
@@ -27,7 +31,7 @@ export default function Page() {
         <div className="wrap split">
           <Reveal>
             <p className="eyebrow">WHY REQUEST HERE</p>
-            <h2>One form, a rate within minutes</h2>
+            <h2>{f("formHeading")}</h2>
             <div className="prose">
               <p>Give dispatch the details of your trip — pickup, drop-off, date and vehicle — and you'll hear back with a confirmed flat rate, usually within a few minutes during business hours. There's no charge and no obligation to book.</p>
             </div>

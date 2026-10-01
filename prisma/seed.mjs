@@ -7,6 +7,7 @@ import {
 } from "../lib/data.js";
 import { venueDetails } from "../lib/locations.js";
 import { homeDefaults } from "../lib/homeDefaults.js";
+import { pageDefaults } from "../lib/pageDefaults.js";
 import { posts } from "../lib/blog.js";
 
 const prisma = new PrismaClient();
@@ -96,6 +97,16 @@ async function main() {
     metaTitle: "Chicago Black Car Service | O'Hare & Midway Chauffeur | Royal Black Cars",
     metaDescription: "Flat-rate Chicago black car service. Sedans, SUVs and Sprinters for O'Hare, Midway, corporate travel and events. Flights tracked, chauffeurs vetted, price fixed before you ride.",
   });
+
+
+  // Hub pages: these had no CMS record at all, so their headings and leads
+  // could only be changed in code. Seeded from the same defaults the pages
+  // fall back to.
+  const hubTitles = {"services": "Services", "airports": "Airports", "fleet": "Fleet", "service-areas": "Service Areas", "venues": "Venues", "blog": "Blog", "get-a-quote": "Get A Quote"};
+  for (const [key, title] of Object.entries(hubTitles)) {
+    console.log(`Seeding core page "${key}"...`);
+    await upsertCorePage(key, title, { ...pageDefaults[key] });
+  }
 
   await upsertCorePage("about", "About Us", {
     heroImg: PHOTOS.chauffeur[2],

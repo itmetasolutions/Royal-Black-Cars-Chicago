@@ -1,7 +1,8 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { getPublishedBlogPosts } from "@/lib/cms.js";
+import { getPublishedBlogPosts, getCorePage } from "@/lib/cms.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 import { PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
@@ -18,15 +19,16 @@ function fmt(d) {
 }
 
 export default async function Page() {
-  const posts = await getPublishedBlogPosts();
+  const [posts, corePage] = await Promise.all([getPublishedBlogPosts(), getCorePage("blog")]);
+  const f = fieldsFor("blog", corePage);
   if (!posts.length) {
-    return <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" img={PHOTOS.chauffeur[0]} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />;
+    return <PageHero eyebrow={f("heroEyebrow")} title={f("heroTitle")} img={f("heroImg")} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />;
   }
   const [featured, ...rest] = posts;
 
   return (
     <>
-      <PageHero eyebrow="BLOG" title="Guides for getting around Chicago" img={PHOTOS.chauffeur[0]} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
+      <PageHero eyebrow={f("heroEyebrow")} title={f("heroTitle")} img={f("heroImg")} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
 
       <section className="sec">
         <div className="wrap split">

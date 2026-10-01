@@ -4,7 +4,8 @@ import Cta from "@/components/Cta.jsx";
 import BookNowButton from "@/components/BookNowButton.jsx";
 import { Car as CarIcon, Seat, Bag, Clock } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
-import { getAllTemplatePages } from "@/lib/cms.js";
+import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
@@ -16,14 +17,15 @@ export const metadata = pageMeta({
 });
 
 export default async function Page() {
-  const fleetPages = await getAllTemplatePages("fleet");
+  const [fleetPages, corePage] = await Promise.all([getAllTemplatePages("fleet"), getCorePage("fleet")]);
+  const f = fieldsFor("fleet", corePage);
 
   return (
     <>
       <PageHero
-        eyebrow="FLEET"
-        title="Pick your class"
-        lead="Late-model sedans, SUVs, Sprinters, a limousine and a mini coach — sized to your trip, not the other way around."
+        eyebrow={f("heroEyebrow")}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
         img={fleetPages[0]?.img}
         crumbs={[{ name: "Fleet", href: "/fleet/" }]}
       />
@@ -65,7 +67,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <Cta img={PHOTOS.suv[0]} />
+      <Cta img={f("ctaImg")} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }

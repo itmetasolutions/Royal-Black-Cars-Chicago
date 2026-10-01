@@ -4,6 +4,8 @@ import Cta from "@/components/Cta.jsx";
 import { clusters, cityToCity, venueDetails, locationImage, venueImage } from "@/lib/locations.js";
 import { northwest, west, IMG, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
+import { getCorePage } from "@/lib/cms.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const metadata = pageMeta({
   title: "Chicago Service Areas | Royal Black Cars",
@@ -11,7 +13,9 @@ export const metadata = pageMeta({
   path: "/service-areas/",
 });
 
-export default function Page() {
+export default async function Page() {
+  const corePage = await getCorePage("service-areas");
+  const f = fieldsFor("service-areas", corePage);
   const priorityNames = new Set(clusters.flatMap((c) => c.locations.map((l) => l.name)));
   const alsoNorthwest = northwest.filter((n) => !priorityNames.has(n));
   const alsoWest = west.filter((n) => !priorityNames.has(n));
@@ -19,10 +23,10 @@ export default function Page() {
   return (
     <>
       <PageHero
-        eyebrow="SERVICE AREAS"
-        title="Chicago, the collar counties and beyond"
-        lead="Daily service across the city and suburbs, plus scheduled long-distance runs to Milwaukee, Madison, Indianapolis, South Bend and Detroit."
-        img={IMG.areaMap}
+        eyebrow={f("heroEyebrow")}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
+        img={f("heroImg") || IMG.areaMap}
         crumbs={[{ name: "Service Areas", href: "/service-areas/" }]}
       />
 
@@ -47,7 +51,7 @@ export default function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">CITY TO CITY</p><h2>Long-distance routes, run regularly</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("routesEyebrow")}</p><h2>{f("routesHeading")}</h2></Reveal>
           <div className="stat-grid" style={{ marginTop: 32 }}>
             {cityToCity.map((r) => (
               <a key={r.slug} href={r.href} className="stat-card" style={{ textAlign: "left" }}>
@@ -61,7 +65,7 @@ export default function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">VENUES</p><h2>Arenas, stadiums and convention halls</h2></Reveal>
+          <Reveal className="section-head"><p className="eyebrow">{f("venuesEyebrow")}</p><h2>{f("venuesHeading")}</h2></Reveal>
           <div className="svc" style={{ marginTop: 32 }}>
             {venueDetails.map((v) => (
               <a key={v.slug} href={v.href}>
@@ -84,7 +88,7 @@ export default function Page() {
         </div>
       </section>
 
-      <Cta img={PHOTOS.suburbGeneric[2]} />
+      <Cta img={f("ctaImg")} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }

@@ -3,7 +3,8 @@ import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { Plane, Car as CarIcon, Shield, Clock, Tag, Check } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
-import { getAllTemplatePages } from "@/lib/cms.js";
+import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +20,8 @@ const businessSlugs = ["corporate-car-service", "hourly-chauffeur", "roadshow-tr
 const occasionSlugs = ["event-transportation", "wedding-car-service", "prom-limo", "birthday-party-transportation", "funeral-car-service", "medical-appointment-transportation"];
 
 export default async function Page() {
-  const serviceDetails = await getAllTemplatePages("service");
+  const [serviceDetails, corePage] = await Promise.all([getAllTemplatePages("service"), getCorePage("services")]);
+  const f = fieldsFor("services", corePage);
   const find = (slug) => serviceDetails.find((s) => s.slug === slug);
   const featured = find("airport-car-service") || serviceDetails[0];
   const jet = find("private-jet-transfers") || serviceDetails[1];
@@ -29,19 +31,19 @@ export default async function Page() {
   return (
     <>
       <PageHero
-        eyebrow="SERVICES"
-        title="Every way to book a black car in Chicago"
-        lead="From a single airport run to a multi-day corporate roadshow, one flat rate agreed before you ride."
-        img={featured.img}
+        eyebrow={f("heroEyebrow")}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
+        img={f("heroImg") || featured.img}
         crumbs={[{ name: "Services", href: "/services/" }]}
       />
 
       <div className="wrap" style={{ position: "relative", zIndex: 3, marginTop: -34 }}>
         <Reveal className="quickfacts">
-          <div><Tag /><div><b>Flat rate</b><small>Agreed before you ride</small></div></div>
-          <div><Shield /><div><b>Licensed &amp; insured</b><small>Every vehicle, every trip</small></div></div>
-          <div><Clock /><div><b>24/7 dispatch</b><small>Book any hour, day or night</small></div></div>
-          <div><Check /><div><b>No surge, ever</b><small>Same price no matter the hour</small></div></div>
+          <div><Tag /><div><b>{f("fact1Title")}</b><small>{f("fact1Note")}</small></div></div>
+          <div><Shield /><div><b>{f("fact2Title")}</b><small>{f("fact2Note")}</small></div></div>
+          <div><Clock /><div><b>{f("fact3Title")}</b><small>{f("fact3Note")}</small></div></div>
+          <div><Check /><div><b>{f("fact4Title")}</b><small>{f("fact4Note")}</small></div></div>
         </Reveal>
       </div>
 
@@ -51,10 +53,10 @@ export default async function Page() {
             <img className="photo" src={featured.img} alt={featured.title} loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
-            <p className="eyebrow">MOST BOOKED</p>
+            <p className="eyebrow">{f("featuredEyebrow")}</p>
             <h2><a href={featured.href}>{featured.title}</a></h2>
             <p className="lead" style={{ fontSize: "1rem" }}>{featured.lead}</p>
-            <a className="btn btn-gold" href={featured.href}>See airport rates &amp; details</a>
+            <a className="btn btn-gold" href={featured.href}>{f("featuredCtaLabel")}</a>
           </Reveal>
         </div>
       </section>
@@ -64,7 +66,7 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head" style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Plane style={{ width: 22, height: 22, fill: "var(--brass)" }} />
-            <h2 style={{ fontSize: "1.4rem" }}>Airport &amp; ground transportation</h2>
+            <h2 style={{ fontSize: "1.4rem" }}>{f("cat1Heading")}</h2>
           </Reveal>
           <div className="strip" style={{ marginTop: 24 }}>
             {airportSlugs.map((slug) => find(slug)).filter(Boolean).map((s) => {
@@ -84,7 +86,7 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head" style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Shield style={{ width: 22, height: 22, fill: "var(--brass)" }} />
-            <h2 style={{ fontSize: "1.4rem" }}>Business &amp; corporate</h2>
+            <h2 style={{ fontSize: "1.4rem" }}>{f("cat2Heading")}</h2>
           </Reveal>
           <div className="detail-grid" style={{ marginTop: 24 }}>
             {businessSlugs.map((slug) => find(slug)).filter(Boolean).map((s, i) => {
@@ -107,7 +109,7 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head" style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Tag style={{ width: 22, height: 22, fill: "var(--brass)" }} />
-            <h2 style={{ fontSize: "1.4rem" }}>Private aviation</h2>
+            <h2 style={{ fontSize: "1.4rem" }}>{f("cat3Heading")}</h2>
           </Reveal>
           <Reveal delay={1} as="a" href={jet.href} className="feature-banner" style={{ marginTop: 24, display: "flex" }}>
             <img src={jet.img} alt="" loading="lazy" />
@@ -125,7 +127,7 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head" style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <CarIcon style={{ width: 22, height: 22, fill: "var(--brass)" }} />
-            <h2 style={{ fontSize: "1.4rem" }}>Occasions &amp; events</h2>
+            <h2 style={{ fontSize: "1.4rem" }}>{f("cat4Heading")}</h2>
           </Reveal>
           <div className="svc" style={{ marginTop: 24 }}>
             {occasionSlugs.map((slug) => find(slug)).filter(Boolean).map((s) => {
@@ -143,7 +145,7 @@ export default async function Page() {
       {more.length > 0 && (
         <section className="sec" style={{ background: "var(--wash)" }}>
           <div className="wrap">
-            <Reveal className="section-head"><p className="eyebrow">MORE SERVICES</p><h2 style={{ fontSize: "1.4rem" }}>Newly added</h2></Reveal>
+            <Reveal className="section-head"><p className="eyebrow">{f("moreEyebrow")}</p><h2 style={{ fontSize: "1.4rem" }}>{f("moreHeading")}</h2></Reveal>
             <div className="svc" style={{ marginTop: 24 }}>
               {more.map((s) => (
                 <a key={s.slug} href={s.href}>
@@ -156,7 +158,7 @@ export default async function Page() {
         </section>
       )}
 
-      <Cta img={PHOTOS.sedan[2]} />
+      <Cta img={f("ctaImg")} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }

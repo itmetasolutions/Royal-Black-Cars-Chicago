@@ -1,26 +1,31 @@
 import PageHero from "@/components/PageHero.jsx";
 import Cta from "@/components/Cta.jsx";
-import { getAllTemplatePages } from "@/lib/cms.js";
+import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 import { IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = pageMeta({
-  title: "Venue Transportation | Royal Black Cars Chicago",
-  description: "Drop-off and pickup at United Center, Soldier Field, Wrigley Field, McCormick Place and every major Chicago venue.",
-  path: "/venues/",
-});
+export async function generateMetadata() {
+  const page = await getCorePage("venues");
+  return pageMeta({
+    title: page?.seo?.metaTitle || "Venue Transportation | Royal Black Cars Chicago",
+    description: page?.seo?.metaDescription || "Drop-off and pickup at United Center, Soldier Field, Wrigley Field, McCormick Place and every major Chicago venue.",
+    path: "/venues/",
+  });
+}
 
 export default async function Page() {
-  const venues = await getAllTemplatePages("venue");
+  const [venues, corePage] = await Promise.all([getAllTemplatePages("venue"), getCorePage("venues")]);
+  const f = fieldsFor("venues", corePage);
   return (
     <>
       <PageHero
-        eyebrow="VENUES"
-        title="Arena nights, without the parking"
-        lead="Dropped at the closest open gate, picked up when the event actually ends — not a fixed time that assumes it runs on schedule."
-        img={venues[0]?.img || IMG.hero}
+        eyebrow={f("heroEyebrow")}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
+        img={f("heroImg") || venues[0]?.img || IMG.hero}
         crumbs={[{ name: "Venues", href: "/venues/" }]}
       />
       <section className="sec">
@@ -35,7 +40,7 @@ export default async function Page() {
           </div>
         </div>
       </section>
-      <Cta />
+      <Cta img={f("ctaImg")} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }
