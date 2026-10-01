@@ -1,16 +1,19 @@
 import Reveal from "./Reveal.jsx";
-import { faqs, PHONE_HREF } from "../lib/data.js";
+import { PHONE_HREF } from "../lib/data.js";
+import { homeField } from "../lib/homeDefaults.js";
 
-export default function Faq() {
+export default function Faq({ page }) {
+  const faqs = homeField(page, "faqs");
+
   return (
     <section className="sec">
       <div className="wrap faq-wrap">
         <Reveal>
-          <p className="eyebrow">GOOD TO KNOW</p>
-          <h2>Questions riders ask</h2>
+          <p className="eyebrow">{homeField(page, "faqEyebrow")}</p>
+          <h2>{homeField(page, "faqHeading")}</h2>
           <div className="faq-aside" style={{ marginTop: 28 }}>
-            <h3 style={{ marginBottom: 10 }}>Still unsure?</h3>
-            <p>Dispatch answers in under a minute, day or night, and can quote a trip on the phone.</p>
+            <h3 style={{ marginBottom: 10 }}>{homeField(page, "faqAsideHeading")}</h3>
+            <p>{homeField(page, "faqAsideText")}</p>
             <a className="btn btn-gold" href={PHONE_HREF}>Call Now</a>
           </div>
         </Reveal>

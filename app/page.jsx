@@ -10,6 +10,7 @@ import Faq from "@/components/Faq.jsx";
 import Cta from "@/components/Cta.jsx";
 import { faqPage } from "@/lib/schema.js";
 import { getCorePage } from "@/lib/cms.js";
+import { homeField } from "@/lib/homeDefaults.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
@@ -26,15 +27,19 @@ export default async function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }} />
       <Hero heroData={page} />
-      <Services />
-      <AirportSplit />
-      <Fleet />
-      <ChildSeats />
-      <Corporate />
-      <ServiceAreas />
-      <VenuesHome />
-      <Faq />
-      <Cta />
+      <Services page={page} />
+      <AirportSplit page={page} />
+      <Fleet page={page} />
+      <ChildSeats page={page} />
+      <Corporate page={page} />
+      <ServiceAreas page={page} />
+      <VenuesHome page={page} />
+      <Faq page={page} />
+      <Cta
+        img={homeField(page, "ctaImg")}
+        heading={homeField(page, "ctaHeading")}
+        text={homeField(page, "ctaText")}
+      />
     </>
   );
 }

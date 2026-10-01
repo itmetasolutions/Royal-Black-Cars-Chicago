@@ -5,8 +5,9 @@ import Reveal from "./Reveal.jsx";
 import BookNowButton from "./BookNowButton.jsx";
 import { Seat, Bag, Clock } from "./icons.jsx";
 import { fleet } from "../lib/data.js";
+import { homeField } from "../lib/homeDefaults.js";
 
-export default function Fleet() {
+export default function Fleet({ page: cms }) {
   const rail = useRef(null);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(1);
@@ -69,7 +70,7 @@ export default function Fleet() {
     <section className="sec">
       <div className="wrap">
         <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
-          <div><p className="eyebrow">THE FLEET</p><h2>Pick your class</h2></div>
+          <div><p className="eyebrow">{homeField(cms, "fleetEyebrow")}</p><h2>{homeField(cms, "fleetHeading")}</h2></div>
           <div className="sld-nav">
             <button className="sld-btn" aria-label="Previous vehicles" disabled={atStart} onClick={() => scrollBy(-1)}>
               <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>

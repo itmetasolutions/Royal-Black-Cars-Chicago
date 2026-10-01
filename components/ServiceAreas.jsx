@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Reveal from "./Reveal.jsx";
 import { clusters, venueDetails } from "../lib/locations.js";
-import { IMG } from "../lib/data.js";
+import { homeField } from "../lib/homeDefaults.js";
 
 const tabs = [
   ...clusters.map((c) => ({ id: c.name, label: c.name, locations: c.locations, hub: "/service-areas/" })),
   { id: "Venues", label: "Venues", locations: venueDetails, hub: "/venues/" },
 ];
 
-export default function ServiceAreas() {
+export default function ServiceAreas({ page }) {
   const [active, setActive] = useState(tabs[0].id);
   const tab = tabs.find((t) => t.id === active);
 
@@ -18,17 +18,15 @@ export default function ServiceAreas() {
     <section className="sec areas-band">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">SERVICE AREA</p>
-          <h2>Downtown, the suburbs and every major venue</h2>
-          <p className="lead" style={{ color: "rgba(255,255,255,.75)" }}>
-            We run Chicago and the collar counties daily, plus long-distance runs to Milwaukee, Madison, South Bend and Indianapolis.
-          </p>
+          <p className="eyebrow">{homeField(page, "areasEyebrow")}</p>
+          <h2>{homeField(page, "areasHeading")}</h2>
+          <p className="lead" style={{ color: "rgba(255,255,255,.75)" }}>{homeField(page, "areasLead")}</p>
         </Reveal>
 
         <div className="areas-grid">
           <Reveal className="map-card" slide>
-            <img className="photo" src={IMG.areaMap} alt="Chicago streets we serve" loading="lazy" style={{ zIndex: 2 }} />
-            <div className="map-stat">Average pick-up window<b>12 minutes</b></div>
+            <img className="photo" src={homeField(page, "areasImg")} alt="Chicago streets we serve" loading="lazy" style={{ zIndex: 2 }} />
+            <div className="map-stat">{homeField(page, "areasStatLabel")}<b>{homeField(page, "areasStatValue")}</b></div>
           </Reveal>
 
           <Reveal delay={1}>

@@ -1,19 +1,21 @@
 import Reveal from "./Reveal.jsx";
 import { venueDetails } from "../lib/locations.js";
+import { homeField } from "../lib/homeDefaults.js";
 
-const featured = ["Wrigley Field", "Soldier Field", "United Center", "Guaranteed Rate Field", "McCormick Place"];
-const venues = featured.map((name) => venueDetails.find((v) => v.name === name)).filter(Boolean);
+export default function VenuesHome({ page }) {
+  const venues = homeField(page, "venuesFeatured")
+    .map((name) => venueDetails.find((v) => v.name === name))
+    .filter(Boolean);
 
-export default function VenuesHome() {
   return (
     <section className="sec">
       <div className="wrap">
         <Reveal className="section-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
           <div>
-            <p className="eyebrow">GAME DAYS & EVENT NIGHTS</p>
-            <h2>Dropped at the gate, picked up after the final horn</h2>
+            <p className="eyebrow">{homeField(page, "venuesEyebrow")}</p>
+            <h2>{homeField(page, "venuesHeading")}</h2>
           </div>
-          <a className="btn btn-line" href="/venues/">All venues</a>
+          <a className="btn btn-line" href="/venues/">{homeField(page, "venuesLinkLabel")}</a>
         </Reveal>
         <div className="strip" style={{ marginTop: 28 }}>
           {venues.map((v, i) => (

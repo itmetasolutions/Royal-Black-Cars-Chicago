@@ -6,14 +6,88 @@ import FaqEditor from "./fields/FaqEditor.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
 import LinesField from "./fields/LinesField.jsx";
+import CardsField from "./fields/CardsField.jsx";
 
 const SCHEMAS = {
   home: [
-    ["heroImg", "Hero background image", "image"],
+    ["__hero", "Hero", "group"],
+    ["heroImg", "Hero background image (also the video poster)", "image"],
+    ["heroVideo", "Hero background video URL", "text"],
     ["heroLine1", "Hero headline, line 1", "text"],
     ["heroLine2", "Hero headline, line 2", "text"],
     ["heroLine3", "Hero headline, line 3", "text"],
     ["heroLead", "Hero lead paragraph", "textarea"],
+    ["marqueeItems", "Scrolling highlights strip", "lines"],
+
+    ["__services", "Services grid", "group"],
+    ["servicesEyebrow", "Eyebrow", "text"],
+    ["servicesHeading", "Heading", "text"],
+    ["serviceCards", "Service cards", "cards", {
+      spec: [["img", "Image", "image"], ["title", "Title", "text"], ["text", "Description", "textarea"], ["href", "Link", "text"]],
+    }],
+
+    ["__airports", "Airports section", "group"],
+    ["airportImg", "Photo", "image"],
+    ["airportImgAlt", "Photo alt text", "text"],
+    ["airportBadgeLabel", "Badge label", "text"],
+    ["airportBadgeValue", "Badge value", "text"],
+    ["airportEyebrow", "Eyebrow", "text"],
+    ["airportHeading", "Heading", "text"],
+    ["airportLead", "Lead paragraph", "textarea"],
+    ["airportPoints", "Bullet points", "lines"],
+    ["airportTiles", "Airport tiles", "cards", {
+      spec: [["code", "Code", "text"], ["name", "Name", "text"], ["note", "Note", "text"], ["rate", "Rate", "text"], ["href", "Link", "text"]],
+    }],
+    ["airportMoreLabel", "Bottom link label", "text"],
+    ["airportMoreHref", "Bottom link URL", "text"],
+
+    ["__fleet", "Fleet slider", "group"],
+    ["fleetEyebrow", "Eyebrow", "text"],
+    ["fleetHeading", "Heading", "text"],
+
+    ["__child", "Child seats", "group"],
+    ["childImg", "Image", "image"],
+    ["childEyebrow", "Eyebrow", "text"],
+    ["childHeading", "Heading", "text"],
+    ["childLead", "Lead paragraph", "textarea"],
+    ["childSeats", "Seat types", "cards", {
+      spec: [["name", "Name", "text"], ["detail", "Detail", "text"]],
+    }],
+
+    ["__corporate", "Corporate section", "group"],
+    ["corporateImg", "Photo", "image"],
+    ["corporateEyebrow", "Eyebrow", "text"],
+    ["corporateHeading", "Heading", "text"],
+    ["corporateLead", "Lead paragraph", "textarea"],
+    ["corporatePoints", "Bullet points", "lines"],
+    ["corporateCtaLabel", "Button label", "text"],
+    ["corporateCtaHref", "Button URL", "text"],
+
+    ["__areas", "Service area band", "group"],
+    ["areasImg", "Map photo", "image"],
+    ["areasEyebrow", "Eyebrow", "text"],
+    ["areasHeading", "Heading", "text"],
+    ["areasLead", "Lead paragraph", "textarea"],
+    ["areasStatLabel", "Stat label", "text"],
+    ["areasStatValue", "Stat value", "text"],
+
+    ["__venues", "Venues strip", "group"],
+    ["venuesEyebrow", "Eyebrow", "text"],
+    ["venuesHeading", "Heading", "text"],
+    ["venuesLinkLabel", "Button label", "text"],
+    ["venuesFeatured", "Featured venues", "lines"],
+
+    ["__faq", "FAQ section", "group"],
+    ["faqEyebrow", "Eyebrow", "text"],
+    ["faqHeading", "Heading", "text"],
+    ["faqAsideHeading", "Side card heading", "text"],
+    ["faqAsideText", "Side card text", "textarea"],
+    ["faqs", "Questions", "faqs"],
+
+    ["__cta", "Closing CTA", "group"],
+    ["ctaImg", "Background image", "image"],
+    ["ctaHeading", "Heading", "text"],
+    ["ctaText", "Text", "textarea"],
   ],
   about: [
     ["heroImg", "Hero image", "image"],
@@ -123,7 +197,13 @@ export default function CorePageForm({ page }) {
     <form onSubmit={submit}>
       <div className="adm-card">
         <h2>{page.title}</h2>
-        {schema.map(([name, label, kind]) => {
+        {schema.map(([name, label, kind, opts]) => {
+          if (kind === "group") return (
+            <h3 key={name} className="adm-group-head">{label}</h3>
+          );
+          if (kind === "cards") return (
+            <CardsField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} spec={opts.spec} />
+          );
           if (kind === "faqs") return <FaqEditor key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "image") return <ImageField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "lines") return <LinesField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;

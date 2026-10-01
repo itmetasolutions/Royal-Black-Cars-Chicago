@@ -59,7 +59,7 @@ export default function Hero({ heroData }) {
         </div>
       </div>
 
-      <Marquee className="hero-marquee" />
+      <Marquee className="hero-marquee" page={heroData} />
     </section>
   );
 }

@@ -6,6 +6,7 @@ import {
   serviceDetails, airportDetails, fleetPages, faqsFull, PHOTOS, IMG,
 } from "../lib/data.js";
 import { venueDetails } from "../lib/locations.js";
+import { homeDefaults } from "../lib/homeDefaults.js";
 import { posts } from "../lib/blog.js";
 
 const prisma = new PrismaClient();
@@ -89,13 +90,9 @@ async function main() {
 
   console.log("Seeding core pages...");
 
-  await upsertCorePage("home", "Home", {
-    heroImg: IMG.hero,
-    heroLine1: "Chicago's black car",
-    heroLine2: "service, priced",
-    heroLine3: "before you ride.",
-    heroLead: "Vetted chauffeurs, late-model sedans and SUVs, flights tracked in real time. One flat rate agreed up front — no surge, no surprises.",
-  }, {
+  // Every home section's copy, not just the hero, so each one is editable in
+  // the admin from the first load.
+  await upsertCorePage("home", "Home", { ...homeDefaults }, {
     metaTitle: "Chicago Black Car Service | O'Hare & Midway Chauffeur | Royal Black Cars",
     metaDescription: "Flat-rate Chicago black car service. Sedans, SUVs and Sprinters for O'Hare, Midway, corporate travel and events. Flights tracked, chauffeurs vetted, price fixed before you ride.",
   });
