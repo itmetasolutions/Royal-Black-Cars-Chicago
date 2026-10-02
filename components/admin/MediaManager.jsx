@@ -47,7 +47,9 @@ export default function MediaManager({ mode = "page", onSelect }) {
   const fileInput = useRef(null);
 
   const [altDrafts, setAltDrafts] = useState({});
-  const [savingAlt, setSavingAlt] = useState(null);
+  // url -> "saving" | "saved" | "error", shown next to the field.
+  const [altStatus, setAltStatus] = useState({});
+  const altTimers = useRef({});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -122,9 +124,8 @@ export default function MediaManager({ mode = "page", onSelect }) {
     drain();
   };
 
-  const saveAlt = async (url) => {
-    const alt = altDrafts[url] ?? "";
-    setSavingAlt(url);
+  const saveAlt = async (url, alt) => {
+    setAltStatus((st) => ({ ...st, [url]: "saving" }));
     try {
       const blob = blobs.find((b) => b.url === url);
       const res = await fetch("/api/admin/media/meta", {
@@ -135,13 +136,36 @@ export default function MediaManager({ mode = "page", onSelect }) {
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Could not save alt text.");
       setBlobs((b) => b.map((x) => (x.url === url ? { ...x, alt } : x)));
-      setAltDrafts((d) => { const next = { ...d }; delete next[url]; return next; });
+      setAltStatus((st) => ({ ...st, [url]: "saved" }));
     } catch (err) {
+      setAltStatus((st) => ({ ...st, [url]: "error" }));
       setError(err.message);
-    } finally {
-      setSavingAlt(null);
     }
   };
+
+  // Typing saves on its own shortly after the editor stops, and immediately on
+  // blur, so there is no button to forget to press.
+  const onAltChange = (url, alt) => {
+    setAltDrafts((d) => ({ ...d, [url]: alt }));
+    setAltStatus((st) => ({ ...st, [url]: null }));
+    clearTimeout(altTimers.current[url]);
+    altTimers.current[url] = setTimeout(() => saveAlt(url, alt), 700);
+  };
+
+  const flushAlt = (url) => {
+    if (!altTimers.current[url]) return;
+    clearTimeout(altTimers.current[url]);
+    altTimers.current[url] = null;
+    const draft = altDrafts[url];
+    const current = blobs.find((b) => b.url === url)?.alt ?? "";
+    if (draft !== undefined && draft !== current) saveAlt(url, draft);
+  };
+
+  // Don't leave a pending save behind if the view goes away mid-edit.
+  useEffect(() => {
+    const timers = altTimers.current;
+    return () => Object.values(timers).forEach((t) => clearTimeout(t));
+  }, []);
 
   const remove = async (url) => {
     if (!confirm("Delete this image? Any page still referencing it will show a broken image.")) return;
@@ -249,18 +273,15 @@ export default function MediaManager({ mode = "page", onSelect }) {
                   <input
                     value={altDrafts[b.url] ?? b.alt ?? ""}
                     placeholder="Alt text"
-                    onChange={(e) => setAltDrafts((d) => ({ ...d, [b.url]: e.target.value }))}
+                    onChange={(e) => onAltChange(b.url, e.target.value)}
+                    onBlur={() => flushAlt(b.url)}
                   />
+                  <span className={`adm-alt-status is-${altStatus[b.url] || "idle"}`}>
+                    {altStatus[b.url] === "saving" && "Saving…"}
+                    {altStatus[b.url] === "saved" && "Saved"}
+                    {altStatus[b.url] === "error" && "Not saved"}
+                  </span>
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                    <button
-                      type="button"
-                      className="adm-btn"
-                      style={{ padding: "5px 12px", fontSize: ".78rem" }}
-                      disabled={savingAlt === b.url || (altDrafts[b.url] ?? b.alt ?? "") === (b.alt ?? "")}
-                      onClick={() => saveAlt(b.url)}
-                    >
-                      {savingAlt === b.url ? "Saving…" : "Save alt"}
-                    </button>
                     <button type="button" className="adm-btn" style={{ padding: "5px 12px", fontSize: ".78rem" }} onClick={() => copy(b.url)}>
                       {copied === b.url ? "Copied!" : "Copy URL"}
                     </button>

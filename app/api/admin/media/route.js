@@ -1,19 +1,6 @@
 import { NextResponse } from "next/server";
 import { put, list, del } from "@vercel/blob";
-import { prisma } from "@/lib/db.js";
-
-// Alt text and dimensions live in our own table, keyed by blob URL — the blob
-// store holds the file only. A failure here must not take the library down,
-// so the listing still returns the files with empty metadata.
-async function metaByUrl(urls) {
-  try {
-    const rows = await prisma.mediaAsset.findMany({ where: { url: { in: urls } } });
-    return Object.fromEntries(rows.map((r) => [r.url, r]));
-  } catch (err) {
-    console.error("[media] metadata read failed:", err);
-    return {};
-  }
-}
+import { readMediaMeta, writeMediaMeta, removeMediaMeta } from "@/lib/mediaMeta.js";
 
 // This project's Blob store is connected via Vercel's OIDC-based auth
 // (BLOB_STORE_ID + the platform-injected VERCEL_OIDC_TOKEN), not the
@@ -30,7 +17,7 @@ export async function GET() {
   }
   const { blobs } = await list({ limit: 200 });
   blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
-  const meta = await metaByUrl(blobs.map((b) => b.url));
+  const meta = await readMediaMeta();
   return NextResponse.json({
     ok: true,
     blobs: blobs.map((b) => ({
@@ -64,11 +51,7 @@ export async function POST(req) {
   const height = Number(form.get("height")) || null;
   const alt = (form.get("alt") || "").toString().slice(0, 300);
   try {
-    await prisma.mediaAsset.upsert({
-      where: { url: blob.url },
-      create: { url: blob.url, alt, width, height },
-      update: { alt, width, height },
-    });
+    await writeMediaMeta(blob.url, { alt, width, height });
   } catch (err) {
     console.error("[media] metadata write failed:", err);
   }
@@ -87,10 +70,6 @@ export async function DELETE(req) {
   const url = searchParams.get("url");
   if (!url) return NextResponse.json({ ok: false, error: "Missing url." }, { status: 400 });
   await del(url);
-  try {
-    await prisma.mediaAsset.deleteMany({ where: { url } });
-  } catch (err) {
-    console.error("[media] metadata delete failed:", err);
-  }
+  await removeMediaMeta(url);
   return NextResponse.json({ ok: true });
 }

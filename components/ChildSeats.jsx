@@ -8,7 +8,7 @@ export default function ChildSeats({ page }) {
   return (
     <section className="sec" style={{ background: "var(--wash)" }}>
       <div className="wrap split rev">
-        <Reveal className="media" style={{ aspectRatio: "2/1", background: "var(--card)", display: "grid", placeItems: "center", padding: 20 }}>
+        <Reveal className="media child-media">
           <img src={homeField(page, "childImg")} alt="Infant, toddler and booster car seats available with Royal Black Cars Chicago"
                width={943} height={472} loading="lazy" style={{ objectFit: "contain" }} />
         </Reveal>
