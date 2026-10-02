@@ -73,8 +73,10 @@ export default function QuoteForm() {
           <div className="field"><label htmlFor="qf-date">Pickup date</label><input id="qf-date" type="date" min={minDate} value={form.date} onChange={set("date")} /></div>
           <div className="field"><label htmlFor="qf-time">Pickup time</label><input id="qf-time" type="time" value={form.time} onChange={set("time")} /></div>
         </div>
-        <div className="field"><label htmlFor="qf-pickup">Pickup from</label><input id="qf-pickup" value={form.pickup} onChange={set("pickup")} placeholder="Address, hotel or terminal" required /></div>
-        <div className="field"><label htmlFor="qf-drop">Drop off</label><input id="qf-drop" value={form.drop} onChange={set("drop")} placeholder="Address, venue or airport" /></div>
+        <div className="row2">
+          <div className="field"><label htmlFor="qf-pickup">Pickup from</label><input id="qf-pickup" value={form.pickup} onChange={set("pickup")} placeholder="Address or terminal" required /></div>
+          <div className="field"><label htmlFor="qf-drop">Drop off</label><input id="qf-drop" value={form.drop} onChange={set("drop")} placeholder="Address or airport" /></div>
+        </div>
         <div className="field"><label htmlFor="qf-stop">Additional stop (optional)</label><input id="qf-stop" value={form.stop} onChange={set("stop")} placeholder="Any stop along the way" /></div>
         <div className="row2">
           <div className="field">
