@@ -612,6 +612,9 @@ footer a:hover{color:var(--brass)}
   .rev{padding:22px}
   .corp{padding:26px}
   .split,.svc,.ports,.revs,.areas-grid,.faq-wrap{grid-template-columns:1fr}
+  /* Quote page: the form is the point of the page, so it leads on a phone
+     and the supporting copy follows it. */
+  .split.form-first>:last-child{order:-1}
   .sld-nav{display:none}
   .split.rev .media{order:0}
   .svc .big{grid-column:span 1}
@@ -628,6 +631,7 @@ footer a:hover{color:var(--brass)}
      as much raw width as possible instead of clipping/scrolling. */
   .quote-moovs{margin:0 -18px;padding:10px;border-radius:0}
   .row2{grid-template-columns:1fr}
+  .quote-panel .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px}
   .fg{grid-template-columns:1fr;gap:26px}
   .svc{gap:12px}
   .veh{flex:0 0 84vw}

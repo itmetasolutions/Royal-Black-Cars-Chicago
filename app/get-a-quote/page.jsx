@@ -28,7 +28,7 @@ export default async function Page() {
       />
 
       <section className="sec">
-        <div className="wrap split">
+        <div className="wrap split form-first">
           <Reveal>
             <p className="eyebrow">WHY REQUEST HERE</p>
             <h2>{f("formHeading")}</h2>
