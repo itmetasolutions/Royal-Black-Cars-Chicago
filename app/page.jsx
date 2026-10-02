@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero.jsx";
+import Intro from "@/components/Intro.jsx";
 import Services from "@/components/Services.jsx";
 import AirportSplit from "@/components/AirportSplit.jsx";
 import Fleet from "@/components/Fleet.jsx";
@@ -43,6 +44,7 @@ export default async function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }} />
       <Hero heroData={page} />
+      <Intro page={page} />
       <Services page={page} cards={serviceCards} />
       <AirportSplit page={page} cards={airportCards} />
       <Fleet page={page} vehicles={fleet} />

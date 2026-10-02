@@ -118,7 +118,7 @@ p{margin:0 0 1rem}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,17,.82) 0%,rgba(11,14,17,.28) 42%,rgba(11,14,17,.92) 100%)}
 .hero-in{position:relative;width:100%;padding:0 0 clamp(24px,4vw,48px)}
 .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(40px,5vw,72px);align-items:center}
-.hero h1{font-size:clamp(2.7rem,5.6vw,4.6rem);max-width:15ch}
+.hero h1{font-size:48px;max-width:20ch}
 /* Each line is masked so it can rise into view, but at this leading the mask
    cut the tails of g, p and y. The extra bottom padding gives descenders
    room inside the mask; the matching negative margin keeps the line
@@ -472,6 +472,20 @@ details p{color:var(--muted);font-size:.96rem;margin:0;padding:0 24px 22px;max-w
 .step p{color:var(--muted);font-size:.9rem;margin:0}
 
 /* section heading helper for stacked mid-page sections */
+/* Intro statement under the hero: centred, with the supporting copy set in
+   two columns on wide screens so the block stays short and readable. */
+.intro-band{background:var(--wash);border-bottom:1px solid var(--line)}
+.intro-head{max-width:46rem;margin:0 auto;text-align:center}
+.intro-head h2{margin-top:10px;font-size:clamp(1.8rem,3.2vw,2.5rem)}
+.intro-rule{display:block;width:72px;height:2px;margin:22px auto;background:linear-gradient(90deg,var(--brass-2),var(--brass));border-radius:2px}
+.intro-lead{font-size:clamp(1.05rem,1.6vw,1.2rem);line-height:1.65;color:var(--text);margin:0}
+.intro-body{max-width:44rem;margin:26px auto 0}
+.intro-body p{margin:0 0 14px;font-size:1.02rem;line-height:1.8;color:var(--muted)}
+.intro-body p:last-child{margin-bottom:0}
+@media (max-width:820px){
+  .intro-body{margin-top:20px}
+  .intro-rule{margin:18px auto}
+}
 .section-head{max-width:64ch;margin-bottom:8px}
 
 .prose{max-width:72ch;font-size:1.02rem;line-height:1.75;color:var(--text)}

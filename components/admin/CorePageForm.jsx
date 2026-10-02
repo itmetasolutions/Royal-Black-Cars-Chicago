@@ -19,6 +19,12 @@ const SCHEMAS = {
     ["heroLead", "Hero lead paragraph", "textarea"],
     ["marqueeItems", "Scrolling highlights strip", "lines"],
 
+    ["__intro", "Intro statement", "group"],
+    ["introEyebrow", "Eyebrow", "text"],
+    ["introHeading", "Heading", "text"],
+    ["introLead", "Opening line", "textarea"],
+    ["introBody", "Paragraphs (one per line)", "lines"],
+
     ["__services", "Services grid", "group"],
     ["servicesEyebrow", "Eyebrow", "text"],
     ["servicesHeading", "Heading", "text"],
