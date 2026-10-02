@@ -635,6 +635,13 @@ footer a:hover{color:var(--brass)}
   .quote-moovs{margin:0 -18px;padding:10px;border-radius:0}
   .row2{grid-template-columns:1fr}
   .quote-panel .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px}
+  /* The panel's desktop padding ate most of a phone's width, leaving the
+     paired fields too narrow to show what you type. */
+  .quote-panel{padding:20px 14px}
+  .quote-panel h2{font-size:1.3rem}
+  .quote-panel .qp-sub{font-size:.86rem;margin-bottom:16px}
+  .quote-panel .field input,.quote-panel .field select,.quote-panel .field textarea{padding:11px 12px;font-size:.9rem}
+  .quote-panel .field label{font-size:.7rem;letter-spacing:.05em;margin-bottom:4px}
   .fg{grid-template-columns:1fr;gap:26px}
   .svc{gap:12px}
   .veh{flex:0 0 84vw}
