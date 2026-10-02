@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import ThemeToggle from "../ThemeToggle.jsx";
 
 const PAGE_TYPES = [
   { href: "/admin/pages/service", label: "Services" },
@@ -60,7 +59,6 @@ export default function AdminShell({ session, children }) {
         <span className="adm-brand">Royal Black Cars <b>Admin</b></span>
         <div className="adm-topbar-right">
           {session?.email && <span className="adm-user">{session.email}</span>}
-          <ThemeToggle className="theme-toggle adm-theme-toggle" />
           <button className="adm-btn adm-btn-line" onClick={logout} type="button">Log out</button>
         </div>
       </header>

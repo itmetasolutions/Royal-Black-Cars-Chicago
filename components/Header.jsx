@@ -6,7 +6,6 @@ import { Car } from "./icons.jsx";
 import { serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
 import { clusters } from "../lib/locations.js";
 import BookNowButton from "./BookNowButton.jsx";
-import ThemeToggle from "./ThemeToggle.jsx";
 
 const defaultServiceLinks = serviceDetails.map((s) => [s.href, s.title]);
 const defaultAirportLinks = airportDetails.map((a) => [a.href, a.name]);
@@ -127,7 +126,6 @@ export default function Header() {
             {plainLinks.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
           </nav>
           <BookNowButton className="btn btn-gold" />
-          <ThemeToggle className="theme-toggle" />
           <button className="burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}>
             <svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" strokeLinecap="round" /></svg>
           </button>

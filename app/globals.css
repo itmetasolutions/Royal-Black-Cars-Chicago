@@ -12,8 +12,6 @@
   --brass:#C29A4E; --brass-2:#E0C186; --ok:#1E7A4F;
   --wrap:1240px; --r:14px;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0B0E11;--wash:#12171C;--card:#151B21;--text:#EAEEF2;--muted:#9AA6B2;--line:#242D35}}
-:root[data-theme="dark"]{--paper:#0B0E11;--wash:#12171C;--card:#151B21;--text:#EAEEF2;--muted:#9AA6B2;--line:#242D35}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px;overflow-x:hidden;max-width:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -51,11 +49,6 @@ p{margin:0 0 1rem}
 .hdr .btn{padding:12px 24px;font-size:.9rem;flex-shrink:0}
 .burger{display:none;width:46px;height:46px;flex-shrink:0;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:none;color:#fff;cursor:pointer;place-items:center}
 .burger svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none}
-.theme-toggle{display:grid;place-items:center;width:46px;height:46px;flex-shrink:0;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:none;color:#fff;cursor:pointer;transition:background .2s,border-color .2s}
-.theme-toggle:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
-.theme-toggle svg{width:19px;height:19px}
-.adm-theme-toggle{width:34px;height:34px}
-.adm-theme-toggle svg{width:16px;height:16px}
 
 /* header mega-dropdowns — one full-width sheet per group, pinned under the
    fixed header. Items span the full header height so the pointer never
