@@ -38,10 +38,11 @@ const SCHEMAS = {
     ["airportBadgeValue", "Badge value", "text"],
     ["airportEyebrow", "Eyebrow", "text"],
     ["airportHeading", "Heading", "text"],
+    ["airportSubheading", "Highlighted subheading (optional, shows under the heading)", "text"],
     ["airportLead", "Lead paragraph", "textarea"],
     ["airportPoints", "Bullet points", "lines"],
     ["airportTabs", "Tabs below the section (name, heading, description, button)", "cards", {
-      spec: [["label", "Tab name", "text"], ["heading", "Heading", "text"], ["text", "Description", "textarea"], ["ctaLabel", "Button label", "text"], ["ctaHref", "Button link", "text"]],
+      spec: [["label", "Tab name", "text"], ["heading", "Heading", "text"], ["text", "Description", "textarea"], ["ctaLabel", "Button label", "text"], ["ctaHref", "Button link", "text"], ["image", "Image (right side of the tab)", "image"]],
       max: 3,
     }],
     ["airportMoreLabel", "Bottom link label", "text"],

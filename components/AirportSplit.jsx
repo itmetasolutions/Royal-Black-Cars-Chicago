@@ -17,6 +17,9 @@ export default function AirportSplit({ page }) {
         <Reveal delay={1}>
           <p className="eyebrow">{homeField(page, "airportEyebrow")}</p>
           <h2>{homeField(page, "airportHeading")}</h2>
+          {homeField(page, "airportSubheading") && (
+            <p className="sub-highlight">{homeField(page, "airportSubheading")}</p>
+          )}
           <p className="lead">{homeField(page, "airportLead")}</p>
           <ul className="tick">
             {points.map((p) => <li key={p}><Check />{p}</li>)}

@@ -293,6 +293,9 @@ p{margin:0 0 1rem}
 .chipgrid a:hover{background:rgba(194,154,78,.2);border-color:var(--brass)}
 .more-link{display:inline-block;margin-top:18px;font:600 .88rem Inter,sans-serif;color:var(--brass-2)}
 
+/* Highlighted subheading — brass rule, tinted band, sits between a heading and its lead */
+.sub-highlight{display:inline-block;margin:14px 0 0;padding:8px 14px;background:rgba(194,154,78,.14);border-left:3px solid var(--brass);border-radius:0 8px 8px 0;font:600 .95rem/1.4 Inter,sans-serif;color:var(--text)}
+
 /* Airport tabs — full-width row under the split section */
 .apt-tabs{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 .apt-tab-list{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line)}
@@ -300,10 +303,14 @@ p{margin:0 0 1rem}
 .apt-tab:last-child{border-right:0}
 .apt-tab:hover{color:var(--text);background:var(--wash)}
 .apt-tab.is-active{color:var(--text);background:var(--wash);box-shadow:inset 0 -3px 0 var(--brass)}
-.apt-panel{padding:34px 36px 38px;display:grid;gap:14px;justify-items:start;animation:aptFade .35s ease}
+.apt-panel{padding:34px 36px 38px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:center;animation:aptFade .35s ease}
+.apt-panel-copy{display:grid;gap:14px;justify-items:start}
 .apt-panel h3{font-size:1.6rem;margin:0}
 .apt-panel p{color:var(--muted);max-width:62ch;margin:0}
+.apt-panel-media{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3}
+.apt-panel-media img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes aptFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:820px){.apt-panel{grid-template-columns:1fr;gap:22px}}
 @media (max-width:640px){.apt-tab{flex-basis:100%;border-right:0;border-bottom:1px solid var(--line)}.apt-panel{padding:24px 22px 28px}}
 
 /* ---------- FAQ ---------- */

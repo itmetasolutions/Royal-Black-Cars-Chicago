@@ -24,10 +24,17 @@ export default function AirportTabs({ tabs }) {
         ))}
       </div>
       <div className="apt-panel" role="tabpanel" key={active}>
-        <h3>{current.heading}</h3>
-        <p>{current.text}</p>
-        {current.ctaHref && (
-          <a className="btn btn-gold" href={current.ctaHref}>{current.ctaLabel || "View details"}</a>
+        <div className="apt-panel-copy">
+          <h3>{current.heading}</h3>
+          <p>{current.text}</p>
+          {current.ctaHref && (
+            <a className="btn btn-gold" href={current.ctaHref}>{current.ctaLabel || "View details"}</a>
+          )}
+        </div>
+        {current.image && (
+          <div className="apt-panel-media">
+            <img src={current.image} alt={current.heading || ""} loading="lazy" />
+          </div>
         )}
       </div>
     </div>
