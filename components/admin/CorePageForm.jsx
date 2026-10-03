@@ -28,6 +28,7 @@ const SCHEMAS = {
     ["__services", "Services grid", "group"],
     ["servicesEyebrow", "Eyebrow", "text"],
     ["servicesHeading", "Heading", "text"],
+    ["servicesDescription", "Description (under the heading)", "textarea"],
     ["serviceCardSlugs", "Featured services (one slug per line — card content comes from each service page)", "lines"],
 
     ["__airports", "Airports section", "group"],
@@ -76,6 +77,7 @@ const SCHEMAS = {
     ["__venues", "Venues strip", "group"],
     ["venuesEyebrow", "Eyebrow", "text"],
     ["venuesHeading", "Heading", "text"],
+    ["venuesDescription", "Description (under the heading)", "textarea"],
     ["venuesLinkLabel", "Button label", "text"],
     ["venuesFeatured", "Featured venues (one name or slug per line — card content comes from each venue page)", "lines"],
 

@@ -2,19 +2,24 @@ import Reveal from "./Reveal.jsx";
 import { homeField } from "../lib/homeDefaults.js";
 
 export default function Services({ page, cards = [] }) {
-
   return (
     <section className="sec">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">{homeField(page, "servicesEyebrow")}</p>
-          <h2>{homeField(page, "servicesHeading")}</h2>
+          <div className="home-svc-head">
+            <p className="eyebrow">{homeField(page, "servicesEyebrow")}</p>
+            <h2>{homeField(page, "servicesHeading")}</h2>
+            <p className="lead" style={{ marginTop: 18 }}>{homeField(page, "servicesDescription")}</p>
+          </div>
         </Reveal>
-        <div className="svc">
+        <div className="svc-home">
           {cards.map((s, i) => (
             <Reveal as="a" key={s.href} href={s.href} delay={i % 3}>
               <img className="photo" src={s.img} alt="" loading="lazy" />
-              <div><h3>{s.title}</h3><p>{s.text}</p></div>
+              <div className="svc-home-text">
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </div>
             </Reveal>
           ))}
         </div>
