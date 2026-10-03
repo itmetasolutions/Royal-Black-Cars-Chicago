@@ -40,7 +40,10 @@ const SCHEMAS = {
     ["airportHeading", "Heading", "text"],
     ["airportLead", "Lead paragraph", "textarea"],
     ["airportPoints", "Bullet points", "lines"],
-    ["airportTileSlugs", "Featured airports (one slug per line — tile content comes from each airport page)", "lines"],
+    ["airportTabs", "Tabs below the section (name, heading, description, button)", "cards", {
+      spec: [["label", "Tab name", "text"], ["heading", "Heading", "text"], ["text", "Description", "textarea"], ["ctaLabel", "Button label", "text"], ["ctaHref", "Button link", "text"]],
+      max: 3,
+    }],
     ["airportMoreLabel", "Bottom link label", "text"],
     ["airportMoreHref", "Bottom link URL", "text"],
 
@@ -327,7 +330,7 @@ export default function CorePageForm({ page }) {
             <h3 key={name} className="adm-group-head">{label}</h3>
           );
           if (kind === "cards") return (
-            <CardsField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} spec={opts.spec} />
+            <CardsField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} spec={opts.spec} max={opts.max} />
           );
           if (kind === "faqs") return <FaqEditor key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "image") return <ImageField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;

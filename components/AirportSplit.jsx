@@ -1,9 +1,11 @@
 import Reveal from "./Reveal.jsx";
 import { Check } from "./icons.jsx";
+import AirportTabs from "./AirportTabs.jsx";
 import { homeField } from "../lib/homeDefaults.js";
 
-export default function AirportSplit({ page, cards = [] }) {
+export default function AirportSplit({ page }) {
   const points = homeField(page, "airportPoints");
+  const tabs = homeField(page, "airportTabs");
 
   return (
     <section className="sec" style={{ background: "var(--wash)" }}>
@@ -19,14 +21,12 @@ export default function AirportSplit({ page, cards = [] }) {
           <ul className="tick">
             {points.map((p) => <li key={p}><Check />{p}</li>)}
           </ul>
-          <div className="ports">
-            {cards.map((a) => (
-              <a className="port" key={a.href} href={a.href}>
-                <span>{a.badge}</span><h3>{a.title}</h3><small>{a.text}</small><b>{a.price}</b>
-              </a>
-            ))}
-          </div>
           <a className="more-link" href={homeField(page, "airportMoreHref")}>{homeField(page, "airportMoreLabel")}</a>
+        </Reveal>
+      </div>
+      <div className="wrap" style={{ marginTop: 56 }}>
+        <Reveal>
+          <AirportTabs tabs={tabs} />
         </Reveal>
       </div>
     </section>

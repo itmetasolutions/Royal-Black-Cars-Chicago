@@ -27,17 +27,15 @@ export async function generateMetadata() {
 export default async function Home() {
   // Cards are built from the pages themselves, so editing a service, airport,
   // vehicle, venue or area in the admin updates every card of it site-wide.
-  const [page, services, airports, fleet, venues, areas] = await Promise.all([
+  const [page, services, fleet, venues, areas] = await Promise.all([
     getCorePage("home"),
     getAllTemplatePages("service"),
-    getAllTemplatePages("airport"),
     getAllTemplatePages("fleet"),
     getAllTemplatePages("venue"),
     getAllTemplatePages("area"),
   ]);
 
   const serviceCards = pickCards("service", services, homeField(page, "serviceCardSlugs"));
-  const airportCards = pickCards("airport", airports, homeField(page, "airportTileSlugs"));
   const venueCards = pickCards("venue", venues, homeField(page, "venuesFeatured"));
   const areaClusters = clustersFrom(areas);
   return (
@@ -46,7 +44,7 @@ export default async function Home() {
       <Hero heroData={page} />
       <Intro page={page} />
       <Services page={page} cards={serviceCards} />
-      <AirportSplit page={page} cards={airportCards} />
+      <AirportSplit page={page} />
       <Fleet page={page} vehicles={fleet} />
       <ChildSeats page={page} />
       <Corporate page={page} />
