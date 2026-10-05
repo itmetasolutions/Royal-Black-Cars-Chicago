@@ -18,7 +18,7 @@ export default function Services({ page, cards = [] }) {
               <img className="photo" src={s.img} alt="" loading="lazy" />
               <div className="svc-home-text">
                 <h3>{s.title}</h3>
-                <p>{s.text}</p>
+                <div className="svc-desc"><p>{s.text}</p></div>
               </div>
             </Reveal>
           ))}

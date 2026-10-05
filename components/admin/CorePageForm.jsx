@@ -17,7 +17,6 @@ const SCHEMAS = {
     ["heroLine2", "Hero headline, line 2", "text"],
     ["heroLine3", "Hero headline, line 3", "text"],
     ["heroLead", "Hero lead paragraph", "textarea"],
-    ["heroLead2", "Hero second paragraph", "textarea"],
     ["heroTagline", "Highlighted tagline under the hero text", "text"],
     ["marqueeItems", "Scrolling highlights strip", "lines"],
 

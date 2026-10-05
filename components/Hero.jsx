@@ -43,7 +43,6 @@ export default function Hero({ heroData }) {
               <span><i>{homeField(heroData, "heroLine3")}</i></span>
             </h1>
             <p className="lead">{homeField(heroData, "heroLead")}</p>
-            <p className="lead hero-lead-2">{homeField(heroData, "heroLead2")}</p>
             <p className="sub-highlight hero-tagline">{homeField(heroData, "heroTagline")}</p>
             <div className="hero-actions">
               <BookNowButton className="btn btn-gold" />

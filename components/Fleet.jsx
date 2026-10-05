@@ -117,7 +117,7 @@ export default function Fleet({ page: cms, vehicles }) {
                     <div><Bag />{v.bags}</div>
                   </div>
                   <p className="veh-hourly"><Clock />Hourly — <b>{v.hourlyRate}</b></p>
-                  <BookNowButton className="btn btn-gold" style={{ width: "100%", marginTop: 16 }} />
+                  <BookNowButton className="btn btn-gold veh-book" />
                 </div>
               </article>
             ))}
