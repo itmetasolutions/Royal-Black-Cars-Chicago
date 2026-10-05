@@ -7,7 +7,7 @@ export default function VenuesHome({ page, cards = [] }) {
     <section className="sec">
       <div className="wrap">
         <Reveal className="section-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap", maxWidth: "100%" }}>
-          <div style={{ width: "70%", minWidth: 280 }}>
+          <div className="venues-head">
             <p className="eyebrow">{homeField(page, "venuesEyebrow")}</p>
             <h2>{homeField(page, "venuesHeading")}</h2>
             {(homeField(page, "venuesDescription") || "").split("\n").filter(Boolean).map((line, i) => (
