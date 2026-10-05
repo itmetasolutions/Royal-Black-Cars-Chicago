@@ -6,12 +6,12 @@ export default function VenuesHome({ page, cards = [] }) {
   return (
     <section className="sec">
       <div className="wrap">
-        <Reveal className="section-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
-          <div style={{ maxWidth: "min(60%, 720px)" }}>
+        <Reveal className="section-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap", maxWidth: "100%" }}>
+          <div style={{ width: "70%", minWidth: 280 }}>
             <p className="eyebrow">{homeField(page, "venuesEyebrow")}</p>
             <h2>{homeField(page, "venuesHeading")}</h2>
             {(homeField(page, "venuesDescription") || "").split("\n").filter(Boolean).map((line, i) => (
-              <p key={i} className="lead" style={{ marginTop: i === 0 ? 18 : 10 }}>{line}</p>
+              <p key={i} className="lead" style={{ marginTop: i === 0 ? 18 : 10, maxWidth: "none" }}>{line}</p>
             ))}
           </div>
           <a className="btn btn-line" href="/venues/">{homeField(page, "venuesLinkLabel")}</a>
