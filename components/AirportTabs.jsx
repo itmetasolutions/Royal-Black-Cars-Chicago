@@ -26,7 +26,9 @@ export default function AirportTabs({ tabs }) {
       <div className="apt-panel" role="tabpanel" key={active}>
         <div className="apt-panel-copy">
           <h3>{current.heading}</h3>
-          <p>{current.text}</p>
+          {(current.text || "").split("\n").filter(Boolean).map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
           {current.ctaHref && (
             <a className="btn btn-gold" href={current.ctaHref}>{current.ctaLabel || "View details"}</a>
           )}

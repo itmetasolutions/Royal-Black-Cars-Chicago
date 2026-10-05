@@ -9,7 +9,9 @@ export default function Cta({ img, heading, text }) {
       </div>
       <div className="wrap">
         <h2>{heading || "Your car is one minute away"}</h2>
-        <p>{text || "Get a flat rate online, or speak to a dispatcher at any hour."}</p>
+        {(text || "Get a flat rate online, or speak to a dispatcher at any hour.").split("\n").filter(Boolean).map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
         <div className="cta-b">
           <BookNowButton className="btn btn-gold" />
           <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>

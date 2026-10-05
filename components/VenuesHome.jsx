@@ -10,7 +10,9 @@ export default function VenuesHome({ page, cards = [] }) {
           <div style={{ maxWidth: "min(60%, 720px)" }}>
             <p className="eyebrow">{homeField(page, "venuesEyebrow")}</p>
             <h2>{homeField(page, "venuesHeading")}</h2>
-            <p className="lead" style={{ marginTop: 18 }}>{homeField(page, "venuesDescription")}</p>
+            {(homeField(page, "venuesDescription") || "").split("\n").filter(Boolean).map((line, i) => (
+              <p key={i} className="lead" style={{ marginTop: i === 0 ? 18 : 10 }}>{line}</p>
+            ))}
           </div>
           <a className="btn btn-line" href="/venues/">{homeField(page, "venuesLinkLabel")}</a>
         </Reveal>

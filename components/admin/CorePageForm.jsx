@@ -17,6 +17,8 @@ const SCHEMAS = {
     ["heroLine2", "Hero headline, line 2", "text"],
     ["heroLine3", "Hero headline, line 3", "text"],
     ["heroLead", "Hero lead paragraph", "textarea"],
+    ["heroLead2", "Hero second paragraph", "textarea"],
+    ["heroTagline", "Highlighted tagline under the hero text", "text"],
     ["marqueeItems", "Scrolling highlights strip", "lines"],
 
     ["__intro", "Intro statement", "group"],
@@ -51,6 +53,7 @@ const SCHEMAS = {
     ["__fleet", "Fleet slider", "group"],
     ["fleetEyebrow", "Eyebrow", "text"],
     ["fleetHeading", "Heading", "text"],
+    ["fleetLead", "Lead paragraph", "textarea"],
 
     ["__child", "Child seats", "group"],
     ["childImg", "Image", "image"],

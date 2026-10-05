@@ -1,6 +1,7 @@
 "use client";
 
 import { IMG, PHONE_HREF } from "../lib/data.js";
+import { homeField } from "../lib/homeDefaults.js";
 import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 
@@ -37,11 +38,13 @@ export default function Hero({ heroData }) {
         <div className="hero-grid">
           <div>
             <h1>
-              <span><i>{heroData?.heroLine1 || "Chicago's black car"}</i></span>
-              <span><i>{heroData?.heroLine2 || "service, priced"}</i></span>
-              <span><i>{heroData?.heroLine3 || "before you ride."}</i></span>
+              <span><i>{homeField(heroData, "heroLine1")}</i></span>
+              <span><i>{homeField(heroData, "heroLine2")}</i></span>
+              <span><i>{homeField(heroData, "heroLine3")}</i></span>
             </h1>
-            <p className="lead">{heroData?.heroLead || "Vetted chauffeurs, late-model sedans and SUVs, flights tracked in real time. One flat rate agreed up front — no surge, no surprises."}</p>
+            <p className="lead">{homeField(heroData, "heroLead")}</p>
+            <p className="lead hero-lead-2">{homeField(heroData, "heroLead2")}</p>
+            <p className="sub-highlight hero-tagline">{homeField(heroData, "heroTagline")}</p>
             <div className="hero-actions">
               <BookNowButton className="btn btn-gold" />
               <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
