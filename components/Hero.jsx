@@ -2,6 +2,7 @@
 
 import { IMG, PHONE_HREF } from "../lib/data.js";
 import { homeField } from "../lib/homeDefaults.js";
+import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
 import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 
@@ -42,7 +43,7 @@ export default function Hero({ heroData }) {
               <span><i>{homeField(heroData, "heroLine2")}</i></span>
               <span><i>{homeField(heroData, "heroLine3")}</i></span>
             </h1>
-            <p className="lead">{homeField(heroData, "heroLead")}</p>
+            <p className="lead"><KeywordText text={homeField(heroData, "heroLead")} rules={parseKeywordRules(homeField(heroData, "keywordLinks"))} /></p>
             <p className="sub-highlight hero-tagline">{homeField(heroData, "heroTagline")}</p>
             <div className="hero-actions">
               <BookNowButton className="btn btn-gold" />

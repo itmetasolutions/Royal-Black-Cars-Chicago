@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Car } from "./icons.jsx";
 import { serviceDetails, airportDetails, fleetPages } from "../lib/data.js";
 import { clusters } from "../lib/locations.js";
 import BookNowButton from "./BookNowButton.jsx";
@@ -36,7 +35,7 @@ const groupBlurbs = {
 const homeLink = ["/", "Home"];
 const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
 
-export default function Header() {
+export default function Header({ logoUrl = "/brand/logo.png", siteName = "Royal Black Cars Chicago" }) {
   const pathname = usePathname();
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
@@ -77,7 +76,7 @@ export default function Header() {
     <>
       <header className={`hdr${stuck ? " stuck" : ""}`}>
         <div className="wrap hdr-in">
-          <a className="brand" href="/"><i><Car /></i><span>Royal <b>Black Cars</b></span></a>
+          <a className="brand" href="/"><img className="brand-logo" src={logoUrl} alt={siteName} /></a>
           <nav className="nav" aria-label="Main">
             <a href={homeLink[0]}>{homeLink[1]}</a>
             {navGroups.map((g) => (

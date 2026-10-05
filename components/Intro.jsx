@@ -1,11 +1,13 @@
 import Reveal from "./Reveal.jsx";
 import { homeField } from "../lib/homeDefaults.js";
+import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
 
 // Brand statement directly under the hero: a centred editorial band rather
 // than another image/text split, so it reads as a statement and does not
 // repeat the rhythm of the sections below it.
 export default function Intro({ page }) {
   const body = homeField(page, "introBody") || [];
+  const rules = parseKeywordRules(homeField(page, "keywordLinks"));
 
   return (
     <section className="sec intro-band">
@@ -19,7 +21,7 @@ export default function Intro({ page }) {
 
         {body.length > 0 && (
           <Reveal delay={1} className="intro-body">
-            {body.map((p) => <p key={p}>{p}</p>)}
+            {body.map((p) => <p key={p}><KeywordText text={p} rules={rules} /></p>)}
           </Reveal>
         )}
       </div>

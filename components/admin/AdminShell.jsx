@@ -39,7 +39,7 @@ function Icon({ name }) {
   );
 }
 
-export default function AdminShell({ session, children }) {
+export default function AdminShell({ session, children, logoUrl }) {
   const pathname = usePathname();
   const router = useRouter();
   const onPagesSection = pathname.startsWith("/admin/pages");
@@ -56,7 +56,7 @@ export default function AdminShell({ session, children }) {
   return (
     <div className="adm-shell">
       <header className="adm-topbar">
-        <span className="adm-brand">Royal Black Cars <b>Admin</b></span>
+        <span className="adm-brand">{logoUrl && <img className="adm-brand-logo" src={logoUrl} alt="Royal Black Cars Chicago" />}<b>Admin</b></span>
         <div className="adm-topbar-right">
           {session?.email && <span className="adm-user">{session.email}</span>}
           <button className="adm-btn adm-btn-line" onClick={logout} type="button">Log out</button>

@@ -98,6 +98,8 @@ const SCHEMAS = {
     ["ctaImg", "Background image", "image"],
     ["ctaHeading", "Heading", "text"],
     ["ctaText", "Text", "textarea"],
+    ["__links", "Internal links", "group"],
+    ["keywordLinks", "Keyword links (one per line: the phrase in the copy | the page it links to)", "lines"],
   ],
   services: [
     ["__hero", "Hero", "group"],

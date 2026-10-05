@@ -42,6 +42,14 @@ p{margin:0 0 1rem}
 .brand i{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--brass-2),var(--brass));display:grid;place-items:center;flex:none}
 .brand i svg{width:19px;height:19px;fill:#12100B}
 .brand b{font-weight:500}
+.brand-logo{height:46px;width:auto;display:block}
+footer .brand-logo{height:58px}
+@media (max-width:820px){.brand-logo{height:40px}}
+
+/* Keyword links in the copy — the secondary gold, brighter on the dark sections */
+.kw-link{color:var(--brass);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.kw-link:hover{color:var(--brass-2)}
+.hero .kw-link,.cta .kw-link,.svc-home .kw-link,footer .kw-link{color:var(--brass-2)}
 .nav{display:flex;gap:30px;margin-left:auto;font:500 .95rem Inter,sans-serif}
 .nav a{color:rgba(255,255,255,.82);position:relative;padding:4px 0}
 .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--brass);transition:right .25s}
@@ -865,3 +873,4 @@ footer a:hover{color:var(--brass)}
 .adm-modal-head h2{margin:0;font-size:1.1rem}
 .adm-modal-close{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:none;font-size:1.1rem;cursor:pointer;color:var(--muted)}
 .adm-modal-close:hover{color:var(--text);background:var(--wash)}
+.adm-brand-logo{height:30px;width:auto;display:block}

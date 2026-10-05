@@ -1,7 +1,8 @@
+import KeywordText from "./KeywordText.jsx";
 import { PHONE_HREF, IMG } from "../lib/data.js";
 import BookNowButton from "./BookNowButton.jsx";
 
-export default function Cta({ img, heading, text }) {
+export default function Cta({ img, heading, text, rules = [] }) {
   return (
     <section className="sec cta">
       <div className="cta-bg" aria-hidden="true">
@@ -10,7 +11,7 @@ export default function Cta({ img, heading, text }) {
       <div className="wrap">
         <h2>{heading || "Your car is one minute away"}</h2>
         {(text || "Get a flat rate online, or speak to a dispatcher at any hour.").split("\n").filter(Boolean).map((line, i) => (
-          <p key={i}>{line}</p>
+          <p key={i}><KeywordText text={line} rules={rules} /></p>
         ))}
         <div className="cta-b">
           <BookNowButton className="btn btn-gold" />

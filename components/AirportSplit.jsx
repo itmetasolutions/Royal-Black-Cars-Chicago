@@ -29,7 +29,7 @@ export default function AirportSplit({ page }) {
       </div>
       <div className="wrap" style={{ marginTop: 56 }}>
         <Reveal>
-          <AirportTabs tabs={tabs} />
+          <AirportTabs tabs={tabs} keywordLinks={homeField(page, "keywordLinks")} />
         </Reveal>
       </div>
     </section>

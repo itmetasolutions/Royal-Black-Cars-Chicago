@@ -1,12 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import ImageField from "./fields/ImageField.jsx";
 
 const FIELDS = [
   ["site_name", "Site name", "Royal Black Cars Chicago"],
   ["tagline", "Tagline", "Chicago's black car service, priced before you ride."],
   ["contact_phone", "Contact phone", "+1 872 484 8060"],
   ["contact_email", "Contact email", "info@royalblackcarchicago.com"],
+];
+
+const IMAGE_FIELDS = [
+  ["logo_url", "Logo (header and footer)"],
+  ["favicon_url", "Favicon (browser tab icon — SVG or PNG)"],
 ];
 
 export default function SettingsForm({ initial }) {
@@ -37,6 +43,9 @@ export default function SettingsForm({ initial }) {
 
   return (
     <form onSubmit={submit}>
+      {IMAGE_FIELDS.map(([key, label]) => (
+        <ImageField key={key} label={label} value={values[key]} onChange={(v) => setValues({ ...values, [key]: v })} />
+      ))}
       {FIELDS.map(([key, label, placeholder]) => (
         <div className="adm-field" key={key}>
           <label htmlFor={`s-${key}`}>{label}</label>

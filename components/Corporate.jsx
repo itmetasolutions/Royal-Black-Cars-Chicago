@@ -1,6 +1,7 @@
 import Reveal from "./Reveal.jsx";
 import { Check } from "./icons.jsx";
 import { homeField } from "../lib/homeDefaults.js";
+import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
 
 export default function Corporate({ page }) {
   const points = homeField(page, "corporatePoints");
@@ -14,7 +15,7 @@ export default function Corporate({ page }) {
         <Reveal delay={1}>
           <p className="eyebrow">{homeField(page, "corporateEyebrow")}</p>
           <h2>{homeField(page, "corporateHeading")}</h2>
-          <p className="lead">{homeField(page, "corporateLead")}</p>
+          <p className="lead"><KeywordText text={homeField(page, "corporateLead")} rules={parseKeywordRules(homeField(page, "keywordLinks"))} /></p>
           <ul className="tick">
             {points.map((p) => <li key={p}><Check />{p}</li>)}
           </ul>

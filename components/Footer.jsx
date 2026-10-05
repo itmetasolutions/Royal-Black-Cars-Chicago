@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Car, Facebook, Instagram, XformerlyTwitter, LinkedIn } from "./icons.jsx";
+import { Facebook, Instagram, XformerlyTwitter, LinkedIn } from "./icons.jsx";
 import { PHONE, PHONE_HREF, EMAIL } from "../lib/data.js";
 import BookNowButton from "./BookNowButton.jsx";
 
@@ -36,7 +36,7 @@ const cols = [
   ]],
 ];
 
-export default function Footer() {
+export default function Footer({ logoUrl = "/brand/logo.png", siteName = "Royal Black Cars Chicago" }) {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) return null;
 
@@ -47,7 +47,7 @@ export default function Footer() {
           <div className="fg">
             <div>
               <a className="brand" href="/" style={{ color: "#fff", marginBottom: 16 }}>
-                <i><Car /></i><span>Royal <b>Black Cars</b></span>
+                <img className="brand-logo" src={logoUrl} alt={siteName} />
               </a>
               <p style={{ maxWidth: "32ch" }}>Chauffeured black car service for Chicago and the suburbs. Licensed and insured in Illinois.</p>
               <p>

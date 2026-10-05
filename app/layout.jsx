@@ -4,24 +4,31 @@ import Header from "@/components/Header.jsx";
 import Footer from "@/components/Footer.jsx";
 import BookingProvider from "@/components/BookingProvider.jsx";
 import { localBusiness } from "@/lib/schema.js";
+import { getSiteSettings } from "@/lib/settings.js";
 
-export const metadata = {
-  metadataBase: new URL("https://www.royalblackcarschicago.com"),
-  title: "Chicago Black Car Service | O'Hare & Midway Chauffeur | Royal Black Cars",
-  description:
-    "Flat-rate Chicago black car service. Sedans, SUVs and Sprinters for O'Hare, Midway, corporate travel and events. Flights tracked, chauffeurs vetted, price fixed before you ride.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Chicago Black Car Service | Royal Black Cars",
-    description: "Flat-rate black car service across Chicago and the suburbs.",
-    type: "website",
-    url: "/",
-  },
-};
+export async function generateMetadata() {
+  const s = await getSiteSettings();
+  return {
+    metadataBase: new URL("https://www.royalblackcarschicago.com"),
+    title: s.site_name,
+    description: s.tagline,
+    alternates: { canonical: "/" },
+    icons: { icon: s.favicon_url, shortcut: s.favicon_url },
+    applicationName: s.site_name,
+    openGraph: {
+      title: s.site_name,
+      description: s.tagline,
+      siteName: s.site_name,
+      type: "website",
+      url: "/",
+    },
+  };
+}
 
 export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const settings = await getSiteSettings();
   return (
     <html lang="en">
       <head>
@@ -45,9 +52,9 @@ export default function RootLayout({ children }) {
             })(document, "script", "https://static.moovs.app");`}
         </Script>
         <BookingProvider>
-          <Header />
+          <Header logoUrl={settings.logo_url} siteName={settings.site_name} />
           <main>{children}</main>
-          <Footer />
+          <Footer logoUrl={settings.logo_url} siteName={settings.site_name} />
         </BookingProvider>
       </body>
     </html>

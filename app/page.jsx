@@ -12,6 +12,7 @@ import Cta from "@/components/Cta.jsx";
 import { faqPage } from "@/lib/schema.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { homeField } from "@/lib/homeDefaults.js";
+import { parseKeywordRules } from "@/components/KeywordText.jsx";
 import { pickCards } from "@/lib/cards.js";
 import { clustersFrom } from "@/lib/areas.js";
 import { pageMeta } from "@/lib/seo.js";
@@ -55,6 +56,7 @@ export default async function Home() {
         img={homeField(page, "ctaImg")}
         heading={homeField(page, "ctaHeading")}
         text={homeField(page, "ctaText")}
+        rules={parseKeywordRules(homeField(page, "keywordLinks"))}
       />
     </>
   );

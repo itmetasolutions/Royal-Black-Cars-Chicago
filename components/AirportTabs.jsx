@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
 
-export default function AirportTabs({ tabs }) {
+export default function AirportTabs({ tabs, keywordLinks }) {
+  const rules = parseKeywordRules(keywordLinks);
   const [active, setActive] = useState(0);
   const current = tabs[active] || tabs[0];
   if (!current) return null;
@@ -27,7 +29,7 @@ export default function AirportTabs({ tabs }) {
         <div className="apt-panel-copy">
           <h3>{current.heading}</h3>
           {(current.text || "").split("\n").filter(Boolean).map((line, i) => (
-          <p key={i}>{line}</p>
+          <p key={i}><KeywordText text={line} rules={rules} /></p>
         ))}
           {current.ctaHref && (
             <a className="btn btn-gold" href={current.ctaHref}>{current.ctaLabel || "View details"}</a>
