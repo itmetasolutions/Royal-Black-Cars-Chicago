@@ -60,9 +60,9 @@ export default function Hero({ heroData }) {
             <p className="lead"><KeywordText text={homeField(heroData, "heroLead")} rules={parseKeywordRules(homeField(heroData, "keywordLinks"))} /></p>
             <p className="sub-highlight hero-tagline">{homeField(heroData, "heroTagline")}</p>
             <div className="hero-actions">
-              <BookNowButton className="btn btn-gold" />
+              <BookNowButton className="btn btn-gold hero-phone-hide" />
               <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
-              <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
+              <a className="btn btn-line hero-phone-hide" href={PHONE_HREF}>Call Now</a>
             </div>
           </div>
 

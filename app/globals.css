@@ -975,3 +975,13 @@ footer a:hover{color:var(--brass)}
   .quote-moovs{margin:0}
   .hero h1{font-size:clamp(1.15rem,6.1vw,2.4rem)}
 }
+
+/* Phone hero: the sticky bar already has Book Now and Call Now */
+@media (max-width:640px){.hero-phone-hide{display:none}}
+
+/* Group transportation photos on phones: a fixed-height grid, so the photos
+   fill their cells on every browser (iOS Safari ignores percentage heights here). */
+@media (max-width:640px){
+  .group-mosaic{height:412px;min-height:0;grid-template-rows:200px 200px}
+  .group-mosaic img{height:100%;min-height:0}
+}
