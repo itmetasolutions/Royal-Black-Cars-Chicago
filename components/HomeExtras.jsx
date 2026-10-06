@@ -56,7 +56,6 @@ export function OHareDetail({ page }) {
     <section className="sec" style={{ background: "var(--wash)" }}>
       <div className="wrap">
         <SectionHead eyebrow={homeField(page, "ohareEyebrow")} heading={homeField(page, "ohareHeading")} lead={homeField(page, "ohareLead")} />
-        <p className="route-note" style={{ textAlign: "center", marginTop: 8 }}>{homeField(page, "ohareOptionsLead")}</p>
         <div className="ohare-grid">
           <Reveal className="opt-grid">
             {options.map(([title, text], i) => (
@@ -137,31 +136,6 @@ export function GroupTransport({ page }) {
           <img src={imgs[1]} alt="" loading="lazy" />
           <img src={imgs[2]} alt="" loading="lazy" />
         </Reveal>
-      </div>
-    </section>
-  );
-}
-
-export function FleetGuide({ page, fleet = [] }) {
-  const items = splitPairs(homeField(page, "fleetGuide"));
-  const find = (title) => fleet.find((f) => String(f.title || "").toLowerCase() === title.toLowerCase());
-  return (
-    <section className="sec">
-      <div className="wrap">
-        <div className="guide-grid">
-          {items.map(([title, text], i) => {
-            const match = find(title);
-            return (
-              <Reveal key={title} delay={i % 3} className="guide-card">
-                {match?.img && <img src={match.img} alt={title} loading="lazy" />}
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
       </div>
     </section>
   );

@@ -23,7 +23,7 @@ export default function Corporate({ page }) {
           <div className="chips" style={{ marginTop: 14 }}>
             {(homeField(page, "corporateUses") || []).map((u) => <span key={u} className="chip">{u}</span>)}
           </div>
-          <a className="btn btn-dark" href={homeField(page, "corporateCtaHref")}>{homeField(page, "corporateCtaLabel")}</a>
+          <a className="btn btn-dark" href={homeField(page, "corporateCtaHref")} style={{ marginTop: 26 }}>{homeField(page, "corporateCtaLabel")}</a>
         </Reveal>
       </div>
     </section>

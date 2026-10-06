@@ -5,7 +5,7 @@ import AirportSplit from "@/components/AirportSplit.jsx";
 import Fleet from "@/components/Fleet.jsx";
 import ChildSeats from "@/components/ChildSeats.jsx";
 import Corporate from "@/components/Corporate.jsx";
-import { WhyChoose, OHareDetail, GroupTransport, ExperienceDifferent, FleetGuide } from "@/components/HomeExtras.jsx";
+import { WhyChoose, OHareDetail, GroupTransport, ExperienceDifferent } from "@/components/HomeExtras.jsx";
 import ServiceAreas from "@/components/ServiceAreas.jsx";
 import VenuesHome from "@/components/VenuesHome.jsx";
 import Faq from "@/components/Faq.jsx";
@@ -50,7 +50,6 @@ export default async function Home() {
       <AirportSplit page={page} />
       <OHareDetail page={page} />
       <Fleet page={page} vehicles={fleet} />
-      <FleetGuide page={page} fleet={fleet} />
       <ChildSeats page={page} />
       <GroupTransport page={page} />
       <Corporate page={page} />

@@ -9,7 +9,7 @@ export default function AirportSplit({ page }) {
 
   return (
     <section className="sec" style={{ background: "var(--wash)" }}>
-      <div className="wrap split">
+      <div className="wrap split rev">
         <Reveal className="media" slide>
           <img className="photo" src={homeField(page, "airportImg")} alt={homeField(page, "airportImgAlt")} loading="lazy" style={{ zIndex: 2 }} />
           <div className="badge">{homeField(page, "airportBadgeLabel")}<b>{homeField(page, "airportBadgeValue")}</b></div>

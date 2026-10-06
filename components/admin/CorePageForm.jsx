@@ -140,8 +140,7 @@ const SCHEMAS = {
     ["groupClosing", "Closing line", "textarea"],
     ["groupImgs", "Photos (three image URLs, one per line)", "lines"],
 
-    ["__guide", "Vehicle guide and extra copy", "group"],
-    ["fleetGuide", "Vehicle guide (one per line: vehicle name | description and best for)", "lines"],
+    ["__guide", "Extra copy", "group"],
     ["childUses", "Family use cases (one per line)", "lines"],
     ["corporateTravel", "Corporate travel paragraph", "textarea"],
     ["corporateUses", "Corporate use cases (one per line)", "lines"],

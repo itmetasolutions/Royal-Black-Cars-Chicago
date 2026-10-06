@@ -18,7 +18,7 @@ export default function Fleet({ page: cms, vehicles }) {
       ...v,
       title: card.title,
       img: card.img,
-      models: v.cardText || v.models || card.text,
+      desc: v.cardText || v.models || card.text,
       seats: v.seats || seats || "",
       bags: v.bags || bags || "Chauffeur included",
       hourlyRate: v.hourlyRate || "",
@@ -111,7 +111,7 @@ export default function Fleet({ page: cms, vehicles }) {
                 </div>
                 <div className="veh-body">
                   <h3>{v.title}</h3>
-                  <p>{v.models}</p>
+                  <p className="veh-desc">{v.desc}</p>
                   <div className="spec">
                     <div><Seat />{v.seats}</div>
                     <div><Bag />{v.bags}</div>
