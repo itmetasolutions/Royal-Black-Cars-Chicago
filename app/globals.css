@@ -967,3 +967,14 @@ footer a:hover{color:var(--brass)}
   .moovs-frame{position:relative;width:100%;height:1025px;overflow:hidden}
   .hero-moovs-iframe{position:absolute;left:0;top:0;width:430px;height:1250px;max-width:none;transform:scale(.82);transform-origin:0 0}
 }
+
+/* Phone fixes: 15px side padding everywhere, airport image above its text */
+@media (max-width:640px){
+  .wrap{padding-left:15px;padding-right:15px}
+  .apt-panel-media{order:-1;min-height:200px}
+  .quote-moovs{margin:0}
+  .moovs-frame{height:938px}
+  .hero-moovs-iframe{transform:scale(.75)}
+  .hero h1{font-size:clamp(1.15rem,6.1vw,2.4rem)}
+  .hero .lead{display:none}
+}

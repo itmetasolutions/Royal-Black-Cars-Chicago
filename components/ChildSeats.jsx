@@ -11,7 +11,7 @@ export default function ChildSeats({ page }) {
       <div className="wrap split">
         <Reveal className="media child-media">
           <img src={homeField(page, "childImg")} alt="Infant, toddler and booster car seats available with Royal Black Cars Chicago"
-               width={943} height={472} loading="lazy" style={{ objectFit: "contain" }} />
+               width={943} height={472} loading="lazy" />
         </Reveal>
         <Reveal delay={1}>
           <p className="eyebrow">{homeField(page, "childEyebrow")}</p>
