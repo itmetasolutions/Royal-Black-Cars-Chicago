@@ -52,9 +52,9 @@ export default async function RootLayout({ children }) {
             })(document, "script", "https://static.moovs.app");`}
         </Script>
         <BookingProvider>
-          <Header logoUrl={settings.logo_url} logoWidth={settings.logo_width} siteName={settings.site_name} />
+          <Header logoUrl={settings.logo_url} logoWidth={settings.logo_width} logoWidthMobile={settings.logo_width_mobile} siteName={settings.site_name} />
           <main>{children}</main>
-          <Footer logoUrl={settings.logo_url} logoWidth={settings.logo_width} siteName={settings.site_name} />
+          <Footer logoUrl={settings.logo_url} logoWidth={settings.logo_width} logoWidthMobile={settings.logo_width_mobile} siteName={settings.site_name} />
         </BookingProvider>
       </body>
     </html>

@@ -12,6 +12,7 @@ const FIELDS = [
 
 const NUMBER_FIELDS = [
   ["logo_width", "Logo width in pixels (height adjusts automatically)", "150"],
+  ["logo_width_mobile", "Logo width on mobile in pixels", "120"],
 ];
 
 const IMAGE_FIELDS = [

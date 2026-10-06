@@ -54,12 +54,14 @@ export default function Hero({ heroData }) {
 
           <div className="quote quote-moovs" id="quote">
             <h2>Book in a minute</h2>
-            <iframe
-              className="hero-moovs-iframe"
-              src="https://customer.moovs.app/royal-black-car-chicago/iframe"
-              title="Book with Royal Black Cars Chicago"
-              loading="lazy"
-            />
+            <div className="moovs-frame">
+              <iframe
+                className="hero-moovs-iframe"
+                src="https://customer.moovs.app/royal-black-car-chicago/iframe"
+                title="Book with Royal Black Cars Chicago"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </div>

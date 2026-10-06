@@ -35,7 +35,7 @@ const groupBlurbs = {
 const homeLink = ["/", "Home"];
 const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
 
-export default function Header({ logoUrl = "/brand/logo.png", logoWidth = "150", siteName = "Royal Black Cars Chicago" }) {
+export default function Header({ logoUrl = "/brand/logo.png", logoWidth = "150", logoWidthMobile = "120", siteName = "Royal Black Cars Chicago" }) {
   const pathname = usePathname();
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
@@ -76,7 +76,7 @@ export default function Header({ logoUrl = "/brand/logo.png", logoWidth = "150",
     <>
       <header className={`hdr${stuck ? " stuck" : ""}`}>
         <div className="wrap hdr-in">
-          <a className="brand" href="/"><img className="brand-logo" src={logoUrl} alt={siteName} style={{ width: `${Number(logoWidth) || 150}px`, height: "auto" }} /></a>
+          <a className="brand" href="/"><img className="brand-logo" src={logoUrl} alt={siteName} style={{ "--logo-w": `${Number(logoWidth) || 150}px`, "--logo-w-m": `${Number(logoWidthMobile) || 120}px` }} /></a>
           <nav className="nav" aria-label="Main">
             <a href={homeLink[0]}>{homeLink[1]}</a>
             {navGroups.map((g) => (
