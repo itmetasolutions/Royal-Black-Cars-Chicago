@@ -19,6 +19,10 @@ export default function Corporate({ page }) {
           <ul className="tick">
             {points.map((p) => <li key={p}><Check />{p}</li>)}
           </ul>
+          <p style={{ marginTop: 18 }}>{homeField(page, "corporateTravel")}</p>
+          <div className="chips" style={{ marginTop: 14 }}>
+            {(homeField(page, "corporateUses") || []).map((u) => <span key={u} className="chip">{u}</span>)}
+          </div>
           <a className="btn btn-dark" href={homeField(page, "corporateCtaHref")}>{homeField(page, "corporateCtaLabel")}</a>
         </Reveal>
       </div>

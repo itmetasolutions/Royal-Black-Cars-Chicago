@@ -22,6 +22,9 @@ export default function ChildSeats({ page }) {
               <li key={s.name}><Check /><span><b>{s.name}</b> — {s.detail}</span></li>
             ))}
           </ul>
+          <div className="chips" style={{ marginTop: 18 }}>
+            {(homeField(page, "childUses") || []).map((u) => <span key={u} className="chip">{u}</span>)}
+          </div>
           <a className="gold-cta" href={homeField(page, "childCtaHref")}>{homeField(page, "childCtaLabel")} <span aria-hidden="true">→</span></a>
         </Reveal>
       </div>

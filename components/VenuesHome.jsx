@@ -1,3 +1,4 @@
+import { splitPairs } from "./HomeExtras.jsx";
 import Reveal from "./Reveal.jsx";
 import { homeField } from "../lib/homeDefaults.js";
 import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
@@ -22,6 +23,16 @@ export default function VenuesHome({ page, cards = [] }) {
             <Reveal key={v.href} delay={i} as="a" href={v.href} className="strip-card">
               <img src={v.img} alt={v.title} loading="lazy" />
               <span>{v.title}<small>{v.meta}</small></span>
+            </Reveal>
+          ))}
+        </div>
+        <div className="guide-grid venue-guide">
+          {splitPairs(homeField(page, "venuesGuide")).map(([title, text], i) => (
+            <Reveal key={title} delay={i % 3} className="guide-card">
+              <div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
             </Reveal>
           ))}
         </div>

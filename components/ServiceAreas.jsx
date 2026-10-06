@@ -1,5 +1,6 @@
 "use client";
 
+import { splitPairs } from "./HomeExtras.jsx";
 import { useState } from "react";
 import Reveal from "./Reveal.jsx";
 import { clusters as fallbackClusters, venueDetails } from "../lib/locations.js";
@@ -23,6 +24,15 @@ export default function ServiceAreas({ page, clusters, venues }) {
           <h2>{homeField(page, "areasHeading")}</h2>
           <p className="lead" style={{ color: "rgba(255,255,255,.75)" }}>{homeField(page, "areasLead")}</p>
         </Reveal>
+
+        <div className="areas-lists">
+          {splitPairs(homeField(page, "areasLists")).map(([title, text]) => (
+            <div key={title} className="area-list-card">
+              <b>{title}</b>
+              <span>{text}</span>
+            </div>
+          ))}
+        </div>
 
         <div className="areas-grid">
           <Reveal className="map-card" slide>
