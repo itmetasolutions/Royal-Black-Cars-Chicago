@@ -36,7 +36,7 @@ const cols = [
   ]],
 ];
 
-export default function Footer({ logoUrl = "/brand/logo.png", siteName = "Royal Black Cars Chicago" }) {
+export default function Footer({ logoUrl = "/brand/logo.png", logoWidth = "150", siteName = "Royal Black Cars Chicago" }) {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) return null;
 
@@ -47,7 +47,7 @@ export default function Footer({ logoUrl = "/brand/logo.png", siteName = "Royal 
           <div className="fg">
             <div>
               <a className="brand" href="/" style={{ color: "#fff", marginBottom: 16 }}>
-                <img className="brand-logo" src={logoUrl} alt={siteName} />
+                <img className="brand-logo" src={logoUrl} alt={siteName} style={{ width: `${Number(logoWidth) || 150}px`, height: "auto" }} />
               </a>
               <p style={{ maxWidth: "32ch" }}>Chauffeured black car service for Chicago and the suburbs. Licensed and insured in Illinois.</p>
               <p>

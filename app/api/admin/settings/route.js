@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db.js";
 
-const ALLOWED_KEYS = ["site_name", "tagline", "contact_phone", "contact_email", "logo_url", "favicon_url"];
+const ALLOWED_KEYS = ["site_name", "tagline", "contact_phone", "contact_email", "logo_url", "favicon_url", "logo_width"];
 
 export async function GET() {
   const rows = await prisma.siteSetting.findMany();

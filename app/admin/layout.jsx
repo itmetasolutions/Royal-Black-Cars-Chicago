@@ -7,5 +7,5 @@ export const metadata = { title: "Admin | Royal Black Cars Chicago", robots: { i
 export default async function AdminLayout({ children }) {
   const session = await getAdminSession();
   const settings = await getSiteSettings();
-  return <AdminShell session={session} logoUrl={settings.logo_url}>{children}</AdminShell>;
+  return <AdminShell session={session} logoUrl={settings.logo_url} logoWidth={settings.logo_width}>{children}</AdminShell>;
 }
