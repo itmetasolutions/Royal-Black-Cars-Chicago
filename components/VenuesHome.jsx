@@ -19,11 +19,18 @@ export default function VenuesHome({ page, cards = [] }) {
           </div>
           <a className="btn btn-line" href="/venues/">{homeField(page, "venuesLinkLabel")}</a>
         </Reveal>
-        <div className="strip" style={{ marginTop: 28 }}>
+        <div className="venue-cards">
           {cards.map((v, i) => (
-            <Reveal key={v.href} delay={i} as="a" href={v.href} className="strip-card">
-              <img src={v.img} alt={v.title} loading="lazy" />
-              <span>{v.title}<small>{v.meta}</small>{guide[v.title] && <em>{guide[v.title]}</em>}</span>
+            <Reveal key={v.href} delay={i % 3} as="a" href={v.href} className="venue-card">
+              <div className="venue-card-img">
+                <img src={v.img} alt={v.title} loading="lazy" />
+                {v.meta && <span className="venue-card-tag">{v.meta}</span>}
+              </div>
+              <div className="venue-card-body">
+                <h3>{v.title}</h3>
+                {guide[v.title] && <p>{guide[v.title]}</p>}
+                <span className="venue-card-link">Venue transportation <span aria-hidden="true">→</span></span>
+              </div>
             </Reveal>
           ))}
         </div>

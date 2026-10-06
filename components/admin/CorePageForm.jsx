@@ -115,7 +115,6 @@ const SCHEMAS = {
     ["ohareEyebrow", "Eyebrow", "text"],
     ["ohareHeading", "Heading", "text"],
     ["ohareLead", "Lead paragraph", "textarea"],
-    ["ohareOptionsLead", "Options intro line", "text"],
     ["ohareOptions", "Pickup options (one per line: title | text)", "lines"],
     ["ohareOptionImgs", "Option photos (one image URL per line, in the same order)", "lines"],
     ["ohareRouteHeading", "Route heading", "text"],
