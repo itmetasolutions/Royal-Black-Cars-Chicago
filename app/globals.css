@@ -986,8 +986,9 @@ footer a:hover{color:var(--brass)}
   .group-mosaic img{height:100%;min-height:0}
 }
 
-/* Phone header: logo, Book Now and menu all start at the left, with even gaps */
+/* Phone header: logo on the left; Book Now and the menu button grouped at the right */
 @media (max-width:820px){
   .hdr-in{justify-content:flex-start;gap:12px}
   .brand,.hdr .btn,.burger{flex:none}
+  .hdr .btn{margin-left:auto}
 }
