@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { IMG, PHONE_HREF } from "../lib/data.js";
 import { homeField } from "../lib/homeDefaults.js";
 import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
@@ -13,6 +14,19 @@ import Marquee from "./Marquee.jsx";
 const HERO_VIDEO = "/video/hero-motion.mp4";
 
 export default function Hero({ heroData }) {
+  // The booking widget is drawn at a fixed width and scaled to whatever width
+  // the phone leaves for it, so it never runs past the screen edge.
+  const moovsFrame = useRef(null);
+  const [moovsScale, setMoovsScale] = useState(0.8);
+  useEffect(() => {
+    const el = moovsFrame.current;
+    if (!el) return;
+    const fit = () => setMoovsScale(Math.min(0.82, el.clientWidth / 430));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const still = heroData?.heroImg || IMG.hero;
   const video = heroData?.heroVideo || HERO_VIDEO;
 
@@ -54,7 +68,7 @@ export default function Hero({ heroData }) {
 
           <div className="quote quote-moovs" id="quote">
             <h2>Book in a minute</h2>
-            <div className="moovs-frame">
+            <div className="moovs-frame" ref={moovsFrame} style={{ "--moovs-scale": moovsScale }}>
               <iframe
                 className="hero-moovs-iframe"
                 src="https://customer.moovs.app/royal-black-car-chicago/iframe"
