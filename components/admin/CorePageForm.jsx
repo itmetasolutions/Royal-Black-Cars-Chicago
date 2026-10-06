@@ -25,6 +25,8 @@ const SCHEMAS = {
     ["introHeading", "Heading", "text"],
     ["introLead", "Opening line", "textarea"],
     ["introBody", "Paragraphs (one per line)", "lines"],
+    ["introCtaLabel", "Link label", "text"],
+    ["introCtaHref", "Link URL", "text"],
 
     ["__services", "Services grid", "group"],
     ["servicesEyebrow", "Eyebrow", "text"],
@@ -59,6 +61,8 @@ const SCHEMAS = {
     ["childEyebrow", "Eyebrow", "text"],
     ["childHeading", "Heading", "text"],
     ["childLead", "Lead paragraph", "textarea"],
+    ["childCtaLabel", "Link label", "text"],
+    ["childCtaHref", "Link URL", "text"],
     ["childSeats", "Seat types", "cards", {
       spec: [["name", "Name", "text"], ["detail", "Detail", "text"]],
     }],

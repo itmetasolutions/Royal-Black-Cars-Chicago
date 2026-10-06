@@ -20,6 +20,7 @@ export default function Services({ page, cards = [] }) {
               <div className="svc-home-text">
                 <h3>{s.title}</h3>
                 <div className="svc-desc"><p>{s.text}</p></div>
+                <span className="svc-cta">{s.cta || `Book ${s.title}`} <span aria-hidden="true">→</span></span>
               </div>
             </Reveal>
           ))}

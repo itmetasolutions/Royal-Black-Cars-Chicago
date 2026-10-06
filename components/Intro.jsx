@@ -22,6 +22,7 @@ export default function Intro({ page }) {
         {body.length > 0 && (
           <Reveal delay={1} className="intro-body">
             {body.map((p) => <p key={p}><KeywordText text={p} rules={rules} /></p>)}
+            <a className="gold-cta" href={homeField(page, "introCtaHref")}>{homeField(page, "introCtaLabel")} <span aria-hidden="true">→</span></a>
           </Reveal>
         )}
       </div>

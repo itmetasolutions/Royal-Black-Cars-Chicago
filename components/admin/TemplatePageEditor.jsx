@@ -33,7 +33,7 @@ const CARD_EXTRAS = {
   fleet: [["cardMeta", "Small print (defaults to the capacity)"]],
   venue: [["cardMeta", "Small print (defaults to the area)"]],
   area: [["cardMeta", "Small print (defaults to the cluster)"]],
-  service: [],
+  service: [["cardCta", "Card button (shows on hover, e.g. Book Airport Transportation)"]],
 };
 
 export default function TemplatePageEditor({ type, page }) {

@@ -22,6 +22,7 @@ export default function ChildSeats({ page }) {
               <li key={s.name}><Check /><span><b>{s.name}</b> — {s.detail}</span></li>
             ))}
           </ul>
+          <a className="gold-cta" href={homeField(page, "childCtaHref")}>{homeField(page, "childCtaLabel")} <span aria-hidden="true">→</span></a>
         </Reveal>
       </div>
     </section>
