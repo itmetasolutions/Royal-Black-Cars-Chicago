@@ -13,14 +13,14 @@ export default function SplitSections({ sections, fallbackImg }) {
   return (
     <>
       {list.map((s, i) => (
-        <section className="sec" key={i}>
+        <section className="sec split-sec" key={i}>
           <div className={`wrap split${i % 2 ? " rev" : ""}`}>
             <Reveal className="media" slide>
               <img className="photo" src={s.img || fallbackImg} alt={s.heading || ""} loading="lazy" style={{ zIndex: 2 }} />
             </Reveal>
             <Reveal delay={1}>
               {s.heading && <h2>{s.heading}</h2>}
-              {s.text && <p className="lead">{s.text}</p>}
+              {s.text && <p className="lead" style={{ marginTop: 16 }}>{s.text}</p>}
               {!!s.points?.length && (
                 <ul className="tick">{s.points.map((p) => <li key={p}><Check />{p}</li>)}</ul>
               )}

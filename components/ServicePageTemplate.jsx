@@ -33,10 +33,20 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
       }];
 
   // Same idea for "Why ride with us": per-service points, falling back to
-  // the shared list until a page sets its own.
-  const whyPoints = service.whyPoints?.length
-    ? service.whyPoints.map(([title, text]) => ({ title, text }))
-    : trustPoints;
+  // the shared list until a page sets its own. Each of the four cards is its
+  // own heading/description pair, so a card left blank just doesn't count.
+  const whyPointsSet = (service.whyPoints || []).filter(([t, x]) => t || x);
+  const whyPoints = whyPointsSet.length ? whyPointsSet.map(([title, text]) => ({ title, text })) : trustPoints;
+
+  // Each of the three detail cards, and the "Best for" card, only shows up
+  // when it has something to say; the whole section (Recommended vehicles
+  // included) disappears if none of them do.
+  const detailSections = (service.body || [])
+    .map((section, i) => ({ ...section, img: gallery[i] }))
+    .filter((section) => section.h || section.p?.[0]);
+  const hasBestFor = !!service.bestFor?.length;
+  const hasDetails = detailSections.length > 0 || hasBestFor;
+  const hasFleetLinks = !!service.fleetLinks?.length;
 
   return (
     <>
@@ -59,37 +69,41 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
 
       <SplitSections sections={splitSections} fallbackImg={service.img} />
 
-      <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>Everything worth knowing</h2></Reveal>
-          <div className="detail-grid">
-            {service.body.map((section, i) => (
-              <Reveal key={section.h} delay={i % 3} className="detail-card">
-                <img src={gallery[i]} alt="" loading="lazy" />
-                <div className="dc-body">
-                  <h3>{section.h}</h3>
-                  <p>{section.p[0]}</p>
-                </div>
-              </Reveal>
-            ))}
-            <Reveal delay={0} className="detail-card">
-              <img src={gallery[3]} alt="" loading="lazy" />
-              <div className="dc-body">
-                <h3>Best for</h3>
-                <ul className="tick" style={{ margin: 0 }}>{service.bestFor.slice(0, 3).map(b => <li key={b}><Check />{b}</li>)}</ul>
-              </div>
-            </Reveal>
-          </div>
-          {service.fleetLinks && (
-            <div style={{ marginTop: 30 }}>
-              <h3 style={{ marginBottom: 12, fontSize: "1.02rem" }}>Recommended vehicles</h3>
-              <div className="rl-grid" style={{ margin: 0 }}>
-                {service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
-              </div>
+      {hasDetails && (
+        <section className="sec" style={{ background: "var(--wash)" }}>
+          <div className="wrap">
+            <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>Everything worth knowing</h2></Reveal>
+            <div className="detail-grid">
+              {detailSections.map((section, i) => (
+                <Reveal key={section.h || i} delay={i % 3} className="detail-card">
+                  <img src={section.img} alt="" loading="lazy" />
+                  <div className="dc-body">
+                    <h3>{section.h}</h3>
+                    <p>{section.p[0]}</p>
+                  </div>
+                </Reveal>
+              ))}
+              {hasBestFor && (
+                <Reveal delay={0} className="detail-card">
+                  <img src={gallery[3]} alt="" loading="lazy" />
+                  <div className="dc-body">
+                    <h3>Best for</h3>
+                    <ul className="tick" style={{ margin: 0 }}>{service.bestFor.slice(0, 3).map(b => <li key={b}><Check />{b}</li>)}</ul>
+                  </div>
+                </Reveal>
+              )}
             </div>
-          )}
-        </div>
-      </section>
+            {hasFleetLinks && (
+              <div style={{ marginTop: 30 }}>
+                <h3 style={{ marginBottom: 12, fontSize: "1.02rem" }}>Recommended vehicles</h3>
+                <div className="rl-grid" style={{ margin: 0 }}>
+                  {service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       <section className="sec">
         <div className="wrap">
