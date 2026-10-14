@@ -6,6 +6,7 @@ import LinesField from "./fields/LinesField.jsx";
 import PairsField from "./fields/PairsField.jsx";
 import FaqEditor from "./fields/FaqEditor.jsx";
 import SectionsField from "./fields/SectionsField.jsx";
+import SplitSectionsField from "./fields/SplitSectionsField.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
 import { toCard } from "@/lib/cards.js";
@@ -162,10 +163,16 @@ export default function TemplatePageEditor({ type, page }) {
               <label>Lead paragraph</label>
               <textarea value={data.lead || ""} onChange={setField("lead")} rows={2} />
             </div>
-            <LinesField label="What's included" value={data.included} onChange={setFieldValue("included")} />
+            <SplitSectionsField value={data.splitSections} onChange={setFieldValue("splitSections")} />
             <LinesField label="Best for" value={data.bestFor} onChange={setFieldValue("bestFor")} />
             <SectionsField value={data.body} onChange={setFieldValue("body")} />
             <PairsField label="Recommended vehicles" value={data.fleetLinks} onChange={setFieldValue("fleetLinks")} />
+            <PairsField
+              label="Why ride with us (this page's own points)"
+              value={data.whyPoints}
+              onChange={setFieldValue("whyPoints")}
+              hint='One per line, formatted as "Title | description". Leave blank to use the site-wide points.'
+            />
           </>
         )}
 

@@ -2,6 +2,7 @@ import Reveal from "./Reveal.jsx";
 import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
+import SplitSections from "./SplitSections.jsx";
 import Cta from "./Cta.jsx";
 import { Check, Tag, Shield, Clock } from "./icons.jsx";
 import { serviceDetails, trustPoints } from "../lib/data.js";
@@ -17,6 +18,25 @@ const quickFacts = [
 export default function ServicePageTemplate({ service, allServices = serviceDetails }) {
   const related = allServices.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
   const gallery = service.gallery || [service.img, service.img, service.img, service.img];
+
+  // The side-by-side sections are a backend-editable, add-as-many-as-you-want
+  // list. A page that has never set any gets the same "what's included"
+  // section it always showed, built from its existing fields, so nothing
+  // already published changes until someone edits it in the admin.
+  const splitSections = service.splitSections?.length
+    ? service.splitSections
+    : [{
+        heading: `Every ${service.title.toLowerCase()} booking includes`,
+        points: service.included || [],
+        ctaLabel: "Get A Free Quote",
+        ctaHref: "/get-a-quote/",
+      }];
+
+  // Same idea for "Why ride with us": per-service points, falling back to
+  // the shared list until a page sets its own.
+  const whyPoints = service.whyPoints?.length
+    ? service.whyPoints.map(([title, text]) => ({ title, text }))
+    : trustPoints;
 
   return (
     <>
@@ -37,19 +57,7 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
         </Reveal>
       </div>
 
-      <section className="sec">
-        <div className="wrap split">
-          <Reveal className="media" slide>
-            <img className="photo" src={service.img} alt={service.title} loading="lazy" style={{ zIndex: 2 }} />
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="eyebrow">WHAT&apos;S INCLUDED</p>
-            <h2>Every {service.title.toLowerCase()} booking includes</h2>
-            <ul className="tick">{service.included.map(i => <li key={i}><Check />{i}</li>)}</ul>
-            <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
-          </Reveal>
-        </div>
-      </section>
+      <SplitSections sections={splitSections} fallbackImg={service.img} />
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
@@ -87,7 +95,7 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">WHY RIDE WITH US</p><h2>The details most services skip</h2></Reveal>
           <div className="feature-grid" style={{ marginTop: 36 }}>
-            {trustPoints.map((t, i) => (
+            {whyPoints.map((t, i) => (
               <Reveal key={t.title} delay={i % 3} className="feature-card">
                 <Check />
                 <h3>{t.title}</h3>
