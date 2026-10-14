@@ -53,7 +53,7 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema({ name: service.title, description: service.lead, url: `https://www.royalblackcarschicago.com${service.href}` })) }} />
       <PageHero
         eyebrow={service.eyebrow}
-        title={service.title}
+        title={service.heroHeading || service.title}
         lead={service.lead}
         img={service.img}
         crumbs={[{ name: "Services", href: "/services/" }, { name: service.title, href: service.href }]}

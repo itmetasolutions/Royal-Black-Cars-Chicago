@@ -157,6 +157,15 @@ export default function TemplatePageEditor({ type, page }) {
         {type === "service" && (
           <>
             <div className="adm-field" style={{ maxWidth: 700 }}>
+              <label>Hero banner heading</label>
+              <input value={data.heroHeading || ""} onChange={setField("heroHeading")} placeholder={title || "Page title"} />
+              <small>
+                Shown as the big heading on this page&apos;s own hero banner. Defaults to the page title above, so leave
+                it blank to keep the two the same — the page title still controls the URL, the browser tab, search
+                results, breadcrumbs and this page&apos;s card everywhere else.
+              </small>
+            </div>
+            <div className="adm-field" style={{ maxWidth: 700 }}>
               <label>Eyebrow</label>
               <input value={data.eyebrow || ""} onChange={setField("eyebrow")} />
             </div>
