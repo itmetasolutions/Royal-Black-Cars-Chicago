@@ -1,6 +1,7 @@
 "use client";
 
 import ImageField from "./ImageField.jsx";
+import RichTextEditor from "../RichTextEditor.jsx";
 
 const blankSection = () => ({ img: "", heading: "", text: "", points: [], ctaLabel: "", ctaHref: "" });
 
@@ -48,10 +49,7 @@ export default function SplitSectionsField({ value, onChange }) {
             <input value={s.heading || ""} onChange={(e) => update(i, "heading", e.target.value)} />
           </div>
 
-          <div className="adm-field">
-            <label>Description</label>
-            <textarea value={s.text || ""} onChange={(e) => update(i, "text", e.target.value)} rows={3} />
-          </div>
+          <RichTextEditor value={s.text} onChange={(html) => update(i, "text", html)} label="Description" minHeight={140} />
 
           <div className="adm-field">
             <label>Points</label>

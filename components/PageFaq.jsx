@@ -12,7 +12,7 @@ export default function PageFaq({ faqs, eyebrow = "GOOD TO KNOW", title = "Quest
           {faqs.map((f, i) => (
             <details key={f.q} open={i === 0}>
               <summary>{f.q}</summary>
-              <p>{f.a}</p>
+              <div className="faq-a" dangerouslySetInnerHTML={{ __html: f.a }} />
             </details>
           ))}
         </Reveal>

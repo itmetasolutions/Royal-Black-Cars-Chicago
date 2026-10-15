@@ -8,6 +8,7 @@ import FaqEditor from "./fields/FaqEditor.jsx";
 import SectionsField from "./fields/SectionsField.jsx";
 import SplitSectionsField from "./fields/SplitSectionsField.jsx";
 import WhyPointsField from "./fields/WhyPointsField.jsx";
+import RichPointsField from "./fields/RichPointsField.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
 import { toCard } from "@/lib/cards.js";
@@ -174,9 +175,36 @@ export default function TemplatePageEditor({ type, page }) {
               <textarea value={data.lead || ""} onChange={setField("lead")} rows={2} />
             </div>
             <SplitSectionsField value={data.splitSections} onChange={setFieldValue("splitSections")} />
-            <LinesField label="Best for" value={data.bestFor} onChange={setFieldValue("bestFor")} />
+
+            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
+              <div className="adm-field">
+                <label>Details eyebrow</label>
+                <input value={data.detailsEyebrow || ""} onChange={setField("detailsEyebrow")} placeholder="THE DETAILS" />
+              </div>
+              <div className="adm-field">
+                <label>Details heading</label>
+                <input value={data.detailsHeading || ""} onChange={setField("detailsHeading")} placeholder="Everything worth knowing" />
+              </div>
+            </div>
             <SectionsField value={data.body} onChange={setFieldValue("body")} />
+            <RichPointsField
+              label="Best for"
+              value={data.bestFor}
+              onChange={setFieldValue("bestFor")}
+              hint="Shown in the Details grid as a short list of up to 3. A blank point just doesn't appear."
+            />
             <PairsField label="Recommended vehicles" value={data.fleetLinks} onChange={setFieldValue("fleetLinks")} />
+
+            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
+              <div className="adm-field">
+                <label>Why ride with us — eyebrow</label>
+                <input value={data.whyEyebrow || ""} onChange={setField("whyEyebrow")} placeholder="WHY RIDE WITH US" />
+              </div>
+              <div className="adm-field">
+                <label>Why ride with us — heading</label>
+                <input value={data.whyHeading || ""} onChange={setField("whyHeading")} placeholder="The details most services skip" />
+              </div>
+            </div>
             <WhyPointsField value={data.whyPoints} onChange={setFieldValue("whyPoints")} />
           </>
         )}

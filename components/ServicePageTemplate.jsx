@@ -7,6 +7,7 @@ import Cta from "./Cta.jsx";
 import { Check, Tag, Shield, Clock } from "./icons.jsx";
 import { serviceDetails, trustPoints } from "../lib/data.js";
 import { serviceSchema } from "../lib/schema.js";
+import { stripHtml } from "../lib/richtext.js";
 
 const quickFacts = [
   [Tag, "Flat rate", "Agreed before you ride"],
@@ -40,11 +41,14 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
 
   // Each of the three detail cards, and the "Best for" card, only shows up
   // when it has something to say; the whole section (Recommended vehicles
-  // included) disappears if none of them do.
+  // included) disappears if none of them do. The paragraph and the best-for
+  // points are rich text, so "blank" means stripped of markup, not just an
+  // empty string — an untouched editor still outputs "<p></p>".
   const detailSections = (service.body || [])
-    .map((section, i) => ({ ...section, img: gallery[i] }))
-    .filter((section) => section.h || section.p?.[0]);
-  const hasBestFor = !!service.bestFor?.length;
+    .map((section, i) => ({ ...section, img: gallery[i], pHtml: Array.isArray(section.p) ? section.p[0] : section.p }))
+    .filter((section) => section.h || stripHtml(section.pHtml));
+  const bestForPoints = (service.bestFor || []).filter((b) => stripHtml(b));
+  const hasBestFor = bestForPoints.length > 0;
   const hasDetails = detailSections.length > 0 || hasBestFor;
   const hasFleetLinks = !!service.fleetLinks?.length;
 
@@ -67,19 +71,22 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
         </Reveal>
       </div>
 
-      <SplitSections sections={splitSections} fallbackImg={service.img} />
+      <SplitSections sections={splitSections} fallbackImg={service.img} topGap={100} />
 
       {hasDetails && (
         <section className="sec" style={{ background: "var(--wash)" }}>
           <div className="wrap">
-            <Reveal className="section-head"><p className="eyebrow">THE DETAILS</p><h2>Everything worth knowing</h2></Reveal>
+            <Reveal className="section-head">
+              <p className="eyebrow">{service.detailsEyebrow || "THE DETAILS"}</p>
+              <h2>{service.detailsHeading || "Everything worth knowing"}</h2>
+            </Reveal>
             <div className="detail-grid">
               {detailSections.map((section, i) => (
                 <Reveal key={section.h || i} delay={i % 3} className="detail-card">
                   <img src={section.img} alt="" loading="lazy" />
                   <div className="dc-body">
                     <h3>{section.h}</h3>
-                    <p>{section.p[0]}</p>
+                    <div className="rich-text" dangerouslySetInnerHTML={{ __html: section.pHtml }} />
                   </div>
                 </Reveal>
               ))}
@@ -88,7 +95,11 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
                   <img src={gallery[3]} alt="" loading="lazy" />
                   <div className="dc-body">
                     <h3>Best for</h3>
-                    <ul className="tick" style={{ margin: 0 }}>{service.bestFor.slice(0, 3).map(b => <li key={b}><Check />{b}</li>)}</ul>
+                    <ul className="tick" style={{ margin: 0 }}>
+                      {bestForPoints.slice(0, 3).map((b, i) => (
+                        <li key={i}><Check /><span className="rich-text" dangerouslySetInnerHTML={{ __html: b }} /></li>
+                      ))}
+                    </ul>
                   </div>
                 </Reveal>
               )}
@@ -107,7 +118,10 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">WHY RIDE WITH US</p><h2>The details most services skip</h2></Reveal>
+          <Reveal className="section-head">
+            <p className="eyebrow">{service.whyEyebrow || "WHY RIDE WITH US"}</p>
+            <h2>{service.whyHeading || "The details most services skip"}</h2>
+          </Reveal>
           <div className="feature-grid" style={{ marginTop: 36 }}>
             {whyPoints.map((t, i) => (
               <Reveal key={t.title} delay={i % 3} className="feature-card">

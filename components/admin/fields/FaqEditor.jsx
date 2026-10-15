@@ -1,5 +1,7 @@
 "use client";
 
+import RichTextEditor from "../RichTextEditor.jsx";
+
 export default function FaqEditor({ label = "FAQs", value, onChange }) {
   const faqs = value && value.length ? value : [{ q: "", a: "" }];
 
@@ -21,12 +23,7 @@ export default function FaqEditor({ label = "FAQs", value, onChange }) {
             placeholder="Question"
             style={{ marginBottom: 8 }}
           />
-          <textarea
-            value={f.a}
-            onChange={(e) => update(i, "a", e.target.value)}
-            placeholder="Answer"
-            rows={2}
-          />
+          <RichTextEditor value={f.a} onChange={(html) => update(i, "a", html)} label="Answer" minHeight={110} />
           <button type="button" className="adm-btn adm-btn-danger" style={{ marginTop: 8, padding: "5px 12px", fontSize: ".78rem" }} onClick={() => removeRow(i)}>
             Remove
           </button>

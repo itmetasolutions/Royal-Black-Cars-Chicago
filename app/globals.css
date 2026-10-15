@@ -361,7 +361,10 @@ summary::after{content:"";width:22px;height:22px;flex:none;border-radius:50%;bor
   linear-gradient(var(--brass),var(--brass)) center/9px 1.6px no-repeat,
   linear-gradient(var(--brass),var(--brass)) center/1.6px 9px no-repeat;transition:transform .3s,border-color .25s}
 details[open] summary::after{transform:rotate(135deg);border-color:var(--brass);background:linear-gradient(var(--brass),var(--brass)) center/9px 1.6px no-repeat}
-details p{color:var(--muted);font-size:.96rem;margin:0;padding:0 24px 22px;max-width:64ch}
+details .faq-a{color:var(--muted);font-size:.96rem;padding:0 24px 22px;max-width:64ch}
+.faq-a p,.faq-a li{margin:0 0 10px}
+.faq-a>*:last-child,.faq-a li:last-child{margin-bottom:0}
+.faq-a a{color:var(--brass-2);text-decoration:underline}
 .faq-aside{background:var(--wash);border:1px solid var(--line);border-radius:var(--r);padding:30px}
 .faq-aside p{color:var(--muted);font-size:.95rem}
 /* .field is styled dark by default (for the hero's dark quote card) — this
@@ -507,7 +510,7 @@ details p{color:var(--muted);font-size:.96rem;margin:0;padding:0 24px 22px;max-w
 .crumbs a:hover{color:var(--brass-2)}
 
 /* service detail grid — 2x2 image cards, replaces one long prose column */
-.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
 .detail-grid.cols-3{grid-template-columns:repeat(3,1fr)}
 .detail-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 .detail-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
@@ -793,16 +796,18 @@ footer a:hover{color:var(--brass)}
 .adm-login-card p{color:var(--muted);font-size:.88rem;text-align:center;margin:0 0 24px}
 
 /* rich text editor (blog post content) */
-.adm-rte{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
-.adm-rte-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:var(--wash)}
+.adm-rte{border:1px solid var(--line);border-radius:8px;overflow:visible;background:var(--paper)}
+.adm-rte-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:var(--wash);position:sticky;top:60px;z-index:5;border-radius:8px 8px 0 0}
 .adm-rte-btn{padding:6px 10px;border:1px solid transparent;border-radius:6px;background:none;color:var(--text);font:600 .82rem Inter,sans-serif;cursor:pointer}
 .adm-rte-btn:hover{background:var(--card);border-color:var(--line)}
 .adm-rte-btn[data-active="true"]{background:var(--ink);color:#fff}
-.adm-rte-content{padding:16px;min-height:280px}
-.adm-rte-content .ProseMirror{outline:none;min-height:260px;color:var(--text);font-size:.96rem;line-height:1.7}
+.adm-rte-content{padding:16px;min-height:var(--rte-min-h,280px)}
+.adm-rte-content .ProseMirror{outline:none;min-height:var(--rte-min-h,260px);color:var(--text);font-size:.96rem;line-height:1.7}
 .adm-rte-content .ProseMirror p{margin:0 0 14px}
 .adm-rte-content .ProseMirror h2{font-size:1.3rem;margin:20px 0 10px;font-family:Fraunces,serif}
+.adm-rte-content .ProseMirror h1{font-size:1.6rem;margin:22px 0 12px;font-family:Fraunces,serif}
 .adm-rte-content .ProseMirror h3{font-size:1.1rem;margin:16px 0 8px;font-family:Fraunces,serif}
+.adm-rte-content .ProseMirror h4{font-size:1rem;margin:14px 0 6px;font-family:Fraunces,serif}
 .adm-rte-content .ProseMirror ul,.adm-rte-content .ProseMirror ol{margin:0 0 14px;padding-left:22px}
 .adm-rte-content .ProseMirror blockquote{border-left:3px solid var(--brass);margin:0 0 14px;padding-left:14px;color:var(--muted)}
 .adm-rte-content .ProseMirror img{max-width:100%;border-radius:8px}
@@ -995,3 +1000,18 @@ footer a:hover{color:var(--brass)}
 
 /* Service page side-by-side sections: tighter spacing between each one */
 .split-sec{padding:25px 0}
+
+/* Rich-text content rendered on the public site (service page descriptions,
+   FAQ answers, detail paragraphs, "best for" points) */
+.rich-text p{margin:0 0 14px}
+.rich-text>*:last-child{margin-bottom:0}
+.rich-text h1,.rich-text h2,.rich-text h3,.rich-text h4{margin:18px 0 8px}
+.rich-text h1{font-size:1.9rem}
+.rich-text h2{font-size:1.5rem}
+.rich-text h3{font-size:1.2rem}
+.rich-text h4{font-size:1.05rem}
+.rich-text ul,.rich-text ol{margin:0 0 14px;padding-left:20px}
+.rich-text a{color:var(--brass);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.detail-card .rich-text p{margin:0}
+.tick .rich-text{display:inline}
+.tick .rich-text p{display:inline;margin:0}

@@ -1,5 +1,7 @@
 "use client";
 
+import RichTextEditor from "../RichTextEditor.jsx";
+
 // Fixed at 3 sections to match how ServicePageTemplate pairs each with a
 // gallery image (gallery[0..2] for sections, gallery[3] for "Best for").
 export default function SectionsField({ value, onChange }) {
@@ -21,11 +23,11 @@ export default function SectionsField({ value, onChange }) {
             placeholder={`Section ${i + 1} heading`}
             style={{ marginBottom: 8 }}
           />
-          <textarea
-            value={(s.p || []).join("\n")}
-            onChange={(e) => update(i, "p", e.target.value.split("\n").filter((l) => l.trim()))}
-            placeholder="Paragraph(s), one per line"
-            rows={3}
+          <RichTextEditor
+            value={Array.isArray(s.p) ? s.p[0] || "" : s.p || ""}
+            onChange={(html) => update(i, "p", [html])}
+            label={null}
+            minHeight={110}
           />
         </div>
       ))}
