@@ -29,8 +29,8 @@ export default function SplitSections({ sections, fallbackImg, topGap = 0 }) {
               )}
               {s.ctaLabel && (
                 s.ctaHref
-                  ? <a className="btn btn-gold" href={s.ctaHref}>{s.ctaLabel}</a>
-                  : <BookNowButton className="btn btn-gold">{s.ctaLabel}</BookNowButton>
+                  ? <a className="btn btn-gold" href={s.ctaHref} style={{ marginTop: 24 }}>{s.ctaLabel}</a>
+                  : <BookNowButton className="btn btn-gold" style={{ marginTop: 24 }}>{s.ctaLabel}</BookNowButton>
               )}
             </Reveal>
           </div>
