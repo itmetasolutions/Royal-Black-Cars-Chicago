@@ -5,7 +5,7 @@ import PageFaq from "./PageFaq.jsx";
 import SplitSections from "./SplitSections.jsx";
 import Cta from "./Cta.jsx";
 import { Check, Tag, Shield, Clock } from "./icons.jsx";
-import { serviceDetails, trustPoints } from "../lib/data.js";
+import { serviceDetails, trustPoints, fleetPages } from "../lib/data.js";
 import { serviceSchema } from "../lib/schema.js";
 import { stripHtml } from "../lib/richtext.js";
 
@@ -16,7 +16,7 @@ const quickFacts = [
   [Check, "No surge, ever", "Same price no matter the hour"],
 ];
 
-export default function ServicePageTemplate({ service, allServices = serviceDetails }) {
+export default function ServicePageTemplate({ service, allServices = serviceDetails, allFleet = fleetPages }) {
   const related = allServices.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
   const gallery = service.gallery || [service.img, service.img, service.img, service.img];
 
@@ -35,9 +35,22 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
 
   // Same idea for "Why ride with us": per-service points, falling back to
   // the shared list until a page sets its own. Each of the four cards is its
-  // own heading/description pair, so a card left blank just doesn't count.
-  const whyPointsSet = (service.whyPoints || []).filter(([t, x]) => t || x);
+  // own heading/description pair, so a card left blank just doesn't count —
+  // the description is rich text, so "blank" means stripped of markup.
+  const whyPointsSet = (service.whyPoints || []).filter(([t, x]) => t || stripHtml(x));
   const whyPoints = whyPointsSet.length ? whyPointsSet.map(([title, text]) => ({ title, text })) : trustPoints;
+
+  // Recommended vehicles are picked from the real fleet pages; an entry is
+  // either one of those pages' slugs (the new way) or a legacy [label, href]
+  // pair typed by hand (kept so nothing already published breaks).
+  const fleetLinksResolved = (service.fleetLinks || [])
+    .map((entry) => {
+      if (Array.isArray(entry)) return entry;
+      const f = allFleet.find((x) => x.slug === entry);
+      return f ? [f.cardTitle || f.title, f.href || `/fleet/${f.slug}/`] : null;
+    })
+    .filter(Boolean);
+  const hasFleetLinks = fleetLinksResolved.length > 0;
 
   // Each of the three detail cards, and the "Best for" card, only shows up
   // when it has something to say; the whole section (Recommended vehicles
@@ -50,11 +63,10 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
   const bestForPoints = (service.bestFor || []).filter((b) => stripHtml(b));
   const hasBestFor = bestForPoints.length > 0;
   const hasDetails = detailSections.length > 0 || hasBestFor;
-  const hasFleetLinks = !!service.fleetLinks?.length;
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema({ name: service.title, description: service.lead, url: `https://www.royalblackcarschicago.com${service.href}` })) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema({ name: service.title, description: stripHtml(service.lead), url: `https://www.royalblackcarschicago.com${service.href}` })) }} />
       <PageHero
         eyebrow={service.eyebrow}
         title={service.heroHeading || service.title}
@@ -108,7 +120,7 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
               <div style={{ marginTop: 30 }}>
                 <h3 style={{ marginBottom: 12, fontSize: "1.02rem" }}>Recommended vehicles</h3>
                 <div className="rl-grid" style={{ margin: 0 }}>
-                  {service.fleetLinks.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
+                  {fleetLinksResolved.map(([label, href]) => <a key={href} className="rl-chip" href={href}>{label}</a>)}
                 </div>
               </div>
             )}
@@ -127,7 +139,7 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
               <Reveal key={t.title} delay={i % 3} className="feature-card">
                 <Check />
                 <h3>{t.title}</h3>
-                <p>{t.text}</p>
+                <div className="rich-text" dangerouslySetInnerHTML={{ __html: t.text }} />
               </Reveal>
             ))}
           </div>

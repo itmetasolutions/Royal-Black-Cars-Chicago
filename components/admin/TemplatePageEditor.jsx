@@ -9,6 +9,8 @@ import SectionsField from "./fields/SectionsField.jsx";
 import SplitSectionsField from "./fields/SplitSectionsField.jsx";
 import WhyPointsField from "./fields/WhyPointsField.jsx";
 import RichPointsField from "./fields/RichPointsField.jsx";
+import FleetLinksField from "./fields/FleetLinksField.jsx";
+import RichTextEditor from "./RichTextEditor.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
 import { toCard } from "@/lib/cards.js";
@@ -39,7 +41,7 @@ const CARD_EXTRAS = {
   service: [["cardCta", "Card button (shows on hover, e.g. Book Airport Transportation)"]],
 };
 
-export default function TemplatePageEditor({ type, page }) {
+export default function TemplatePageEditor({ type, page, allFleet = [] }) {
   const router = useRouter();
   const isNew = !page;
   const [slug, setSlug] = useState(page?.slug || "");
@@ -170,10 +172,7 @@ export default function TemplatePageEditor({ type, page }) {
               <label>Eyebrow</label>
               <input value={data.eyebrow || ""} onChange={setField("eyebrow")} />
             </div>
-            <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Lead paragraph</label>
-              <textarea value={data.lead || ""} onChange={setField("lead")} rows={2} />
-            </div>
+            <RichTextEditor value={data.lead} onChange={setFieldValue("lead")} label="Lead paragraph (shown on the hero banner)" minHeight={90} withImage={false} />
             <SplitSectionsField value={data.splitSections} onChange={setFieldValue("splitSections")} />
 
             <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
@@ -193,7 +192,7 @@ export default function TemplatePageEditor({ type, page }) {
               onChange={setFieldValue("bestFor")}
               hint="Shown in the Details grid as a short list of up to 3. A blank point just doesn't appear."
             />
-            <PairsField label="Recommended vehicles" value={data.fleetLinks} onChange={setFieldValue("fleetLinks")} />
+            <FleetLinksField value={data.fleetLinks} onChange={setFieldValue("fleetLinks")} fleet={allFleet} />
 
             <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
               <div className="adm-field">

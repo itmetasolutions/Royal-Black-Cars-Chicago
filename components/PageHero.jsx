@@ -14,7 +14,9 @@ export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true
         <Breadcrumbs items={crumbs} />
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h1>{title}</h1>
-        {lead && <p className="lead">{lead}</p>}
+        {/* lead may be plain text (most pages) or rich-text HTML (service
+            pages); dangerouslySetInnerHTML renders plain text unchanged. */}
+        {lead && <div className="lead rich-text" dangerouslySetInnerHTML={{ __html: lead }} />}
         {cta && (
           <div className="hero-actions">
             <BookNowButton className="btn btn-gold" />

@@ -3,12 +3,13 @@
 import ImageField from "./ImageField.jsx";
 import RichTextEditor from "../RichTextEditor.jsx";
 
-const blankSection = () => ({ img: "", heading: "", text: "", points: [], ctaLabel: "", ctaHref: "" });
+const blankSection = () => ({ img: "", heading: "", text: "", ctaLabel: "", ctaHref: "" });
 
 // A repeatable list of side-by-side sections for a service page: image on one
-// side, heading/description/points on the other, with an optional CTA. Any
-// number can be added; a blank heading, description, points list or CTA
-// label is simply left off the page.
+// side, heading/description on the other (the description is rich text, so a
+// list of points can go right in it), with an optional CTA. Any number can
+// be added; a blank heading, description or CTA label is simply left off
+// the page.
 export default function SplitSectionsField({ value, onChange }) {
   const sections = value || [];
 
@@ -28,7 +29,7 @@ export default function SplitSectionsField({ value, onChange }) {
       <label>Side-by-side sections</label>
       <small style={{ display: "block", marginBottom: 10 }}>
         Shown below the hero, alternating image left and image right. Add as many as you need — a blank heading,
-        description, points list or CTA label just doesn&apos;t appear on the page.
+        description or CTA label just doesn&apos;t appear on the page.
       </small>
 
       {sections.map((s, i) => (
@@ -50,16 +51,6 @@ export default function SplitSectionsField({ value, onChange }) {
           </div>
 
           <RichTextEditor value={s.text} onChange={(html) => update(i, "text", html)} label="Description" minHeight={140} />
-
-          <div className="adm-field">
-            <label>Points</label>
-            <textarea
-              value={(s.points || []).join("\n")}
-              onChange={(e) => update(i, "points", e.target.value.split("\n").map((l) => l.trim()).filter(Boolean))}
-              rows={Math.max(3, (s.points || []).length + 1)}
-            />
-            <small>One per line.</small>
-          </div>
 
           <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="adm-field">

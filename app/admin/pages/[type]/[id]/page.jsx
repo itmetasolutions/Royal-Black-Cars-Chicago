@@ -27,12 +27,19 @@ export default async function EditPage({ params }) {
   const page = isNew ? null : await prisma.templatePage.findUnique({ where: { id } });
   if (!isNew && !page) notFound();
 
+  // Services pick their "Recommended vehicles" from the fleet pages that
+  // actually exist, rather than typing a name and link by hand.
+  const allFleet = type === "service"
+    ? (await prisma.templatePage.findMany({ where: { type: "fleet" }, orderBy: { createdAt: "asc" } }))
+        .map((f) => ({ slug: f.slug, title: f.data?.cardTitle || f.title }))
+    : [];
+
   return (
     <>
       <Link href={`/admin/pages/${type}`} style={{ fontSize: ".84rem", color: "var(--muted)" }}>&larr; {type} pages</Link>
       <h1 style={{ marginTop: 10 }}>{isNew ? `New ${type} page` : page.title}</h1>
       <p className="adm-sub">{isNew ? "Fill in the fields below to publish a new page." : "Edit content and SEO for this page."}</p>
-      <TemplatePageEditor type={type} page={page} />
+      <TemplatePageEditor type={type} page={page} allFleet={allFleet} />
     </>
   );
 }

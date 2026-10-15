@@ -1,8 +1,10 @@
 "use client";
 
+import RichTextEditor from "../RichTextEditor.jsx";
+
 // Fixed at 4 cards to match the "Why ride with us" grid. Each card is its own
-// heading and description; leaving all four blank falls back to the
-// site-wide points.
+// heading and rich-text description; leaving all four blank falls back to
+// the site-wide points.
 export default function WhyPointsField({ value, onChange }) {
   const points = [0, 1, 2, 3].map((i) => value?.[i] || ["", ""]);
 
@@ -25,11 +27,12 @@ export default function WhyPointsField({ value, onChange }) {
             placeholder={`Card ${i + 1} heading`}
             style={{ marginBottom: 8 }}
           />
-          <textarea
+          <RichTextEditor
             value={p[1] || ""}
-            onChange={(e) => update(i, "text", e.target.value)}
-            placeholder={`Card ${i + 1} description`}
-            rows={2}
+            onChange={(html) => update(i, "text", html)}
+            label={null}
+            minHeight={70}
+            withImage={false}
           />
         </div>
       ))}
