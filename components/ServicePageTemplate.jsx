@@ -18,7 +18,6 @@ const quickFacts = [
 
 export default function ServicePageTemplate({ service, allServices = serviceDetails, allFleet = fleetPages }) {
   const related = allServices.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
-  const gallery = service.gallery || [service.img, service.img, service.img, service.img];
 
   // The side-by-side sections are a backend-editable, add-as-many-as-you-want
   // list. A page that has never set any gets the same "what's included"
@@ -52,17 +51,15 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
     .filter(Boolean);
   const hasFleetLinks = fleetLinksResolved.length > 0;
 
-  // Each of the three detail cards, and the "Best for" card, only shows up
-  // when it has something to say; the whole section (Recommended vehicles
-  // included) disappears if none of them do. The paragraph and the best-for
-  // points are rich text, so "blank" means stripped of markup, not just an
-  // empty string — an untouched editor still outputs "<p></p>".
+  // Each of the three detail cards only shows up when it has something to
+  // say; the whole section (Recommended vehicles included) disappears if
+  // none of them do. The paragraph is rich text, so "blank" means stripped
+  // of markup, not just an empty string — an untouched editor still outputs
+  // "<p></p>".
   const detailSections = (service.body || [])
-    .map((section, i) => ({ ...section, img: gallery[i], pHtml: Array.isArray(section.p) ? section.p[0] : section.p }))
+    .map((section) => ({ ...section, pHtml: Array.isArray(section.p) ? section.p[0] : section.p }))
     .filter((section) => section.h || stripHtml(section.pHtml));
-  const bestForPoints = (service.bestFor || []).filter((b) => stripHtml(b));
-  const hasBestFor = bestForPoints.length > 0;
-  const hasDetails = detailSections.length > 0 || hasBestFor;
+  const hasDetails = detailSections.length > 0;
 
   return (
     <>
@@ -92,29 +89,13 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
               <p className="eyebrow">{service.detailsEyebrow || "THE DETAILS"}</p>
               <h2>{service.detailsHeading || "Everything worth knowing"}</h2>
             </Reveal>
-            <div className="detail-grid">
+            <div className="steps cols-3">
               {detailSections.map((section, i) => (
-                <Reveal key={section.h || i} delay={i % 3} className="detail-card">
-                  <img src={section.img} alt="" loading="lazy" />
-                  <div className="dc-body">
-                    <h3>{section.h}</h3>
-                    <div className="rich-text" dangerouslySetInnerHTML={{ __html: section.pHtml }} />
-                  </div>
+                <Reveal key={section.h || i} delay={i % 3} className="step">
+                  <h3>{section.h}</h3>
+                  <div className="rich-text" dangerouslySetInnerHTML={{ __html: section.pHtml }} />
                 </Reveal>
               ))}
-              {hasBestFor && (
-                <Reveal delay={0} className="detail-card">
-                  <img src={gallery[3]} alt="" loading="lazy" />
-                  <div className="dc-body">
-                    <h3>Best for</h3>
-                    <ul className="tick" style={{ margin: 0 }}>
-                      {bestForPoints.slice(0, 3).map((b, i) => (
-                        <li key={i}><Check /><span className="rich-text" dangerouslySetInnerHTML={{ __html: b }} /></li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              )}
             </div>
             {hasFleetLinks && (
               <div style={{ marginTop: 30 }}>

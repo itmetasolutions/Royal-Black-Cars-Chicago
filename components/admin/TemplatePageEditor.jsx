@@ -8,7 +8,6 @@ import FaqEditor from "./fields/FaqEditor.jsx";
 import SectionsField from "./fields/SectionsField.jsx";
 import SplitSectionsField from "./fields/SplitSectionsField.jsx";
 import WhyPointsField from "./fields/WhyPointsField.jsx";
-import RichPointsField from "./fields/RichPointsField.jsx";
 import FleetLinksField from "./fields/FleetLinksField.jsx";
 import RichTextEditor from "./RichTextEditor.jsx";
 import SeoFields from "./fields/SeoFields.jsx";
@@ -186,12 +185,6 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
               </div>
             </div>
             <SectionsField value={data.body} onChange={setFieldValue("body")} />
-            <RichPointsField
-              label="Best for"
-              value={data.bestFor}
-              onChange={setFieldValue("bestFor")}
-              hint="Shown in the Details grid as a short list of up to 3. A blank point just doesn't appear."
-            />
             <FleetLinksField value={data.fleetLinks} onChange={setFieldValue("fleetLinks")} fleet={allFleet} />
 
             <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
