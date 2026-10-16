@@ -18,7 +18,7 @@ export default function Faq({ page }) {
           {faqs.map((f, i) => (
             <details key={f.q} open={i === 0}>
               <summary>{f.q}</summary>
-              <p><KeywordText text={f.a} rules={rules} /></p>
+              <p className="faq-a"><KeywordText text={f.a} rules={rules} /></p>
             </details>
           ))}
         </Reveal>

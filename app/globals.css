@@ -114,7 +114,8 @@ p{margin:0 0 1rem}
 @keyframes zoomOut{to{transform:scale(1)}}
 .hero-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.hero-video{display:none}}
+.hero-still{display:none}
+@media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero-still{display:block}}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,17,.82) 0%,rgba(11,14,17,.28) 42%,rgba(11,14,17,.92) 100%)}
 .hero-in{position:relative;width:100%;padding:0 0 clamp(24px,4vw,48px)}
 .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(40px,4vw,64px);align-items:center}
@@ -502,7 +503,7 @@ details .faq-a{color:var(--muted);font-size:.96rem;padding:0 24px 22px;max-width
 .page-hero-bg img{width:100%;height:100%;object-fit:cover;display:block}
 .page-hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,17,.55) 0%,rgba(11,14,17,.62) 45%,rgba(11,14,17,.95) 100%)}
 .page-hero .wrap{position:relative;z-index:1}
-.page-hero h1{color:#fff;font-size:clamp(2.2rem,4.6vw,3.6rem);max-width:22ch}
+.page-hero h1{color:#fff;font-size:clamp(2.2rem,4.6vw,3.6rem);max-width:min(22ch,100%);overflow-wrap:break-word;word-break:break-word}
 .page-hero .lead{color:rgba(255,255,255,.85);margin-top:18px;max-width:60ch;font-size:1.05rem}
 .page-hero .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
 .crumbs{font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:18px}

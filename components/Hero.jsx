@@ -7,10 +7,10 @@ import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
 import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 
-// Looping background clip for the hero. The still below it stays in the markup
-// as the poster and the fallback: it is what shows while the clip buffers, if
-// the file is missing, and for anyone who asked for reduced motion (handled in
-// CSS, so there is no first paint with the video before an effect can run).
+// Looping background clip for the hero. The video's own poster is the still,
+// so there is only ever one element painting it — no separate <img> racing
+// the video to paint first. The <img> fallback below only renders for
+// anyone who asked for reduced motion, where the video itself is hidden.
 const HERO_VIDEO = "/video/hero-motion.mp4";
 
 export default function Hero({ heroData }) {
@@ -33,18 +33,23 @@ export default function Hero({ heroData }) {
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true">
-        <img className="photo" src={still} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
-        {video && (
-          <video
-            className="hero-video"
-            src={video}
-            poster={still}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
+        {video ? (
+          <>
+            <video
+              className="hero-video"
+              src={video}
+              poster={still}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            />
+            {/* Only shown when prefers-reduced-motion hides the video above. */}
+            <img className="photo hero-still" src={still} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
+          </>
+        ) : (
+          <img className="photo" src={still} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
         )}
       </div>
       <div className="hero-scrim" aria-hidden="true" />
