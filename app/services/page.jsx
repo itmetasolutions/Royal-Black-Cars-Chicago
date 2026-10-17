@@ -25,6 +25,7 @@ export default async function Page() {
   const f = fieldsFor("services", corePage);
   const find = (slug) => serviceDetails.find((s) => s.slug === slug);
   const featured = find(f("featuredSlug")) || serviceDetails[0];
+  const featuredCard = toCard("service", featured);
   const jet = find("private-jet-transfers") || serviceDetails[1];
   const categorized = new Set([featured.slug, jet.slug, ...airportSlugs, ...businessSlugs, ...occasionSlugs]);
   const more = serviceDetails.filter((s) => !categorized.has(s.slug));
@@ -51,12 +52,12 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={featured.img} alt={featured.title} loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={featuredCard.img} alt={featured.title} loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{f("featuredEyebrow")}</p>
             <h2><a href={featured.href}>{featured.title}</a></h2>
-            <p className="lead" style={{ fontSize: "1rem" }}>{toCard("service", featured).text}</p>
+            <p className="lead" style={{ fontSize: "1rem" }}>{featuredCard.text}</p>
             <a className="btn btn-gold" href={featured.href}>{f("featuredCtaLabel")}</a>
           </Reveal>
         </div>
