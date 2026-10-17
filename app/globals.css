@@ -1013,6 +1013,8 @@ footer a:hover{color:var(--brass)}
 .rich-text h4{font-size:1.05rem}
 .rich-text ul,.rich-text ol{margin:0 0 14px;padding-left:20px}
 .rich-text a{color:var(--brass);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.hero .rich-text a,.cta .rich-text a,.areas-band .rich-text a{color:var(--brass-2)}
+.rich-text a:hover{color:var(--brass-2)}
 .detail-card .rich-text p{margin:0}
 .tick .rich-text{display:inline}
 .tick .rich-text p{display:inline;margin:0}

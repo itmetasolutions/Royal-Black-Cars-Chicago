@@ -1,6 +1,7 @@
 import Reveal from "./Reveal.jsx";
 import { Check } from "./icons.jsx";
 import AirportTabs from "./AirportTabs.jsx";
+import RichText from "./RichText.jsx";
 import { homeField } from "../lib/homeDefaults.js";
 
 export default function AirportSplit({ page }) {
@@ -20,7 +21,7 @@ export default function AirportSplit({ page }) {
           {homeField(page, "airportSubheading") && (
             <p className="sub-highlight">{homeField(page, "airportSubheading")}</p>
           )}
-          <p className="lead">{homeField(page, "airportLead")}</p>
+          <RichText className="lead rich-text" value={homeField(page, "airportLead")} />
           <ul className="tick">
             {points.map((p) => <li key={p}><Check />{p}</li>)}
           </ul>
@@ -29,7 +30,7 @@ export default function AirportSplit({ page }) {
       </div>
       <div className="wrap" style={{ marginTop: 56 }}>
         <Reveal>
-          <AirportTabs tabs={tabs} keywordLinks={homeField(page, "keywordLinks")} />
+          <AirportTabs tabs={tabs} />
         </Reveal>
       </div>
     </section>

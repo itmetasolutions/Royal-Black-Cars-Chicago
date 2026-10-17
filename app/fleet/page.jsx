@@ -8,12 +8,14 @@ import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
 import { toCard } from "@/lib/cards.js";
 import { pageMeta } from "@/lib/seo.js";
+import { splitPairs } from "@/components/HomeExtras.jsx";
+import RichText from "@/components/RichText.jsx";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Our Fleet | Royal Black Cars Chicago",
-  description: "Luxury and executive sedans, luxury and executive SUVs, shuttle and executive Sprinters, a limousine, and a mini coach — every vehicle class we run, with capacity and rate guidance.",
+  title: "Chicago Luxury Black Car Fleet – Luxury Sedan, SUV, Van Rentals",
+  description: "Check out our black car rental fleet, which includes luxury cars, executive sedans, SUVs, Sprinter vans, limousine services, party bus and more.",
   path: "/fleet/",
 });
 
@@ -46,7 +48,7 @@ export default async function Page() {
                   <div className="fc-info">
                     <h3><a href={f.href}>{f.title}</a></h3>
                     <p className="fc-pax"><Seat />{passengers}</p>
-                    <p className="fc-desc">{f.body}</p>
+                    <RichText className="fc-desc rich-text" value={f.body} />
                     <div className="fc-specs">
                       <div><Bag />{bagsPart || "Chauffeur included"}</div>
                       <div><CarIcon />{f.models}</div>
@@ -63,8 +65,20 @@ export default async function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <div className="prose">
-            <p>Not sure which class fits your trip? Dispatch will ask a few questions about group size, luggage and occasion, then recommend the right vehicle — you're never upsold into more than you need. See <a href="/rates/">how rates are calculated</a> or <a href="/services/">browse services</a> to find the one built for your trip.</p>
+          <Reveal className="section-head"><h2 style={{ fontSize: "1.4rem" }}>{f("guideHeading")}</h2></Reveal>
+          <div className="svc-list" style={{ marginTop: 24 }}>
+            {splitPairs(f("guideItems")).map(([label, val]) => (
+              <div key={label} className="svc-row">
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h3>{label}</h3>
+                  <p>{val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="prose rich-text" style={{ marginTop: 28 }}>
+            <RichText value={f("noteText")} />
+            <p>See <a href="/rates/">how rates are calculated</a> or <a href="/services/">browse services</a> to find the one built for your trip.</p>
           </div>
         </div>
       </section>

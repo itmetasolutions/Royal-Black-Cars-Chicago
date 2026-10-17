@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { IMG, PHONE_HREF } from "../lib/data.js";
 import { homeField } from "../lib/homeDefaults.js";
-import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
+import RichText from "./RichText.jsx";
 import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 
@@ -62,7 +62,7 @@ export default function Hero({ heroData }) {
               <span><i>{homeField(heroData, "heroLine2")}</i></span>
               <span><i>{homeField(heroData, "heroLine3")}</i></span>
             </h1>
-            <p className="lead"><KeywordText text={homeField(heroData, "heroLead")} rules={parseKeywordRules(homeField(heroData, "keywordLinks"))} /></p>
+            <RichText className="lead rich-text" value={homeField(heroData, "heroLead")} />
             <p className="sub-highlight hero-tagline">{homeField(heroData, "heroTagline")}</p>
             <div className="hero-actions">
               <BookNowButton className="btn btn-gold hero-phone-hide" />

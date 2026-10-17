@@ -11,8 +11,8 @@ import { pageMeta } from "@/lib/seo.js";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Chicago Black Car Services | Royal Black Cars",
-  description: "Airport transfers, corporate travel, hourly chauffeur, private aviation, weddings and more — every Royal Black Cars Chicago service in one place.",
+  title: "Chicago Black Car & Limo Services | Royal Black Cars Chicago",
+  description: "Book premium Chicago black car service for airport, corporate travel, hourly chauffeur service, weddings, events, point-to-point rides and more.",
   path: "/services/",
 });
 
@@ -56,7 +56,7 @@ export default async function Page() {
           <Reveal delay={1}>
             <p className="eyebrow">{f("featuredEyebrow")}</p>
             <h2><a href={featured.href}>{featured.title}</a></h2>
-            <p className="lead" style={{ fontSize: "1rem" }}>{featured.lead}</p>
+            <p className="lead" style={{ fontSize: "1rem" }}>{toCard("service", featured).text}</p>
             <a className="btn btn-gold" href={featured.href}>{f("featuredCtaLabel")}</a>
           </Reveal>
         </div>
@@ -118,7 +118,7 @@ export default async function Page() {
             <img src={jet.img} alt="" loading="lazy" />
             <div className="fb-body">
               <h3>{jet.title}</h3>
-              <p>{jet.lead}</p>
+              <p>{toCard("service", jet).text}</p>
               <span className="btn btn-gold">See FBO details</span>
             </div>
           </Reveal>

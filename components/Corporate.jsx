@@ -1,7 +1,7 @@
 import Reveal from "./Reveal.jsx";
 import { Check } from "./icons.jsx";
 import { homeField } from "../lib/homeDefaults.js";
-import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
+import RichText from "./RichText.jsx";
 
 export default function Corporate({ page }) {
   const points = homeField(page, "corporatePoints");
@@ -15,11 +15,11 @@ export default function Corporate({ page }) {
         <Reveal delay={1}>
           <p className="eyebrow">{homeField(page, "corporateEyebrow")}</p>
           <h2>{homeField(page, "corporateHeading")}</h2>
-          <p className="lead"><KeywordText text={homeField(page, "corporateLead")} rules={parseKeywordRules(homeField(page, "keywordLinks"))} /></p>
+          <RichText className="lead rich-text" value={homeField(page, "corporateLead")} />
           <ul className="tick">
             {points.map((p) => <li key={p}><Check />{p}</li>)}
           </ul>
-          <p style={{ marginTop: 18 }}>{homeField(page, "corporateTravel")}</p>
+          <RichText className="rich-text" style={{ marginTop: 18 }} value={homeField(page, "corporateTravel")} />
           <div className="chips" style={{ marginTop: 14 }}>
             {(homeField(page, "corporateUses") || []).map((u) => <span key={u} className="chip">{u}</span>)}
           </div>

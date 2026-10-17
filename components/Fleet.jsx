@@ -7,6 +7,7 @@ import { Seat, Bag, Clock } from "./icons.jsx";
 import { fleet as fallbackFleet } from "../lib/data.js";
 import { toCard } from "../lib/cards.js";
 import { homeField } from "../lib/homeDefaults.js";
+import RichText from "./RichText.jsx";
 
 export default function Fleet({ page: cms, vehicles }) {
   // Each vehicle renders its own card fields where set, falling back to the
@@ -89,7 +90,7 @@ export default function Fleet({ page: cms, vehicles }) {
     <section className="sec">
       <div className="wrap">
         <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
-          <div className="fleet-head"><p className="eyebrow">{homeField(cms, "fleetEyebrow")}</p><h2>{homeField(cms, "fleetHeading")}</h2><p className="lead" style={{ marginTop: 16, maxWidth: "none" }}>{homeField(cms, "fleetLead")}</p></div>
+          <div className="fleet-head"><p className="eyebrow">{homeField(cms, "fleetEyebrow")}</p><h2>{homeField(cms, "fleetHeading")}</h2><RichText className="lead rich-text" style={{ marginTop: 16, maxWidth: "none" }} value={homeField(cms, "fleetLead")} /></div>
           <div className="sld-nav">
             <button className="sld-btn" aria-label="Previous vehicles" disabled={atStart} onClick={() => scrollBy(-1)}>
               <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>

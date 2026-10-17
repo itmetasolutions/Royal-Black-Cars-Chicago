@@ -6,6 +6,7 @@ import { PHONE, PHONE_HREF, EMAIL, PHOTOS, trustPoints } from "@/lib/data.js";
 import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import RichText from "@/components/RichText.jsx";
 
 export const dynamic = "force-dynamic";
 
@@ -26,8 +27,8 @@ export default async function Page() {
     <>
       <PageHero
         eyebrow="CONTACT"
-        title={page?.heroTitle || "Talk to dispatch"}
-        lead={page?.heroLead}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
         img={page?.heroImg || PHOTOS.chauffeur[1]}
         crumbs={[{ name: "Contact", href: "/contact/" }]}
         cta={false}
@@ -37,14 +38,15 @@ export default async function Page() {
         <div className="wrap split">
           <Reveal>
             <p className="eyebrow">{f("introEyebrow")}</p>
-            <h2>{page?.introHeading}</h2>
+            <h2>{f("introHeading")}</h2>
             <div className="prose">
               <p>
                 <strong>Phone / text:</strong> <a href={PHONE_HREF}>{PHONE}</a><br />
                 <strong>Email:</strong> <a href={`mailto:${EMAIL}`}>{EMAIL}</a><br />
                 <strong>Hours:</strong> Dispatch is staffed 24 hours a day, every day.
               </p>
-              <p><strong>Office:</strong> {page?.officeNote}</p>
+              <p><strong>Office:</strong></p>
+              <RichText className="rich-text" value={page?.officeNote} />
             </div>
             <a className="btn btn-gold" href={PHONE_HREF}>Call Now</a>
           </Reveal>

@@ -1,6 +1,7 @@
 "use client";
 
 import ImageField from "./ImageField.jsx";
+import RichTextEditor from "../RichTextEditor.jsx";
 
 // Generic repeater for the list-shaped sections (service cards, child seats,
 // airport tiles, marquee items…). `spec` names the sub-fields of one row, so
@@ -37,6 +38,9 @@ export default function CardsField({ label, value, onChange, spec, hint, max }) 
               return <ImageField key={key} label={sublabel} value={row[key]} onChange={(val) => update(i, key, val)} />;
             }
             if (kind === "textarea") {
+              return <RichTextEditor key={key} label={sublabel} value={row[key]} onChange={(val) => update(i, key, val)} minHeight={70} withImage={false} />;
+            }
+            if (kind === "textarea-plain") {
               return (
                 <div className="adm-field" key={key}>
                   <label>{sublabel}</label>

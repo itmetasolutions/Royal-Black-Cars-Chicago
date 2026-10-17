@@ -7,6 +7,7 @@ import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
 import LinesField from "./fields/LinesField.jsx";
 import CardsField from "./fields/CardsField.jsx";
+import RichTextEditor from "./RichTextEditor.jsx";
 
 const SCHEMAS = {
   home: [
@@ -146,8 +147,6 @@ const SCHEMAS = {
     ["areasLists", "Service area lists (one per line: area name | towns)", "lines"],
     ["venuesGuide", "Venue guide (one per line: venue | what we do there)", "lines"],
 
-    ["__links", "Internal links", "group"],
-    ["keywordLinks", "Keyword links (one per line: the phrase in the copy | the page it links to)", "lines"],
   ],
   services: [
     ["__hero", "Hero", "group"],
@@ -185,6 +184,26 @@ const SCHEMAS = {
     ["flatHeading", "Flat-rate section heading", "text"],
     ["regionalEyebrow", "Regional section eyebrow", "text"],
     ["regionalHeading", "Regional section heading", "text"],
+    ["__options", "O'Hare, Midway & private aviation", "group"],
+    ["optionsEyebrow", "Eyebrow", "text"],
+    ["optionsHeading", "Heading", "text"],
+    ["ohareHeading", "O'Hare heading", "text"],
+    ["ohareText", "O'Hare text", "textarea"],
+    ["midwayHeading", "Midway heading", "text"],
+    ["midwayText", "Midway text", "textarea"],
+    ["privateHeading", "Private aviation heading", "text"],
+    ["privateText", "Private aviation text", "textarea"],
+    ["__experience", "Pickup, drop-off & vehicle guide", "group"],
+    ["experienceEyebrow", "Eyebrow", "text"],
+    ["experienceHeading", "Heading", "text"],
+    ["pickupHeading", "Pickup heading", "text"],
+    ["pickupText", "Pickup text", "textarea"],
+    ["dropoffHeading", "Drop-off heading", "text"],
+    ["dropoffText", "Drop-off text", "textarea"],
+    ["vehicleHeading", "Vehicle guide heading", "text"],
+    ["vehicleText", "Vehicle guide text", "textarea"],
+    ["regionalTransferHeading", "Regional transfers heading", "text"],
+    ["regionalTransferText", "Regional transfers text", "textarea"],
     ["__cta", "Closing CTA", "group"],
     ["ctaImg", "Background image", "image"],
     ["ctaHeading", "Heading", "text"],
@@ -196,6 +215,10 @@ const SCHEMAS = {
     ["heroTitle", "Title", "text"],
     ["heroLead", "Lead paragraph", "textarea"],
     ["heroImg", "Hero image", "image"],
+    ["__guide", "Choose the right vehicle", "group"],
+    ["guideHeading", "Heading", "text"],
+    ["guideItems", "Guide rows (one per line: trip type | recommended vehicle)", "lines"],
+    ["noteText", "Closing note", "textarea"],
     ["__cta", "Closing CTA", "group"],
     ["ctaImg", "Background image", "image"],
     ["ctaHeading", "Heading", "text"],
@@ -208,10 +231,14 @@ const SCHEMAS = {
     ["heroLead", "Lead paragraph", "textarea"],
     ["heroImg", "Hero image", "image"],
     ["__sections", "Section headings", "group"],
-    ["routesEyebrow", "Long-distance eyebrow", "text"],
-    ["routesHeading", "Long-distance heading", "text"],
+    ["airportsEyebrow", "Airports eyebrow", "text"],
+    ["airportsHeading", "Airports heading", "text"],
+    ["airportsLead", "Airports lead paragraph", "textarea"],
     ["venuesEyebrow", "Venues eyebrow", "text"],
     ["venuesHeading", "Venues heading", "text"],
+    ["venuesLead", "Venues lead paragraph", "textarea"],
+    ["routesEyebrow", "Long-distance eyebrow", "text"],
+    ["routesHeading", "Long-distance heading", "text"],
     ["__cta", "Closing CTA", "group"],
     ["ctaImg", "Background image", "image"],
     ["ctaHeading", "Heading", "text"],
@@ -255,6 +282,7 @@ const SCHEMAS = {
     ["quoteText", "Pull-quote text", "textarea"],
     ["standardEyebrow", '"Our standard" eyebrow', "text"],
     ["standardHeading", '"Our standard" heading', "text"],
+    ["standardLead", '"Our standard" lead paragraph', "textarea"],
     ["moreEyebrow", '"More about us" eyebrow', "text"],
     ["moreHeading", '"More about us" heading', "text"],
     ["closingCard1Img", "Closing card 1 image", "image"],
@@ -267,6 +295,8 @@ const SCHEMAS = {
     ["closingCard3Heading", "Closing card 3 heading", "text"],
     ["closingCard3Text", "Closing card 3 text", "textarea"],
     ["ctaImg", "Bottom CTA image", "image"],
+    ["ctaHeading", "Bottom CTA heading", "text"],
+    ["ctaText", "Bottom CTA text", "textarea"],
   ],
   contact: [
     ["heroImg", "Hero image", "image"],
@@ -332,11 +362,11 @@ const SCHEMAS = {
   ],
   terms: [
     ["heroImg", "Hero image", "image"],
-    ["bodyText", "Full document text (blank line between sections)", "textarea-lg"],
+    ["bodyText", "Full document text — use the editor's H2 button for each section's heading", "textarea-lg"],
   ],
   privacy: [
     ["heroImg", "Hero image", "image"],
-    ["bodyText", "Full document text (blank line between sections)", "textarea-lg"],
+    ["bodyText", "Full document text — use the editor's H2 button for each section's heading", "textarea-lg"],
   ],
 };
 
@@ -389,15 +419,19 @@ export default function CorePageForm({ page }) {
           if (kind === "image") return <ImageField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "lines") return <LinesField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "textarea") return (
+            <RichTextEditor key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} minHeight={100} />
+          );
+          if (kind === "textarea-lg") return (
+            <RichTextEditor key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} minHeight={420} />
+          );
+          // Plain text, not rich text: this field's words are matched against
+          // the keyword links below and turned into gold in-text links, which
+          // depends on it staying plain text rather than HTML.
+          if (kind === "textarea-plain") return (
             <div className="adm-field" key={name} style={{ maxWidth: 700 }}>
               <label>{label}</label>
               <textarea value={fields[name] || ""} onChange={setField(name)} rows={3} />
-            </div>
-          );
-          if (kind === "textarea-lg") return (
-            <div className="adm-field" key={name} style={{ maxWidth: 700 }}>
-              <label>{label}</label>
-              <textarea value={fields[name] || ""} onChange={setField(name)} rows={16} />
+              <small>Plain text — matched against the keyword links below, so it stays a simple paragraph rather than rich text.</small>
             </div>
           );
           return (

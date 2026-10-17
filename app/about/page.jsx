@@ -7,14 +7,16 @@ import { allLocations, venueDetails } from "@/lib/locations.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import RichText from "@/components/RichText.jsx";
+import { stripHtml } from "@/lib/richtext.js";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
   const page = await getCorePage("about");
   return pageMeta({
-    title: page?.seo.metaTitle || "About Us | Royal Black Cars Chicago",
-    description: page?.seo.metaDescription || "A licensed, insured Chicago black car service built on flat pricing agreed before you ride, vetted chauffeurs and a dispatch desk that answers.",
+    title: page?.seo.metaTitle || "About Royal Black Cars Chicago | Premium Chauffeured Transportation",
+    description: page?.seo.metaDescription || "Learn about Royal Black Cars Chicago and our approach to premium, professional, and comfortable black car transportation across Chicago and the surrounding suburbs.",
     path: "/about/",
   });
 }
@@ -38,17 +40,32 @@ export default async function Page() {
   ];
 
   const closingCards = [
-    { h: page?.closingCard1Heading, p: page?.closingCard1Text, img: page?.closingCard1Img || PHOTOS.chauffeur[1] },
-    { h: page?.closingCard2Heading, p: page?.closingCard2Text, img: page?.closingCard2Img || PHOTOS.skyline[1], href: "/service-areas/", linkLabel: "Full service area list" },
-    { h: page?.closingCard3Heading, p: page?.closingCard3Text, img: page?.closingCard3Img || PHOTOS.handshake[2], href: "/corporate-accounts/", linkLabel: "Set up an account" },
+    {
+      h: page?.closingCard1Heading || "Transportation for Business & Corporate Travel",
+      p: page?.closingCard1Text || "Business travelers often work within narrow timelines that involve several appointments, flight connections, and meetings. Our corporate limo service is designed to run within these timelines, providing luxury black cars and professional chauffeurs for corporate travelers.",
+      img: page?.closingCard1Img || PHOTOS.chauffeur[1],
+      href: "/corporate-car-service/", linkLabel: "See corporate car service",
+    },
+    {
+      h: page?.closingCard2Heading || "Transportation for Airports & Private Aviation",
+      p: page?.closingCard2Text || "Airport and private aviation transportation is one of the most common ways people book us. We serve our clients to and from airport to airport, airport to downtown Chicago, the suburbs and other regional cities, in a professional manner.",
+      img: page?.closingCard2Img || PHOTOS.skyline[1],
+      href: "/airports/", linkLabel: "See airport transportation",
+    },
+    {
+      h: page?.closingCard3Heading || "Transportation for Special Occasions",
+      p: page?.closingCard3Text || "Some journeys are focused on being punctual; others — weddings, parties, concerts and celebrations — call for transportation that best fits the occasion. With our diverse fleet of vehicles, we can help everybody choose the most suitable one for the goal.",
+      img: page?.closingCard3Img || PHOTOS.handshake[2],
+      href: "/services/", linkLabel: "Browse all services",
+    },
   ];
 
   return (
     <>
       <PageHero
         eyebrow="ABOUT US"
-        title={page?.heroTitle || "A Chicago black car service built on kept promises"}
-        lead={page?.heroLead}
+        title={page?.heroTitle || "A Dependable Chicago Black Car Service, Built Around Your Journey"}
+        lead={page?.heroLead || "Royal Black Cars Chicago is dedicated to meeting the needs of travelers who want a more sophisticated way to get around than typical options. Our mission is simple: superior vehicles, expert chauffeurs, and a relaxed, luxury experience for airport transfers, corporate travel, special events and everyday transportation."}
         img={page?.heroImg || PHOTOS.chauffeur[2]}
         crumbs={[{ name: "About", href: "/about/" }]}
       />
@@ -79,10 +96,10 @@ export default async function Page() {
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{f("whatWeDoEyebrow")}</p>
-            <h2>{page?.whatWeDoHeading}</h2>
-            <div className="prose">
-              <p>{page?.whatWeDoP1}</p>
-              <p>{page?.whatWeDoP2}</p>
+            <h2>{page?.whatWeDoHeading || "Premium Transportation Without the Ordinary Experience"}</h2>
+            <div className="prose rich-text">
+              <RichText value={page?.whatWeDoP1 || "Our limo service serves people who demand convenience, comfort, looks, and privacy. Whether you're on your way to an event, a meeting, the airport, or any daily life event, we want it to be an unparalleled travel experience for you."} />
+              <RichText value={page?.whatWeDoP2 || "Our areas of operation are extensive, covering all of Downtown Chicago, O'Hare and Midway airports, the North Shore, the northwest and western suburbs, and large venues and destinations. Wherever you are, we're just one call away."} />
             </div>
           </Reveal>
         </div>
@@ -91,11 +108,12 @@ export default async function Page() {
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap split">
           <Reveal className="quote-card">
-            <q>{page?.quoteText}</q>
+            <q>{stripHtml(page?.quoteText) || "We believe a car service should not just provide transportation — it should give you a relaxed, luxury travel experience along with it."}</q>
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{f("standardEyebrow")}</p>
             <h2 style={{ fontSize: "1.7rem", marginBottom: 20 }}>{f("standardHeading")}</h2>
+            <RichText className="lead rich-text" style={{ marginBottom: 20 }} value={f("standardLead")} />
             <div className="mini-grid">
               {trustPoints.map((t) => (
                 <div key={t.title} className="feature-card">
@@ -117,7 +135,7 @@ export default async function Page() {
                 <img src={c.img} alt="" loading="lazy" />
                 <div className="dc-body">
                   <h3>{c.h}</h3>
-                  <p>{c.p}</p>
+                  <RichText className="rich-text" value={c.p} />
                   {c.href && <a href={c.href} style={{ display: "inline-block", marginTop: 10, color: "var(--brass)", fontWeight: 600, fontSize: ".88rem" }}>{c.linkLabel} &rarr;</a>}
                 </div>
               </Reveal>
@@ -126,7 +144,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <Cta img={page?.ctaImg || PHOTOS.chauffeur[0]} />
+      <Cta img={page?.ctaImg || PHOTOS.chauffeur[0]} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }

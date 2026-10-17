@@ -1,6 +1,6 @@
 import Reveal from "./Reveal.jsx";
 import { homeField } from "../lib/homeDefaults.js";
-import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
+import RichText from "./RichText.jsx";
 
 export default function Services({ page, cards = [] }) {
   return (
@@ -10,7 +10,7 @@ export default function Services({ page, cards = [] }) {
           <div className="home-svc-head">
             <p className="eyebrow">{homeField(page, "servicesEyebrow")}</p>
             <h2>{homeField(page, "servicesHeading")}</h2>
-            <p className="lead" style={{ marginTop: 18 }}><KeywordText text={homeField(page, "servicesDescription")} rules={parseKeywordRules(homeField(page, "keywordLinks"))} /></p>
+            <RichText className="lead rich-text" style={{ marginTop: 18 }} value={homeField(page, "servicesDescription")} />
           </div>
         </Reveal>
         <div className="svc-home">

@@ -1,8 +1,9 @@
-import KeywordText from "./KeywordText.jsx";
+import RichText from "./RichText.jsx";
 import { PHONE_HREF, IMG } from "../lib/data.js";
 import BookNowButton from "./BookNowButton.jsx";
 
-export default function Cta({ img, heading, text, rules = [] }) {
+export default function Cta({ img, heading, text }) {
+  const body = text || "Get a flat rate online, or speak to a dispatcher at any hour.";
   return (
     <section className="sec cta">
       <div className="cta-bg" aria-hidden="true">
@@ -10,9 +11,7 @@ export default function Cta({ img, heading, text, rules = [] }) {
       </div>
       <div className="wrap">
         <h2>{heading || "Your car is one minute away"}</h2>
-        {(text || "Get a flat rate online, or speak to a dispatcher at any hour.").split("\n").filter(Boolean).map((line, i) => (
-          <p key={i}><KeywordText text={line} rules={rules} /></p>
-        ))}
+        <RichText className="rich-text" value={body} />
         <div className="cta-b">
           <BookNowButton className="btn btn-gold" />
           <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>

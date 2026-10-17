@@ -214,14 +214,8 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
             </div>
             <ImageField label="Second image" value={data.img2} onChange={setFieldValue("img2")} />
             <LinesField label="About this airport (body paragraphs)" value={data.body} onChange={setFieldValue("body")} />
-            <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Terminals</label>
-              <textarea value={data.terminals || ""} onChange={setField("terminals")} rows={2} />
-            </div>
-            <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Wait-time policy</label>
-              <textarea value={data.waitPolicy || ""} onChange={setField("waitPolicy")} rows={2} />
-            </div>
+            <RichTextEditor label="Terminals" value={data.terminals} onChange={setFieldValue("terminals")} minHeight={70} withImage={false} />
+            <RichTextEditor label="Wait-time policy" value={data.waitPolicy} onChange={setFieldValue("waitPolicy")} minHeight={70} withImage={false} />
           </>
         )}
 
@@ -235,10 +229,7 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
               <div className="adm-field"><label>Flat rate</label><input value={data.rate || ""} onChange={setField("rate")} placeholder='e.g. "Airport from $85" or "Quoted at booking"' /></div>
               <div className="adm-field"><label>Hourly rate</label><input value={data.hourlyRate || ""} onChange={setField("hourlyRate")} /></div>
             </div>
-            <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Description</label>
-              <textarea value={data.body || ""} onChange={setField("body")} rows={3} />
-            </div>
+            <RichTextEditor label="Description" value={data.body} onChange={setFieldValue("body")} minHeight={90} withImage={false} />
             <LinesField label="Best for" value={data.bestFor} onChange={setFieldValue("bestFor")} />
             <PairsField label="Popular services" value={data.services} onChange={setFieldValue("services")} />
           </>
@@ -251,8 +242,8 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
               <input value={data.area || ""} onChange={setField("area")} placeholder='e.g. "Near West Side"' />
             </div>
             <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Event-night note</label>
-              <textarea value={data.note || ""} onChange={setField("note")} rows={3} placeholder="Drop-off/pickup guidance for this venue" />
+              <label>Event-night note (shown as this page&apos;s heading)</label>
+              <textarea value={data.note || ""} onChange={setField("note")} rows={2} placeholder="Drop-off/pickup guidance for this venue" />
             </div>
           </>
         )}
@@ -271,7 +262,7 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
               </div>
             </div>
             <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Intro paragraph</label>
+              <label>Intro paragraph (also this page&apos;s card text elsewhere on the site)</label>
               <textarea value={data.intro || ""} onChange={setField("intro")} rows={3} />
             </div>
             <LinesField label="Landmarks" value={data.landmarks} onChange={setFieldValue("landmarks")} />

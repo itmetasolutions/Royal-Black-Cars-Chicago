@@ -4,6 +4,7 @@ import Cta from "@/components/Cta.jsx";
 import { faqsFull, PHOTOS } from "@/lib/data.js";
 import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { fieldsFor } from "@/lib/pageDefaults.js";
 
 export const dynamic = "force-dynamic";
 
@@ -18,14 +19,15 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const page = await getCorePage("faq");
+  const f = fieldsFor("faq", page);
   const faqs = page?.faqs?.length ? page.faqs : faqsFull;
 
   return (
     <>
       <PageHero
         eyebrow="GOOD TO KNOW"
-        title={page?.heroTitle || "Questions riders ask"}
-        lead={page?.heroLead}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
         img={page?.heroImg || PHOTOS.sedan[0]}
         crumbs={[{ name: "FAQ", href: "/faq/" }]}
         cta={false}

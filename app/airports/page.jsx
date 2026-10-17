@@ -10,8 +10,8 @@ import { pageMeta } from "@/lib/seo.js";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Chicago Airport Car Service | O'Hare, Midway & More",
-  description: "Flat-rate car service to O'Hare, Midway, Chicago Executive (PWK), DuPage, Milwaukee Mitchell, Gary/Chicago and Rockford.",
+  title: "Chicago Airport Transfer Services | Chicago Airport Cars",
+  description: "Choose Chicago airport transfer services including transport to/from O'Hare and Midway Airports by premium black cars, luxury SUVs, and group cars.",
   path: "/airports/",
 });
 
@@ -67,6 +67,33 @@ export default async function Page() {
                 <span className="go">&rarr;</span>
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">{f("optionsEyebrow")}</p><h2>{f("optionsHeading")}</h2></Reveal>
+          <div className="steps cols-3">
+            <Reveal delay={0} className="step"><h3>{f("ohareHeading")}</h3><p>{f("ohareText")}</p></Reveal>
+            <Reveal delay={1} className="step"><h3>{f("midwayHeading")}</h3><p>{f("midwayText")}</p></Reveal>
+            <Reveal delay={2} className="step"><h3>{f("privateHeading")}</h3><p>{f("privateText")}</p></Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" style={{ background: "var(--wash)" }}>
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">{f("experienceEyebrow")}</p><h2>{f("experienceHeading")}</h2></Reveal>
+          <div className="prose" style={{ marginTop: 24 }}>
+            <h3 style={{ fontSize: "1.1rem" }}>{f("pickupHeading")}</h3>
+            <p>{f("pickupText")}</p>
+            <h3 style={{ fontSize: "1.1rem" }}>{f("dropoffHeading")}</h3>
+            <p>{f("dropoffText")}</p>
+            <h3 style={{ fontSize: "1.1rem" }}>{f("vehicleHeading")}</h3>
+            <p>{f("vehicleText")}</p>
+            <h3 style={{ fontSize: "1.1rem" }}>{f("regionalTransferHeading")}</h3>
+            <p>{f("regionalTransferText")}</p>
           </div>
         </div>
       </section>

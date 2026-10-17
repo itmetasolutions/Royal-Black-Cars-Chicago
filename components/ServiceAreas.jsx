@@ -5,6 +5,7 @@ import { useState } from "react";
 import Reveal from "./Reveal.jsx";
 import { clusters as fallbackClusters, venueDetails } from "../lib/locations.js";
 import { homeField } from "../lib/homeDefaults.js";
+import RichText from "./RichText.jsx";
 
 export default function ServiceAreas({ page, clusters, venues }) {
   const groups = clusters?.length ? clusters : fallbackClusters;
@@ -22,7 +23,7 @@ export default function ServiceAreas({ page, clusters, venues }) {
         <Reveal>
           <p className="eyebrow">{homeField(page, "areasEyebrow")}</p>
           <h2>{homeField(page, "areasHeading")}</h2>
-          <p className="lead" style={{ color: "rgba(255,255,255,.75)" }}>{homeField(page, "areasLead")}</p>
+          <RichText className="lead rich-text" style={{ color: "rgba(255,255,255,.75)" }} value={homeField(page, "areasLead")} />
         </Reveal>
 
         <div className="areas-lists">

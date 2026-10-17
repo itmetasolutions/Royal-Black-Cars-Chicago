@@ -1,7 +1,9 @@
 import PageHero from "@/components/PageHero.jsx";
+import RichText from "@/components/RichText.jsx";
 import { PHONE, EMAIL, PHOTOS } from "@/lib/data.js";
 import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { legacyBodyToHtml } from "@/lib/richtext.js";
 
 export const dynamic = "force-dynamic";
 
@@ -16,24 +18,15 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const page = await getCorePage("terms");
-  const sections = (page?.bodyText || "").split("\n\n").map((block) => {
-    const [heading, ...rest] = block.split("\n");
-    return { heading, body: rest.join(" ") };
-  });
 
   return (
     <>
       <PageHero eyebrow="LEGAL" title="Terms & Conditions" img={page?.heroImg || PHOTOS.loop[2]} crumbs={[{ name: "Terms", href: "/terms/" }]} cta={false} />
       <section className="sec">
         <div className="wrap">
-          <div className="prose">
+          <div className="prose rich-text">
             <p><em>Last updated: [DATE]. This page is a starting template, not a final legal document — have an attorney review it against your actual business entity, insurance policy and local regulations before publishing.</em></p>
-            {sections.map((s) => (
-              <div key={s.heading}>
-                <h2>{s.heading}</h2>
-                <p>{s.body}</p>
-              </div>
-            ))}
+            <RichText value={legacyBodyToHtml(page?.bodyText)} />
             <h2>Contact</h2>
             <p>Questions about these terms can be sent to <a href={`mailto:${EMAIL}`}>{EMAIL}</a> or {PHONE}.</p>
           </div>

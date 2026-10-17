@@ -3,8 +3,10 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import Cta from "./Cta.jsx";
+import RichText from "./RichText.jsx";
 import { Plane, Check } from "./icons.jsx";
 import { airportDetails, trustPoints } from "../lib/data.js";
+import { stripHtml } from "../lib/richtext.js";
 
 const steps = [
   ["We track your flight", "From the moment it departs, so a delay or an early landing moves your pickup automatically."],
@@ -36,7 +38,7 @@ export default function AirportPageTemplate({ airport, allAirports = airportDeta
           <div className="ticket-body">
             <div><span className="tl">Rate</span><b>{airport.rate}{airport.rateNote ? ` · ${airport.rateNote}` : ""}</b></div>
             <div><span className="tl">Drive time</span><b style={{ fontSize: "1.05rem" }}>{airport.driveTime}</b></div>
-            <div><span className="tl">Terminals</span><b style={{ fontSize: ".92rem", fontFamily: "inherit", fontWeight: 500 }}>{airport.terminals.split(" — ")[0]}</b></div>
+            <div><span className="tl">Terminals</span><b style={{ fontSize: ".92rem", fontFamily: "inherit", fontWeight: 500 }}>{stripHtml(airport.terminals).split(" — ")[0]}</b></div>
             <a className="btn btn-gold" href="/get-a-quote/" style={{ marginLeft: "auto" }}>Get A Free Quote</a>
           </div>
         </Reveal>
@@ -50,8 +52,10 @@ export default function AirportPageTemplate({ airport, allAirports = airportDeta
           <Reveal delay={1}>
             <p className="eyebrow">TERMINALS & WAIT TIME</p>
             <h2>What to know before you land</h2>
-            <p style={{ color: "var(--muted)", marginBottom: 14 }}><strong style={{ color: "var(--text)" }}>Terminals:</strong> {airport.terminals}</p>
-            <p style={{ color: "var(--muted)" }}><strong style={{ color: "var(--text)" }}>Wait-time policy:</strong> {airport.waitPolicy}</p>
+            <strong style={{ color: "var(--text)", display: "block", marginBottom: 4 }}>Terminals</strong>
+            <RichText value={airport.terminals} className="prose rich-text" style={{ color: "var(--muted)", marginBottom: 14 }} />
+            <strong style={{ color: "var(--text)", display: "block", marginBottom: 4 }}>Wait-time policy</strong>
+            <RichText value={airport.waitPolicy} className="prose rich-text" style={{ color: "var(--muted)" }} />
           </Reveal>
         </div>
       </section>

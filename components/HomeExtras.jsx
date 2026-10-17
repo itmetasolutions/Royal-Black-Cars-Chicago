@@ -1,6 +1,6 @@
 import Reveal from "./Reveal.jsx";
 import { Check } from "./icons.jsx";
-import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
+import RichText from "./RichText.jsx";
 import { homeField } from "../lib/homeDefaults.js";
 
 // "Title | text" lines from the admin become [title, text] pairs.
@@ -17,7 +17,7 @@ function SectionHead({ eyebrow, heading, lead }) {
     <Reveal className="section-head head-70">
       <p className="eyebrow">{eyebrow}</p>
       <h2>{heading}</h2>
-      {lead && <p className="lead" style={{ marginTop: 16, maxWidth: "none" }}>{lead}</p>}
+      <RichText className="lead rich-text" style={{ marginTop: 16, maxWidth: "none" }} value={lead} />
     </Reveal>
   );
 }
@@ -71,7 +71,7 @@ export function OHareDetail({ page }) {
           <Reveal delay={1} className="route-box">
             <p className="eyebrow">ROUTES</p>
             <h3>{homeField(page, "ohareRouteHeading")}</h3>
-            <p>{homeField(page, "ohareRouteText")}</p>
+            <RichText className="rich-text" value={homeField(page, "ohareRouteText")} />
           </Reveal>
         </div>
       </div>
@@ -89,7 +89,7 @@ export function ExperienceDifferent({ page }) {
           <div className="diff-banner-text">
             <p className="eyebrow">{homeField(page, "diffEyebrow")}</p>
             <h2>{homeField(page, "diffHeading")}</h2>
-            <p className="lead">{homeField(page, "diffLead")}</p>
+            <RichText className="lead rich-text" value={homeField(page, "diffLead")} />
           </div>
         </div>
         <div className="diff-points">
@@ -113,15 +113,14 @@ export function GroupTransport({ page }) {
   const imgs = homeField(page, "groupImgs") || [];
   const uses = homeField(page, "groupUses") || [];
   const questions = homeField(page, "groupQuestions") || [];
-  const rules = parseKeywordRules(homeField(page, "keywordLinks"));
   return (
     <section className="sec" style={{ background: "var(--wash)" }}>
       <div className="wrap split">
         <Reveal>
           <p className="eyebrow">{homeField(page, "groupEyebrow")}</p>
           <h2>{homeField(page, "groupHeading")}</h2>
-          <p className="lead">{homeField(page, "groupLead")}</p>
-          {paras(homeField(page, "groupBody")).map((p) => <p key={p}><KeywordText text={p} rules={rules} /></p>)}
+          <RichText className="lead rich-text" value={homeField(page, "groupLead")} />
+          {paras(homeField(page, "groupBody")).map((p) => <p key={p}>{p}</p>)}
           <p className="chips-title">We accommodate transportation needs for</p>
           <div className="chips">
             {uses.map((u) => <span key={u} className="chip">{u}</span>)}
@@ -129,7 +128,7 @@ export function GroupTransport({ page }) {
           <ul className="tick" style={{ marginTop: 22 }}>
             {questions.map((q) => <li key={q}><Check />{q}</li>)}
           </ul>
-          <p style={{ marginTop: 18 }}>{homeField(page, "groupClosing")}</p>
+          <RichText className="rich-text" style={{ marginTop: 18 }} value={homeField(page, "groupClosing")} />
         </Reveal>
         <Reveal delay={1} className="group-mosaic">
           <img className="gm-big" src={imgs[0]} alt={homeField(page, "groupHeading")} loading="lazy" />

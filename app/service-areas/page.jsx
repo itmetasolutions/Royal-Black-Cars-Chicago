@@ -1,8 +1,8 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { clusters as fallbackClusters, cityToCity as fallbackRoutes, venueDetails as fallbackVenues, locationImage, venueImage } from "@/lib/locations.js";
-import { northwest, west, IMG, PHOTOS } from "@/lib/data.js";
+import { clusters as fallbackClusters, cityToCity as fallbackRoutes, venueDetails as fallbackVenues, clusterCopy, locationImage, venueImage } from "@/lib/locations.js";
+import { northwest, west, airportDetails, IMG, PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
@@ -12,24 +12,29 @@ import { clustersFrom, routesFrom } from "@/lib/areas.js";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Chicago Service Areas | Royal Black Cars",
-  description: "Downtown Chicago, the Northwest and West suburbs, the North Shore, and city-to-city routes to Milwaukee, Madison, Indianapolis and more.",
+  title: "Chicago Areas of Service | Car and Limousine Service in Chicago | Royal Black Cars",
+  description: "Royal Black Cars Chicago provides chauffeur services in Downtown Chicago, O'Hare, Midway, North Shore, west and northwest suburbs, south suburbs, popular landmarks, all executive and long distant airports.",
   path: "/service-areas/",
 });
 
 export default async function Page() {
-  const [corePage, areaPages, venuePages] = await Promise.all([
+  const [corePage, areaPages, venuePages, airportPages] = await Promise.all([
     getCorePage("service-areas"),
     getAllTemplatePages("area"),
     getAllTemplatePages("venue"),
+    getAllTemplatePages("airport"),
   ]);
   const f = fieldsFor("service-areas", corePage);
 
-  // Clusters, routes and venues all come from their own admin pages now.
+  // Clusters, routes and venues all come from their own admin pages now. A
+  // cluster built from those live pages has no field of its own to carry its
+  // intro copy, so it's filled in here by cluster name.
   const cmsClusters = clustersFrom(areaPages);
-  const clusters = cmsClusters.length ? cmsClusters : fallbackClusters;
+  const clusters = (cmsClusters.length ? cmsClusters : fallbackClusters)
+    .map((c) => ({ ...c, blurb: c.blurb || clusterCopy[c.name]?.blurb, detail: c.detail || clusterCopy[c.name]?.detail }));
   const cmsRoutes = routesFrom(areaPages);
   const cityToCity = cmsRoutes.length ? cmsRoutes : fallbackRoutes;
+  const airports = airportPages?.length ? airportPages : airportDetails;
   const venueDetails = venuePages?.length
     ? venuePages.map((v) => ({ ...v, name: v.cardTitle || v.title, href: v.href || `/venues/${v.slug}/` }))
     : fallbackVenues;
@@ -68,12 +73,16 @@ export default async function Page() {
 
       <section className="sec">
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">{f("routesEyebrow")}</p><h2>{f("routesHeading")}</h2></Reveal>
+          <Reveal className="section-head">
+            <p className="eyebrow">{f("airportsEyebrow")}</p>
+            <h2>{f("airportsHeading")}</h2>
+            <p className="lead" style={{ marginTop: 16 }}>{f("airportsLead")}</p>
+          </Reveal>
           <div className="stat-grid" style={{ marginTop: 32 }}>
-            {cityToCity.map((r) => (
-              <a key={r.slug} href={r.href} className="stat-card" style={{ textAlign: "left" }}>
-                <span>{r.name}</span>
-                <b style={{ fontSize: "1.15rem" }}>{r.drive}</b>
+            {airports.map((a) => (
+              <a key={a.slug} href={a.href || `/airports/${a.slug}/`} className="stat-card" style={{ textAlign: "left" }}>
+                <span>{a.name || a.title}</span>
+                <b style={{ fontSize: "1.15rem" }}>{a.code}</b>
               </a>
             ))}
           </div>
@@ -82,12 +91,30 @@ export default async function Page() {
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">{f("venuesEyebrow")}</p><h2>{f("venuesHeading")}</h2></Reveal>
+          <Reveal className="section-head">
+            <p className="eyebrow">{f("venuesEyebrow")}</p>
+            <h2>{f("venuesHeading")}</h2>
+            <p className="lead" style={{ marginTop: 16 }}>{f("venuesLead")}</p>
+          </Reveal>
           <div className="svc" style={{ marginTop: 32 }}>
             {venueDetails.map((v) => (
               <a key={v.slug} href={v.href}>
                 <img className="photo" src={venueImage(v)} alt="" loading="lazy" />
                 <div><h3>{v.name}</h3><p>{v.area}</p></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">{f("routesEyebrow")}</p><h2>{f("routesHeading")}</h2></Reveal>
+          <div className="stat-grid" style={{ marginTop: 32 }}>
+            {cityToCity.map((r) => (
+              <a key={r.slug} href={r.href} className="stat-card" style={{ textAlign: "left" }}>
+                <span>{r.name}</span>
+                <b style={{ fontSize: "1.15rem" }}>{r.drive}</b>
               </a>
             ))}
           </div>

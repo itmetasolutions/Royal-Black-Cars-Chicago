@@ -1,7 +1,7 @@
 import Reveal from "./Reveal.jsx";
 import { Check } from "./icons.jsx";
 import { homeField } from "../lib/homeDefaults.js";
-import KeywordText, { parseKeywordRules } from "./KeywordText.jsx";
+import RichText from "./RichText.jsx";
 
 export default function ChildSeats({ page }) {
   const seats = homeField(page, "childSeats");
@@ -16,7 +16,7 @@ export default function ChildSeats({ page }) {
         <Reveal delay={1}>
           <p className="eyebrow">{homeField(page, "childEyebrow")}</p>
           <h2>{homeField(page, "childHeading")}</h2>
-          <p className="lead"><KeywordText text={homeField(page, "childLead")} rules={parseKeywordRules(homeField(page, "keywordLinks"))} /></p>
+          <RichText className="lead rich-text" value={homeField(page, "childLead")} />
           <ul className="tick">
             {seats.map((s) => (
               <li key={s.name}><Check /><span><b>{s.name}</b> — {s.detail}</span></li>

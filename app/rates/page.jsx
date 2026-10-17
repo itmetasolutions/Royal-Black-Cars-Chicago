@@ -62,8 +62,8 @@ export default async function Page() {
     <>
       <PageHero
         eyebrow="RATES"
-        title={corePage?.heroTitle || "One flat rate, agreed before you ride"}
-        lead={corePage?.heroLead}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
         img={corePage?.heroImg || PHOTOS.corporateOffice[2]}
         crumbs={[{ name: "Rates", href: "/rates/" }]}
       />

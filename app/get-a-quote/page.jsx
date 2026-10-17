@@ -6,6 +6,7 @@ import { PHONE, PHONE_HREF, EMAIL, PHOTOS, trustPoints } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 import { getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import RichText from "@/components/RichText.jsx";
 
 export const metadata = pageMeta({
   title: "Get a Free Quote | Royal Black Cars Chicago",
@@ -32,8 +33,8 @@ export default async function Page() {
           <Reveal>
             <p className="eyebrow">WHY REQUEST HERE</p>
             <h2>{f("formHeading")}</h2>
-            <div className="prose">
-              <p>Give dispatch the details of your trip — pickup, drop-off, date and vehicle — and you'll hear back with a confirmed flat rate, usually within a few minutes during business hours. There's no charge and no obligation to book.</p>
+            <div className="prose rich-text">
+              <RichText value={f("formText")} />
             </div>
             <ul className="tick" style={{ marginTop: 20 }}>
               {trustPoints.map((t) => <li key={t.title}><Check /><span><b>{t.title}</b> — {t.text}</span></li>)}

@@ -7,6 +7,7 @@ import { PHONE, PHONE_HREF, EMAIL, PHOTOS } from "@/lib/data.js";
 import { getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import RichText from "@/components/RichText.jsx";
 
 export const dynamic = "force-dynamic";
 
@@ -56,8 +57,8 @@ export default async function Page() {
     <>
       <PageHero
         eyebrow="FOR BUSINESS"
-        title={corePage?.heroTitle || "An account your finance team will accept"}
-        lead={corePage?.heroLead}
+        title={f("heroTitle")}
+        lead={f("heroLead")}
         img={corePage?.heroImg || PHOTOS.corporateOffice[0]}
         crumbs={[{ name: "Corporate Accounts", href: "/corporate-accounts/" }]}
       />
@@ -92,7 +93,7 @@ export default async function Page() {
                 <img src={d.img} alt="" loading="lazy" />
                 <div className="dc-body">
                   <h3>{d.h}</h3>
-                  <p>{d.p}</p>
+                  <RichText className="rich-text" value={d.p} />
                 </div>
               </Reveal>
             ))}
