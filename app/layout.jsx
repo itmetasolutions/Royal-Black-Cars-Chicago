@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header.jsx";
 import Footer from "@/components/Footer.jsx";
 import BookingProvider from "@/components/BookingProvider.jsx";
+import PromoBar from "@/components/PromoBar.jsx";
 import { localBusiness } from "@/lib/schema.js";
 import { getSiteSettings } from "@/lib/settings.js";
 
@@ -52,6 +53,7 @@ export default async function RootLayout({ children }) {
             })(document, "script", "https://static.moovs.app");`}
         </Script>
         <BookingProvider>
+          <PromoBar />
           <Header logoUrl={settings.logo_url} logoWidth={settings.logo_width} logoWidthMobile={settings.logo_width_mobile} siteName={settings.site_name} />
           <main>{children}</main>
           <Footer logoUrl={settings.logo_url} logoWidth={settings.logo_width} logoWidthMobile={settings.logo_width_mobile} siteName={settings.site_name} />

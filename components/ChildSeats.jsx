@@ -17,9 +17,13 @@ export default function ChildSeats({ page }) {
           <p className="eyebrow">{homeField(page, "childEyebrow")}</p>
           <h2>{homeField(page, "childHeading")}</h2>
           <RichText className="lead rich-text" value={homeField(page, "childLead")} />
-          <ul className="tick">
+          <ul className="tick seat-tick">
             {seats.map((s) => (
-              <li key={s.name}><Check /><span><b>{s.name}</b> — {s.detail}</span></li>
+              <li key={s.name}>
+                <Check />
+                <span><b>{s.name}</b> — {s.detail}</span>
+                {s.price && <span className="seat-price">{s.price}</span>}
+              </li>
             ))}
           </ul>
           <div className="chips" style={{ marginTop: 18 }}>

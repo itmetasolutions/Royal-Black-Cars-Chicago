@@ -65,7 +65,7 @@ const SCHEMAS = {
     ["childCtaLabel", "Link label", "text"],
     ["childCtaHref", "Link URL", "text"],
     ["childSeats", "Seat types", "cards", {
-      spec: [["name", "Name", "text"], ["detail", "Detail", "text"]],
+      spec: [["name", "Name", "text"], ["detail", "Detail", "text"], ["price", "Price", "text"]],
     }],
 
     ["__corporate", "Corporate section", "group"],
