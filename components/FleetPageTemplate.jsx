@@ -31,7 +31,7 @@ export default function FleetPageTemplate({ vehicle, allVehicles = fleetPages })
         <div className="wrap">
           <Reveal className="veh-spec">
             <div className="veh-spec-media">
-              <img src={vehicle.img} alt={vehicle.title} loading="lazy" />
+              <img src={vehicle.specImg || vehicle.img} alt={vehicle.title} loading="lazy" />
             </div>
             <div className="veh-spec-sheet">
               <p className="eyebrow">SPEC SHEET</p>

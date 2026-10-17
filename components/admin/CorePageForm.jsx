@@ -12,7 +12,7 @@ import RichTextEditor from "./RichTextEditor.jsx";
 const SCHEMAS = {
   home: [
     ["__hero", "Hero", "group"],
-    ["heroImg", "Hero background image (also the video poster)", "image"],
+    ["heroImg", "Hero background image (shown only to reduced-motion visitors)", "image"],
     ["heroVideo", "Hero background video URL", "text"],
     ["heroLine1", "Hero headline, line 1", "text"],
     ["heroLine2", "Hero headline, line 2", "text"],

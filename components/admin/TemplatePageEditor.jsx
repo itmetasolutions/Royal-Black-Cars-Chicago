@@ -221,6 +221,7 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
 
         {type === "fleet" && (
           <>
+            <ImageField label="Spec sheet image (side-by-side section; defaults to the hero image)" value={data.specImg} onChange={setFieldValue("specImg")} />
             <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
               <div className="adm-field"><label>Models</label><input value={data.models || ""} onChange={setField("models")} /></div>
               <div className="adm-field"><label>Capacity</label><input value={data.capacity || ""} onChange={setField("capacity")} placeholder='e.g. "1–3 passengers, 2 bags"' /></div>
