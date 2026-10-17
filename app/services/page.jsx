@@ -24,7 +24,7 @@ export default async function Page() {
   const [serviceDetails, corePage] = await Promise.all([getAllTemplatePages("service"), getCorePage("services")]);
   const f = fieldsFor("services", corePage);
   const find = (slug) => serviceDetails.find((s) => s.slug === slug);
-  const featured = find("airport-car-service") || serviceDetails[0];
+  const featured = find(f("featuredSlug")) || serviceDetails[0];
   const jet = find("private-jet-transfers") || serviceDetails[1];
   const categorized = new Set([featured.slug, jet.slug, ...airportSlugs, ...businessSlugs, ...occasionSlugs]);
   const more = serviceDetails.filter((s) => !categorized.has(s.slug));

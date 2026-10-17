@@ -160,6 +160,7 @@ const SCHEMAS = {
     ["fact3Title", "Fact 3 title", "text"], ["fact3Note", "Fact 3 note", "text"],
     ["fact4Title", "Fact 4 title", "text"], ["fact4Note", "Fact 4 note", "text"],
     ["__sections", "Section headings", "group"],
+    ["featuredSlug", "Featured service (slug — content, image and link come from that service page)", "text"],
     ["featuredEyebrow", "Featured service eyebrow", "text"],
     ["featuredCtaLabel", "Featured service button label", "text"],
     ["cat1Heading", "Category 1 heading", "text"],
