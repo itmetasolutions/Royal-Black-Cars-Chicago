@@ -85,15 +85,11 @@ export default async function Page() {
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("experienceEyebrow")}</p><h2>{f("experienceHeading")}</h2></Reveal>
-          <div className="prose" style={{ marginTop: 24 }}>
-            <h3 style={{ fontSize: "1.1rem" }}>{f("pickupHeading")}</h3>
-            <p>{f("pickupText")}</p>
-            <h3 style={{ fontSize: "1.1rem" }}>{f("dropoffHeading")}</h3>
-            <p>{f("dropoffText")}</p>
-            <h3 style={{ fontSize: "1.1rem" }}>{f("vehicleHeading")}</h3>
-            <p>{f("vehicleText")}</p>
-            <h3 style={{ fontSize: "1.1rem" }}>{f("regionalTransferHeading")}</h3>
-            <p>{f("regionalTransferText")}</p>
+          <div className="steps">
+            <Reveal delay={0} className="step"><h3>{f("pickupHeading")}</h3><p>{f("pickupText")}</p></Reveal>
+            <Reveal delay={1} className="step"><h3>{f("dropoffHeading")}</h3><p>{f("dropoffText")}</p></Reveal>
+            <Reveal delay={2} className="step"><h3>{f("vehicleHeading")}</h3><p>{f("vehicleText")}</p></Reveal>
+            <Reveal delay={3} className="step"><h3>{f("regionalTransferHeading")}</h3><p>{f("regionalTransferText")}</p></Reveal>
           </div>
         </div>
       </section>

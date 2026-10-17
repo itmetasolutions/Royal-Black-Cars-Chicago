@@ -90,7 +90,7 @@ export default function Fleet({ page: cms, vehicles }) {
     <section className="sec">
       <div className="wrap">
         <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
-          <div className="fleet-head"><p className="eyebrow">{homeField(cms, "fleetEyebrow")}</p><h2>{homeField(cms, "fleetHeading")}</h2><RichText className="lead rich-text" style={{ marginTop: 16, maxWidth: "none" }} value={homeField(cms, "fleetLead")} /></div>
+          <div className="fleet-head"><p className="eyebrow">{homeField(cms, "fleetEyebrow")}</p><h2>{homeField(cms, "fleetHeading")}</h2><RichText className="lead rich-text" style={{ maxWidth: "none" }} value={homeField(cms, "fleetLead")} /></div>
           <div className="sld-nav">
             <button className="sld-btn" aria-label="Previous vehicles" disabled={atStart} onClick={() => scrollBy(-1)}>
               <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>

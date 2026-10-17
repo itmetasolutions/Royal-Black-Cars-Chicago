@@ -13,7 +13,7 @@ export default function VenuesHome({ page, cards = [] }) {
           <div className="venues-head">
             <p className="eyebrow">{homeField(page, "venuesEyebrow")}</p>
             <h2>{homeField(page, "venuesHeading")}</h2>
-            <RichText className="lead rich-text" style={{ marginTop: 18, maxWidth: "none" }} value={homeField(page, "venuesDescription")} />
+            <RichText className="lead rich-text" style={{ maxWidth: "none" }} value={homeField(page, "venuesDescription")} />
           </div>
           <a className="btn btn-line" href="/venues/">{homeField(page, "venuesLinkLabel")}</a>
         </Reveal>

@@ -17,7 +17,7 @@ function SectionHead({ eyebrow, heading, lead }) {
     <Reveal className="section-head head-70">
       <p className="eyebrow">{eyebrow}</p>
       <h2>{heading}</h2>
-      <RichText className="lead rich-text" style={{ marginTop: 16, maxWidth: "none" }} value={lead} />
+      <RichText className="lead rich-text" style={{ maxWidth: "none" }} value={lead} />
     </Reveal>
   );
 }

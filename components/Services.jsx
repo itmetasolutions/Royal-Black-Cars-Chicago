@@ -10,7 +10,7 @@ export default function Services({ page, cards = [] }) {
           <div className="home-svc-head">
             <p className="eyebrow">{homeField(page, "servicesEyebrow")}</p>
             <h2>{homeField(page, "servicesHeading")}</h2>
-            <RichText className="lead rich-text" style={{ marginTop: 18 }} value={homeField(page, "servicesDescription")} />
+            <RichText className="lead rich-text" value={homeField(page, "servicesDescription")} />
           </div>
         </Reveal>
         <div className="svc-home">

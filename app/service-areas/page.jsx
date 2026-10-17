@@ -76,7 +76,7 @@ export default async function Page() {
           <Reveal className="section-head">
             <p className="eyebrow">{f("airportsEyebrow")}</p>
             <h2>{f("airportsHeading")}</h2>
-            <p className="lead" style={{ marginTop: 16 }}>{f("airportsLead")}</p>
+            <p className="lead">{f("airportsLead")}</p>
           </Reveal>
           <div className="stat-grid" style={{ marginTop: 32 }}>
             {airports.map((a) => (
@@ -94,7 +94,7 @@ export default async function Page() {
           <Reveal className="section-head">
             <p className="eyebrow">{f("venuesEyebrow")}</p>
             <h2>{f("venuesHeading")}</h2>
-            <p className="lead" style={{ marginTop: 16 }}>{f("venuesLead")}</p>
+            <p className="lead">{f("venuesLead")}</p>
           </Reveal>
           <div className="svc" style={{ marginTop: 32 }}>
             {venueDetails.map((v) => (

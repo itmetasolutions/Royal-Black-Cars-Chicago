@@ -23,7 +23,7 @@ export default function SplitSections({ sections, fallbackImg, topGap = 0 }) {
             </Reveal>
             <Reveal delay={1}>
               {s.heading && <h2>{s.heading}</h2>}
-              {!!stripHtml(s.text) && <div className="lead rich-text" style={{ marginTop: 16 }} dangerouslySetInnerHTML={{ __html: s.text }} />}
+              {!!stripHtml(s.text) && <div className="lead rich-text" dangerouslySetInnerHTML={{ __html: s.text }} />}
               {!!s.points?.length && (
                 <ul className="tick">{s.points.map((p) => <li key={p}><Check />{p}</li>)}</ul>
               )}
