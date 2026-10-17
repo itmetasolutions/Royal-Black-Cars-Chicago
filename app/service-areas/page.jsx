@@ -35,6 +35,7 @@ export default async function Page() {
     img: f(`cluster${n}Img`),
     eyebrow: f(`cluster${n}Eyebrow`),
     heading: f(`cluster${n}Heading`),
+    href: `/service-areas/${f(`cluster${n}Heading`).toLowerCase().replace(/ /g, "-")}/`,
     text: f(`cluster${n}Text`),
     pills: f(`cluster${n}Pills`) || [],
     ctaLabel: f(`cluster${n}CtaLabel`),
@@ -65,12 +66,12 @@ export default async function Page() {
       {clusters.map((c, i) => (
         <section key={c.heading} className="sec" style={{ background: i % 2 ? "var(--wash)" : "var(--paper)" }}>
           <div className={`wrap split${i % 2 ? " rev" : ""}`}>
-            <Reveal className="media" slide>
+            <Reveal className="media" slide as="a" href={c.href}>
               <img className="photo" src={c.img} alt={c.heading} loading="lazy" style={{ zIndex: 2 }} />
             </Reveal>
             <Reveal delay={1}>
               <p className="eyebrow">{c.eyebrow}</p>
-              <h2>{c.heading}</h2>
+              <h2><a href={c.href}>{c.heading}</a></h2>
               <RichText className="lead rich-text" style={{ fontSize: "1rem" }} value={c.text} />
               <div className="rl-grid">
                 {c.pills.map(([name, href]) => <a key={name + href} className="rl-chip" href={href}>{name}</a>)}

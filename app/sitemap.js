@@ -1,5 +1,5 @@
-import { allLocations } from "../lib/locations.js";
 import { getAllTemplatePages, getPublishedBlogPosts } from "../lib/cms.js";
+import { toLocations } from "../lib/areas.js";
 
 const base = "https://www.royalblackcarschicago.com";
 
@@ -12,10 +12,11 @@ const staticPaths = [
 ];
 
 export default async function sitemap() {
-  const [services, airports, fleet, venues, posts] = await Promise.all([
+  const [services, airports, fleet, areas, venues, posts] = await Promise.all([
     getAllTemplatePages("service"),
     getAllTemplatePages("airport"),
     getAllTemplatePages("fleet"),
+    getAllTemplatePages("area"),
     getAllTemplatePages("venue"),
     getPublishedBlogPosts(),
   ]);
@@ -24,7 +25,7 @@ export default async function sitemap() {
     ...services.map((s) => s.href),
     ...airports.map((a) => a.href),
     ...fleet.map((f) => f.href),
-    ...allLocations.map((l) => l.href),
+    ...toLocations(areas).map((l) => l.href),
     ...venues.map((v) => v.href),
     ...posts.map((p) => `/blog/${p.slug}/`),
   ];
