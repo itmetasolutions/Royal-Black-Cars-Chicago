@@ -49,7 +49,7 @@ p{margin:0 0 1rem}
 .kw-link{color:var(--brass);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
 .kw-link:hover{color:var(--brass-2)}
 .hero .kw-link,.cta .kw-link,.svc-home .kw-link,footer .kw-link{color:var(--brass-2)}
-.nav{display:flex;gap:30px;margin-left:auto;font:500 .95rem Inter,sans-serif}
+.nav{display:flex;gap:30px;margin-left:auto;font:500 .95rem Inter,sans-serif;align-self:stretch}
 .nav a{color:rgba(255,255,255,.82);position:relative;padding:4px 0}
 .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--brass);transition:right .25s}
 .nav a:hover{color:#fff}.nav a:hover::after{right:0}
@@ -64,7 +64,7 @@ p{margin:0 0 1rem}
 .nav-item>a{display:flex;align-items:center;gap:6px}
 .nav-item .chev{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .2s;flex:none}
 .nav-item:hover .chev,.nav-item:focus-within .chev{transform:rotate(225deg);margin-top:3px}
-.mega{position:fixed;top:calc(40px + 88px + env(safe-area-inset-top,0));left:50%;width:min(1160px,calc(100vw - 40px));transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;pointer-events:none}
+.mega{position:fixed;top:calc(133px + env(safe-area-inset-top,0));left:50%;width:min(1160px,calc(100vw - 40px));transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;pointer-events:none}
 .nav-item:hover .mega,.nav-item:focus-within .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .mega-panel{display:grid;grid-template-columns:262px 1fr;background:var(--ink2);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);box-shadow:0 34px 80px rgba(5,7,9,.55);position:relative;overflow:hidden;isolation:isolate}
 .mega-panel::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--brass-2),var(--brass));z-index:1}
