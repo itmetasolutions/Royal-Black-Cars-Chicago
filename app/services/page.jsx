@@ -69,14 +69,20 @@ export default async function Page() {
             <Plane style={{ width: 22, height: 22, fill: "var(--brass)" }} />
             <h2 style={{ fontSize: "1.4rem" }}>{f("cat1Heading")}</h2>
           </Reveal>
-          <div className="strip" style={{ marginTop: 24 }}>
-            {airportSlugs.map((slug) => find(slug)).filter(Boolean).map((s) => {
+          <div className="occ-grid">
+            {airportSlugs.map((slug) => find(slug)).filter(Boolean).map((s, i) => {
               const c = toCard("service", s);
               return (
-                <a key={c.href} href={c.href} className="strip-card">
-                  <img src={c.img} alt="" loading="lazy" />
-                  <span>{c.title}</span>
-                </a>
+                <Reveal key={c.href} delay={i % 3} as="a" href={c.href} className="occ-card">
+                  <div className="occ-media">
+                    <img src={c.img} alt="" loading="lazy" />
+                  </div>
+                  <div className="occ-body">
+                    <h3>{c.title}</h3>
+                    <p>{c.text}</p>
+                    <span className="occ-more">Learn more <span className="arrow">&rarr;</span></span>
+                  </div>
+                </Reveal>
               );
             })}
           </div>

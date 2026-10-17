@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import FleetPageTemplate from "@/components/FleetPageTemplate.jsx";
 import { getTemplatePage, getAllTemplatePages } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
+import { stripHtml } from "@/lib/richtext.js";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }) {
   if (!vehicle) return {};
   return pageMeta({
     title: vehicle.seo.metaTitle || `${vehicle.title} | Royal Black Cars Chicago Fleet`,
-    description: vehicle.seo.metaDescription || vehicle.body,
+    description: vehicle.seo.metaDescription || stripHtml(vehicle.body),
     path: vehicle.href,
   });
 }

@@ -58,7 +58,10 @@ export default function RichTextEditor({ value, onChange, label = "Content", min
     immediatelyRender: false,
     extensions: [
       StarterKit,
-      Link.configure({ openOnClick: false }),
+      // Every link made here points at another page on this site, so it
+      // should pass normal SEO link equity and navigate in the same tab —
+      // not Tiptap's external-link defaults (nofollow + a new tab).
+      Link.configure({ openOnClick: false, HTMLAttributes: { rel: null, target: null } }),
       ImageExt,
     ],
     content: value || "",
