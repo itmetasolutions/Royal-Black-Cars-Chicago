@@ -1,12 +1,14 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { clusters as fallbackClusters, cityToCity as fallbackRoutes, venueDetails as fallbackVenues, clusterCopy, locationImage, venueImage } from "@/lib/locations.js";
-import { northwest, west, airportDetails, IMG, PHOTOS } from "@/lib/data.js";
+import RichText from "@/components/RichText.jsx";
+import { Pin } from "@/components/icons.jsx";
+import { cityToCity as fallbackRoutes, venueDetails as fallbackVenues, venueImage } from "@/lib/locations.js";
+import { northwest, west, airportDetails, IMG } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
-import { clustersFrom, routesFrom } from "@/lib/areas.js";
+import { routesFrom } from "@/lib/areas.js";
 
 // Served per request so areas added or edited in the admin appear here.
 export const dynamic = "force-dynamic";
@@ -26,19 +28,27 @@ export default async function Page() {
   ]);
   const f = fieldsFor("service-areas", corePage);
 
-  // Clusters, routes and venues all come from their own admin pages now. A
-  // cluster built from those live pages has no field of its own to carry its
-  // intro copy, so it's filled in here by cluster name.
-  const cmsClusters = clustersFrom(areaPages);
-  const clusters = (cmsClusters.length ? cmsClusters : fallbackClusters)
-    .map((c) => ({ ...c, blurb: c.blurb || clusterCopy[c.name]?.blurb, detail: c.detail || clusterCopy[c.name]?.detail }));
+  // The four area clusters (Downtown, Northwest suburbs, West suburbs, North
+  // Shore) are fully admin-editable fields on this page now, rather than
+  // derived from the individual area pages.
+  const clusters = [1, 2, 3, 4].map((n) => ({
+    img: f(`cluster${n}Img`),
+    eyebrow: f(`cluster${n}Eyebrow`),
+    heading: f(`cluster${n}Heading`),
+    text: f(`cluster${n}Text`),
+    pills: f(`cluster${n}Pills`) || [],
+    ctaLabel: f(`cluster${n}CtaLabel`),
+    ctaHref: f(`cluster${n}CtaHref`),
+  }));
+
+  // Routes and venues still come from their own admin pages.
   const cmsRoutes = routesFrom(areaPages);
   const cityToCity = cmsRoutes.length ? cmsRoutes : fallbackRoutes;
   const airports = airportPages?.length ? airportPages : airportDetails;
   const venueDetails = venuePages?.length
     ? venuePages.map((v) => ({ ...v, name: v.cardTitle || v.title, href: v.href || `/venues/${v.slug}/` }))
     : fallbackVenues;
-  const priorityNames = new Set(clusters.flatMap((c) => c.locations.map((l) => l.name)));
+  const priorityNames = new Set(clusters.flatMap((c) => c.pills.map(([name]) => name)));
   const alsoNorthwest = northwest.filter((n) => !priorityNames.has(n));
   const alsoWest = west.filter((n) => !priorityNames.has(n));
 
@@ -53,19 +63,21 @@ export default async function Page() {
       />
 
       {clusters.map((c, i) => (
-        <section key={c.name} className="sec" style={{ background: i % 2 ? "var(--wash)" : "var(--paper)" }}>
+        <section key={c.heading} className="sec" style={{ background: i % 2 ? "var(--wash)" : "var(--paper)" }}>
           <div className={`wrap split${i % 2 ? " rev" : ""}`}>
             <Reveal className="media" slide>
-              <img className="photo" src={locationImage(c.locations[0])} alt={c.name} loading="lazy" style={{ zIndex: 2 }} />
+              <img className="photo" src={c.img} alt={c.heading} loading="lazy" style={{ zIndex: 2 }} />
             </Reveal>
             <Reveal delay={1}>
-              <p className="eyebrow">{`CLUSTER ${i + 1} OF ${clusters.length}`}</p>
-              <h2>{c.name}</h2>
-              <p className="lead" style={{ fontSize: "1rem" }}>{c.blurb}</p>
-              <div className="prose" style={{ marginTop: 4 }}><p>{c.detail}</p></div>
+              <p className="eyebrow">{c.eyebrow}</p>
+              <h2>{c.heading}</h2>
+              <RichText className="lead rich-text" style={{ fontSize: "1rem" }} value={c.text} />
               <div className="rl-grid">
-                {c.locations.map((l) => <a key={l.slug} className="rl-chip" href={l.href}>{l.name}</a>)}
+                {c.pills.map(([name, href]) => <a key={name + href} className="rl-chip" href={href}>{name}</a>)}
               </div>
+              {c.ctaLabel && c.ctaHref && (
+                <a className="btn btn-gold" href={c.ctaHref} style={{ marginTop: 24 }}>{c.ctaLabel}</a>
+              )}
             </Reveal>
           </div>
         </section>
@@ -121,13 +133,22 @@ export default async function Page() {
         </div>
       </section>
 
-      <section className="sec">
+      <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
-          <h2 style={{ fontSize: "1.4rem" }}>We also regularly serve</h2>
-          <div className="prose">
-            <p>Beyond the areas above, dispatch regularly covers the following suburbs. Call or text to confirm coverage and get a flat rate for your address.</p>
-            <p><strong>Northwest suburbs:</strong> {alsoNorthwest.join(", ")}.</p>
-            <p><strong>West suburbs:</strong> {alsoWest.join(", ")}.</p>
+          <Reveal className="section-head">
+            <p className="eyebrow">ALSO SERVING</p>
+            <h2 style={{ fontSize: "1.4rem" }}>We also regularly serve</h2>
+            <p className="lead" style={{ fontSize: "1rem" }}>Beyond the priority areas above, dispatch regularly covers the following suburbs. Call or text to confirm coverage and get a flat rate for your address.</p>
+          </Reveal>
+          <div className="also-serve-grid">
+            <Reveal delay={0} className="also-serve-card">
+              <h3><Pin />Northwest suburbs</h3>
+              <div className="chips">{alsoNorthwest.map((n) => <span key={n} className="chip">{n}</span>)}</div>
+            </Reveal>
+            <Reveal delay={1} className="also-serve-card">
+              <h3><Pin />West suburbs</h3>
+              <div className="chips">{alsoWest.map((n) => <span key={n} className="chip">{n}</span>)}</div>
+            </Reveal>
           </div>
         </div>
       </section>

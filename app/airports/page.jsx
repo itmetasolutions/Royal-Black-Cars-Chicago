@@ -1,7 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { Plane, Check } from "@/components/icons.jsx";
+import { Plane, Check, Pin, Clock, Car, Route } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
@@ -85,11 +85,21 @@ export default async function Page() {
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("experienceEyebrow")}</p><h2>{f("experienceHeading")}</h2></Reveal>
-          <div className="steps">
-            <Reveal delay={0} className="step"><h3>{f("pickupHeading")}</h3><p>{f("pickupText")}</p></Reveal>
-            <Reveal delay={1} className="step"><h3>{f("dropoffHeading")}</h3><p>{f("dropoffText")}</p></Reveal>
-            <Reveal delay={2} className="step"><h3>{f("vehicleHeading")}</h3><p>{f("vehicleText")}</p></Reveal>
-            <Reveal delay={3} className="step"><h3>{f("regionalTransferHeading")}</h3><p>{f("regionalTransferText")}</p></Reveal>
+          <div className="timeline">
+            {[
+              [Pin, f("pickupHeading"), f("pickupText")],
+              [Clock, f("dropoffHeading"), f("dropoffText")],
+              [Car, f("vehicleHeading"), f("vehicleText")],
+              [Route, f("regionalTransferHeading"), f("regionalTransferText")],
+            ].map(([Icon, heading, text], i) => (
+              <Reveal key={heading} delay={i % 3} className="timeline-item">
+                <div className="timeline-marker"><Icon /></div>
+                <div className="timeline-content">
+                  <h3>{heading}</h3>
+                  <p>{text}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

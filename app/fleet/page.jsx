@@ -29,7 +29,7 @@ export default async function Page() {
         eyebrow={f("heroEyebrow")}
         title={f("heroTitle")}
         lead={f("heroLead")}
-        img={fleetPages[0]?.img}
+        img={f("heroImg") || fleetPages[0]?.img}
         crumbs={[{ name: "Fleet", href: "/fleet/" }]}
       />
 

@@ -7,6 +7,7 @@ import SeoFields from "./fields/SeoFields.jsx";
 import ImageField from "./fields/ImageField.jsx";
 import LinesField from "./fields/LinesField.jsx";
 import CardsField from "./fields/CardsField.jsx";
+import PairsField from "./fields/PairsField.jsx";
 import RichTextEditor from "./RichTextEditor.jsx";
 
 const SCHEMAS = {
@@ -231,6 +232,38 @@ const SCHEMAS = {
     ["heroTitle", "Title", "text"],
     ["heroLead", "Lead paragraph", "textarea"],
     ["heroImg", "Hero image", "image"],
+    ["__cluster1", "Area cluster 1 — Downtown", "group"],
+    ["cluster1Img", "Image", "image"],
+    ["cluster1Eyebrow", "Eyebrow", "text"],
+    ["cluster1Heading", "Heading", "text"],
+    ["cluster1Text", "Paragraph", "textarea"],
+    ["cluster1Pills", "Sub-area pills (one per line: Name | /service-areas/slug/)", "pairs"],
+    ["cluster1CtaLabel", "Button label", "text"],
+    ["cluster1CtaHref", "Button URL", "text"],
+    ["__cluster2", "Area cluster 2 — Northwest suburbs", "group"],
+    ["cluster2Img", "Image", "image"],
+    ["cluster2Eyebrow", "Eyebrow", "text"],
+    ["cluster2Heading", "Heading", "text"],
+    ["cluster2Text", "Paragraph", "textarea"],
+    ["cluster2Pills", "Sub-area pills (one per line: Name | /service-areas/slug/)", "pairs"],
+    ["cluster2CtaLabel", "Button label", "text"],
+    ["cluster2CtaHref", "Button URL", "text"],
+    ["__cluster3", "Area cluster 3 — West suburbs", "group"],
+    ["cluster3Img", "Image", "image"],
+    ["cluster3Eyebrow", "Eyebrow", "text"],
+    ["cluster3Heading", "Heading", "text"],
+    ["cluster3Text", "Paragraph", "textarea"],
+    ["cluster3Pills", "Sub-area pills (one per line: Name | /service-areas/slug/)", "pairs"],
+    ["cluster3CtaLabel", "Button label", "text"],
+    ["cluster3CtaHref", "Button URL", "text"],
+    ["__cluster4", "Area cluster 4 — North Shore", "group"],
+    ["cluster4Img", "Image", "image"],
+    ["cluster4Eyebrow", "Eyebrow", "text"],
+    ["cluster4Heading", "Heading", "text"],
+    ["cluster4Text", "Paragraph", "textarea"],
+    ["cluster4Pills", "Sub-area pills (one per line: Name | /service-areas/slug/)", "pairs"],
+    ["cluster4CtaLabel", "Button label", "text"],
+    ["cluster4CtaHref", "Button URL", "text"],
     ["__sections", "Section headings", "group"],
     ["airportsEyebrow", "Airports eyebrow", "text"],
     ["airportsHeading", "Airports heading", "text"],
@@ -419,6 +452,7 @@ export default function CorePageForm({ page }) {
           if (kind === "faqs") return <FaqEditor key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "image") return <ImageField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
           if (kind === "lines") return <LinesField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} />;
+          if (kind === "pairs") return <PairsField key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} hint={opts?.hint} />;
           if (kind === "textarea") return (
             <RichTextEditor key={name} label={label} value={fields[name]} onChange={setFieldValue(name)} minHeight={100} />
           );

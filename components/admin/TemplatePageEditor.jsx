@@ -251,40 +251,64 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
 
         {type === "area" && (
           <>
-            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
-              <div className="adm-field">
-                <label>Cluster</label>
-                <input value={data.cluster || ""} onChange={setField("cluster")} placeholder='e.g. "Downtown", "Northwest suburbs"' />
-                <small>Groups this area on the home page and the service areas page.</small>
-              </div>
-              <div className="adm-field">
-                <label>Nearest highway</label>
-                <input value={data.highway || ""} onChange={setField("highway")} placeholder='e.g. "I-90/94"' />
-              </div>
-            </div>
-            <div className="adm-field" style={{ maxWidth: 700 }}>
-              <label>Intro paragraph (also this page&apos;s card text elsewhere on the site)</label>
-              <textarea value={data.intro || ""} onChange={setField("intro")} rows={3} />
-            </div>
-            <LinesField label="Landmarks" value={data.landmarks} onChange={setFieldValue("landmarks")} />
-            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, maxWidth: 700 }}>
-              <div className="adm-field"><label>Drive time to O&apos;Hare</label><input value={data.driveORD || ""} onChange={setField("driveORD")} placeholder="30–40 min" /></div>
-              <div className="adm-field"><label>Drive time to Midway</label><input value={data.driveMDW || ""} onChange={setField("driveMDW")} placeholder="20–30 min" /></div>
-              <div className="adm-field"><label>Drive time to PWK</label><input value={data.drivePWK || ""} onChange={setField("drivePWK")} placeholder="35–50 min" /></div>
-            </div>
-            <LinesField label="Body paragraphs" value={data.body} onChange={setFieldValue("body")} />
             <div className="adm-field" style={{ maxWidth: 700 }}>
               <label>
                 <input
                   type="checkbox"
-                  checked={!!data.isRoute}
-                  onChange={(e) => setData({ ...data, isRoute: e.target.checked })}
+                  checked={!!data.isCluster}
+                  onChange={(e) => setData({ ...data, isCluster: e.target.checked })}
                   style={{ width: "auto", marginRight: 8 }}
                 />
-                This is a long-distance route rather than a neighborhood
+                This is a cluster overview page (e.g. "Downtown"), not an individual neighborhood
               </label>
+              <small>Shown with its own hero and an auto-built list of every area whose &quot;Cluster&quot; field below matches this page&apos;s title.</small>
             </div>
-            {data.isRoute && (
+            <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
+              <div className="adm-field">
+                <label>Cluster</label>
+                <input value={data.cluster || ""} onChange={setField("cluster")} placeholder='e.g. "Downtown", "Northwest suburbs"' />
+                <small>Groups this area under a cluster page (title of that cluster page must match exactly).</small>
+              </div>
+              {!data.isCluster && (
+                <div className="adm-field">
+                  <label>Nearest highway</label>
+                  <input value={data.highway || ""} onChange={setField("highway")} placeholder='e.g. "I-90/94"' />
+                </div>
+              )}
+            </div>
+            <div className="adm-field" style={{ maxWidth: 700 }}>
+              <label>Intro paragraph (shown on the page, also this page&apos;s card text elsewhere on the site)</label>
+              <textarea value={data.intro || ""} onChange={setField("intro")} rows={3} />
+            </div>
+            {!data.isCluster && (
+              <>
+                <LinesField label="Landmarks" value={data.landmarks} onChange={setFieldValue("landmarks")} />
+                <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, maxWidth: 700 }}>
+                  <div className="adm-field"><label>Drive time to O&apos;Hare</label><input value={data.driveORD || ""} onChange={setField("driveORD")} placeholder="30–40 min" /></div>
+                  <div className="adm-field"><label>Drive time to Midway</label><input value={data.driveMDW || ""} onChange={setField("driveMDW")} placeholder="20–30 min" /></div>
+                  <div className="adm-field"><label>Drive time to PWK</label><input value={data.drivePWK || ""} onChange={setField("drivePWK")} placeholder="35–50 min" /></div>
+                </div>
+              </>
+            )}
+            <SectionsField
+              label="Detailed content sections (3 — heading + description each, shown as the page's main content)"
+              value={data.body}
+              onChange={setFieldValue("body")}
+            />
+            {!data.isCluster && (
+              <div className="adm-field" style={{ maxWidth: 700 }}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={!!data.isRoute}
+                    onChange={(e) => setData({ ...data, isRoute: e.target.checked })}
+                    style={{ width: "auto", marginRight: 8 }}
+                  />
+                  This is a long-distance route rather than a neighborhood
+                </label>
+              </div>
+            )}
+            {data.isRoute && !data.isCluster && (
               <div className="row2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 700 }}>
                 <div className="adm-field"><label>Distance</label><input value={data.miles || ""} onChange={setField("miles")} placeholder="92 miles" /></div>
                 <div className="adm-field"><label>Drive time</label><input value={data.drive || ""} onChange={setField("drive")} placeholder="1 hr 45 min" /></div>

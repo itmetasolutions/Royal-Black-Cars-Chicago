@@ -6,12 +6,19 @@ import Cta from "./Cta.jsx";
 import { Check, Pin, Route, Clock } from "./icons.jsx";
 import { trustPoints } from "../lib/data.js";
 import { allLocations, cityToCity, locationImage, locationFaqs, driveBars } from "../lib/locations.js";
+import { stripHtml } from "../lib/richtext.js";
 
 // `siblings` carries the other areas from the CMS when the page is served
 // from it; it falls back to the shipped list so the template still works alone.
 export default function LocationPageTemplate({ location, siblings }) {
   const img = locationImage(location);
-  const faqs = locationFaqs(location);
+  const faqs = location.faqs?.length ? location.faqs : locationFaqs(location);
+  // The admin's three heading+description sections — the bulk of each page's
+  // unique, detailed content. A section with no heading and no real text
+  // (an untouched editor still outputs "<p></p>") is simply left off.
+  const detailSections = (location.body || [])
+    .map((s) => ({ ...s, pHtml: Array.isArray(s.p) ? s.p[0] : s.p }))
+    .filter((s) => s.h || stripHtml(s.pHtml));
 
   if (location.isRoute) {
     const related = cityToCity.filter(r => r.slug !== location.slug).map(r => [r.name, r.href, r.img]);
@@ -40,13 +47,29 @@ export default function LocationPageTemplate({ location, siblings }) {
             <Reveal delay={1}>
               <p className="eyebrow">LONG DISTANCE</p>
               <h2>One car, the whole way</h2>
-              <p className="lead" style={{ fontSize: "1rem" }}>{location.name} is one of our regular long-distance routes: one chauffeur and one vehicle for the entire drive, door to door, with no flight, no connection and no rental counter at the other end.</p>
+              <p className="lead" style={{ fontSize: "1rem" }}>{stripHtml(location.intro) || `${location.name} is one of our regular long-distance routes: one chauffeur and one vehicle for the entire drive, door to door, with no flight, no connection and no rental counter at the other end.`}</p>
               <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
             </Reveal>
           </div>
         </section>
 
-        <section className="sec" style={{ background: "var(--wash)" }}>
+        {detailSections.length > 0 && (
+          <section className="sec" style={{ background: "var(--wash)" }}>
+            <div className="wrap">
+              <Reveal className="section-head"><p className="eyebrow">ROUTE DETAILS</p><h2>{`Booking the ${location.name} route`}</h2></Reveal>
+              <div className="area-detail-sections">
+                {detailSections.map((s, i) => (
+                  <Reveal key={s.h || i} delay={i % 3} className="area-detail-section">
+                    {s.h && <h3>{s.h}</h3>}
+                    <div className="rich-text" dangerouslySetInnerHTML={{ __html: s.pHtml }} />
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section className="sec">
           <div className="wrap">
             <div className="prose">
               <p>Rates are flat and quoted for the full trip before you book, with round-trip and wait-and-return options available. <a href="/long-distance-car-service/">See how long-distance bookings work</a>.</p>
@@ -94,14 +117,28 @@ export default function LocationPageTemplate({ location, siblings }) {
             <p className="eyebrow">LOCAL SERVICE</p>
             <h2>Daily service in {location.name}</h2>
             <p className="lead" style={{ fontSize: "1rem" }}>
-              Royal Black Cars Chicago runs daily airport, corporate and point-to-point service in {location.name}
-              {location.landmarks?.length ? `, near ${location.landmarks.join(" and ")}` : ""}. Chauffeurs run this route
-              regularly via {location.highway}, so pickup timing accounts for real traffic patterns, not just map-app estimates.
+              {stripHtml(location.intro) || `Royal Black Cars Chicago runs daily airport, corporate and point-to-point service in ${location.name}${location.landmarks?.length ? `, near ${location.landmarks.join(" and ")}` : ""}. Chauffeurs run this route regularly via ${location.highway}, so pickup timing accounts for real traffic patterns, not just map-app estimates.`}
             </p>
             <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
           </Reveal>
         </div>
       </section>
+
+      {detailSections.length > 0 && (
+        <section className="sec" style={{ background: "var(--wash)" }}>
+          <div className="wrap">
+            <Reveal className="section-head"><p className="eyebrow">ABOUT THIS AREA</p><h2>{`Chauffeured transportation in ${location.name}`}</h2></Reveal>
+            <div className="area-detail-sections">
+              {detailSections.map((s, i) => (
+                <Reveal key={s.h || i} delay={i % 3} className="area-detail-section">
+                  {s.h && <h3>{s.h}</h3>}
+                  <div className="rich-text" dangerouslySetInnerHTML={{ __html: s.pHtml }} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
