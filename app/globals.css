@@ -60,11 +60,16 @@ p{margin:0 0 1rem}
 /* header mega-dropdowns — one full-width sheet per group, pinned under the
    fixed header. Items span the full header height so the pointer never
    crosses a dead gap on its way down into the panel. */
-.nav-item{position:static;display:flex;align-items:center;align-self:stretch}
+.nav-item{position:static;display:flex;align-items:center;align-self:stretch;margin-bottom:-5px;padding-bottom:5px}
 .nav-item>a{display:flex;align-items:center;gap:6px}
 .nav-item .chev{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .2s;flex:none}
 .nav-item:hover .chev,.nav-item:focus-within .chev{transform:rotate(225deg);margin-top:3px}
-.mega{position:fixed;top:calc(133px + env(safe-area-inset-top,0));left:50%;width:min(1160px,calc(100vw - 40px));transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;pointer-events:none}
+/* Positioned absolute, not fixed — .hdr (position:fixed) is the nearest
+   positioned ancestor (.nav-item stays position:static), so this lands
+   exactly flush with the header's actual rendered bottom edge no matter
+   what the header's real height is, instead of a hardcoded px guess that
+   drifts out of sync whenever the header's own height changes. */
+.mega{position:absolute;top:100%;left:50%;width:min(1160px,calc(100vw - 40px));transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;pointer-events:none}
 .nav-item:hover .mega,.nav-item:focus-within .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .mega-panel{display:grid;grid-template-columns:262px 1fr;background:var(--ink2);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);box-shadow:0 34px 80px rgba(5,7,9,.55);position:relative;overflow:hidden;isolation:isolate}
 .mega-panel::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--brass-2),var(--brass));z-index:1}
