@@ -19,9 +19,11 @@ export default function PageHero({ eyebrow, title, lead, crumbs = [], cta = true
         {lead && <div className="lead rich-text" dangerouslySetInnerHTML={{ __html: lead }} />}
         {cta && (
           <div className="hero-actions">
-            <BookNowButton className="btn btn-gold" />
+            {/* On a phone, the sticky bottom bar already offers Book Now and
+                Call Now, so the hero only needs the quote link there. */}
+            <BookNowButton className="btn btn-gold hero-phone-hide" />
             <a className="btn btn-line" href="/get-a-quote/">Get A Free Quote</a>
-            <a className="btn btn-line" href={PHONE_HREF}>Call Now</a>
+            <a className="btn btn-line hero-phone-hide" href={PHONE_HREF}>Call Now</a>
           </div>
         )}
       </div>

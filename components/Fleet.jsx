@@ -106,18 +106,22 @@ export default function Fleet({ page: cms, vehicles }) {
         <div ref={rail} className="fleet-rail" tabIndex={0} aria-label="Vehicle classes" onScroll={sync} onKeyDown={onKey}>
             {fleet.map(v => (
               <article className="veh" key={v.title}>
-                <div className="veh-media">
-                  <span className="veh-tag">{v.tag}</span>
-                  <img className="photo" src={v.img} alt={v.title} loading="lazy" style={{ zIndex: 1 }} />
-                </div>
-                <div className="veh-body">
-                  <h3>{v.title}</h3>
-                  <p className="veh-desc">{v.desc}</p>
-                  <div className="spec">
-                    <div><Seat />{v.seats}</div>
-                    <div><Bag />{v.bags}</div>
+                <a href={v.href} className="veh-link" aria-label={`View ${v.title}`}>
+                  <div className="veh-media">
+                    <span className="veh-tag">{v.tag}</span>
+                    <img className="photo" src={v.img} alt={v.title} loading="lazy" style={{ zIndex: 1 }} />
                   </div>
-                  <p className="veh-hourly"><Clock />Hourly — <b>{v.hourlyRate}</b></p>
+                  <div className="veh-body">
+                    <h3>{v.title}</h3>
+                    <p className="veh-desc">{v.desc}</p>
+                    <div className="spec">
+                      <div><Seat />{v.seats}</div>
+                      <div><Bag />{v.bags}</div>
+                    </div>
+                    <p className="veh-hourly"><Clock />Hourly — <b>{v.hourlyRate}</b></p>
+                  </div>
+                </a>
+                <div className="veh-cta">
                   <BookNowButton className="btn btn-gold veh-book" />
                 </div>
               </article>

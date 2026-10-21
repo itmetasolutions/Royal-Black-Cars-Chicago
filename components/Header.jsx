@@ -11,19 +11,10 @@ const defaultAirportLinks = airportDetails.map((a) => [a.href, a.name]);
 const defaultFleetLinks = fleetPages.map((f) => [f.href, f.title]);
 const areaGroups = clusters.map((c) => [c.name, c.locations.slice(0, 4).map((l) => [l.href, l.name])]);
 
-// Short second line + badge under each mega-menu link, keyed by href so links
-// coming from the live /api/nav feed pick them up too (and simply render
-// without a sublabel when the page is new).
-const short = (text, max = 64) => {
-  if (!text) return null;
-  if (text.length <= max) return text;
-  return `${text.slice(0, text.lastIndexOf(" ", max))}…`;
-};
-
+// Airport code badge shown next to each mega-menu link, keyed by href so
+// links coming from the live /api/nav feed pick it up too.
 const navMeta = {};
-serviceDetails.forEach((s) => { navMeta[s.href] = { sub: short(s.lead) }; });
-airportDetails.forEach((a) => { navMeta[a.href] = { badge: a.code, sub: a.driveTime }; });
-fleetPages.forEach((f) => { navMeta[f.href] = { sub: f.capacity }; });
+airportDetails.forEach((a) => { navMeta[a.href] = { badge: a.code }; });
 
 const groupBlurbs = {
   Services: "Every way we drive Chicago — airport runs, corporate travel, events and hourly work, all at a flat rate agreed before you ride.",
@@ -108,10 +99,7 @@ export default function Header({ logoUrl = "/brand/logo.png", logoWidth = "150",
                             return (
                               <a key={href} href={href}>
                                 {m.badge && <i className="mega-badge">{m.badge}</i>}
-                                <span>
-                                  <span className="mega-t">{label}</span>
-                                  {m.sub && <small>{m.sub}</small>}
-                                </span>
+                                <span className="mega-t">{label}</span>
                               </a>
                             );
                           })}

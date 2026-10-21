@@ -7,6 +7,7 @@ import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
+import { toCard } from "@/lib/cards.js";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,7 @@ const pricingSteps = [
 const defaultRateFaqs = [
   { q: "Why does the rate stay the same even in bad traffic?", a: "Because it's quoted flat for the route and vehicle class, not metered by time — a slower drive doesn't change what you agreed to." },
   { q: "Are there hidden fees on top of the quoted rate?", a: "No — tolls, standard wait time and gratuity are already included for point-to-point and airport trips." },
-  { q: "Why do some airports show \"Custom quote\" instead of a rate?", a: "Lower-volume or longer-distance airports (DuPage, Milwaukee, Gary, Rockford) are priced based on your exact pickup point rather than a single downtown rate." },
+  { q: "Why doesn't the site list a dollar figure for every airport?", a: "Every airport transfer is priced to your exact pickup point and vehicle class, so dispatch confirms the flat number with you before anything is booked — it's never estimated or metered afterward." },
   { q: "Does the rate change for late-night or early-morning pickups?", a: "No surge pricing at any hour — the flat-rate promise holds around the clock." },
   { q: "How do I get a quote for a suburb not listed here?", a: "Call, text or use the online quote form with your address — dispatch will confirm a flat rate for any of our service areas." },
 ];
@@ -54,7 +55,6 @@ export default async function Page() {
     getCorePage("rates"),
   ]);
   const f = fieldsFor("rates", corePage);
-  const priority = airportDetails.filter((a) => a.rate !== "Custom quote");
   const included = corePage?.included?.length ? corePage.included : defaultIncluded;
   const rateFaqs = corePage?.faqs?.length ? corePage.faqs : defaultRateFaqs;
 
@@ -68,12 +68,20 @@ export default async function Page() {
         crumbs={[{ name: "Rates", href: "/rates/" }]}
       />
 
+      <section className="sec" style={{ paddingBottom: 0 }}>
+        <div className="wrap">
+          <div className="prose rich-text">
+            <p>{f("introText")}</p>
+          </div>
+        </div>
+      </section>
+
       <section className="sec">
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("flatEyebrow")}</p><h2>{f("flatHeading")}</h2></Reveal>
           <div className="airport-cards" style={{ marginTop: 32 }}>
-            {priority.map((a, i) => (
-              <Reveal key={a.code} delay={i} className="airport-card">
+            {airportDetails.map((a, i) => (
+              <Reveal key={a.code} delay={i % 3} className="airport-card">
                 <div className="ac-head"><b>{a.code}</b><Plane /></div>
                 <div className="ac-body">
                   <div><span>Rate</span><strong>{a.rate}</strong></div>
@@ -83,32 +91,44 @@ export default async function Page() {
               </Reveal>
             ))}
           </div>
-          <p style={{ color: "var(--muted)", fontSize: ".9rem", marginTop: 20 }}>SUVs, Sprinters and rides from the suburbs are quoted at booking. DuPage, Milwaukee, Gary and Rockford vary by pickup point — see the <a href="/airports/">full airport list</a> or ask dispatch for an exact figure.</p>
+          <p style={{ color: "var(--muted)", fontSize: ".9rem", marginTop: 20 }}>Every airport transfer is priced to your exact pickup point and vehicle class — tell us where you're starting from and dispatch confirms a flat number before you book. See the <a href="/airports/">full airport list</a> for terminal pickup details at each one.</p>
         </div>
       </section>
 
       <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap split">
-          <Reveal>
-            <p className="eyebrow">{f("includedEyebrow")}</p>
-            <h2>{f("includedHeading")}</h2>
-            <ul className="tick">{included.map((i) => <li key={i}><Check />{i}</li>)}</ul>
-          </Reveal>
-          <Reveal delay={1} className="faq-aside">
-            <h3 style={{ marginBottom: 14 }}>{f("byClassHeading")}</h3>
-            <div style={{ display: "grid", gap: 10 }}>
-              {fleetPages.map((f) => (
-                <a key={f.slug} href={f.href} style={{ display: "flex", justifyContent: "space-between", gap: 10, fontSize: ".92rem", padding: "8px 0", borderBottom: "1px solid var(--line)" }}>
-                  <span>{f.title}</span>
-                  <strong style={{ color: "var(--brass)" }}>{f.rate}</strong>
-                </a>
-              ))}
-            </div>
-          </Reveal>
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">{f("includedEyebrow")}</p><h2>{f("includedHeading")}</h2></Reveal>
+          <ul className="tick" style={{ maxWidth: 640, margin: "28px auto 0", gridTemplateColumns: "1fr 1fr" }}>
+            {included.map((i) => <li key={i}><Check />{i}</li>)}
+          </ul>
         </div>
       </section>
 
       <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head"><p className="eyebrow">{f("byClassEyebrow")}</p><h2>{f("byClassHeading")}</h2><p className="lead" style={{ maxWidth: 640 }}>The hourly rate includes a professional chauffeur and covers as-directed and point-to-point trips. Airport and long-distance routes are quoted flat for your exact pickup and drop-off instead.</p></Reveal>
+          <div className="fleet-cards" style={{ marginTop: 32 }}>
+            {fleetPages.map((v, i) => {
+              const card = toCard("fleet", v);
+              return (
+                <Reveal key={v.slug} delay={i % 3} className="fleet-card">
+                  <a href={v.href} className="fc-photo">
+                    <img src={card.img} alt={card.title} loading="lazy" />
+                    <span className="fc-price">{v.hourlyRate ? `${v.hourlyRate}` : "Quoted at booking"}</span>
+                  </a>
+                  <div className="fc-info">
+                    <h3><a href={v.href}>{v.title}</a></h3>
+                    <p className="fc-models">{v.capacity || v.models}</p>
+                    <a className="btn btn-line" style={{ marginTop: "auto", width: "100%" }} href={v.href}>View vehicle</a>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("otherEyebrow")}</p><h2>{f("otherHeading")}</h2></Reveal>
           <div className="feature-grid cols-3" style={{ marginTop: 32 }}>
