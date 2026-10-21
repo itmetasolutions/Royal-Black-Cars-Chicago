@@ -509,6 +509,30 @@ details .faq-a{color:var(--muted);font-size:.96rem;padding:0 24px 22px;max-width
 .svc-row p{margin:2px 0 0;color:var(--muted);font-size:.86rem}
 .svc-row .go{color:var(--brass);font-size:1.3rem;flex:none}
 
+/* Rates page: airport and fleet pricing as rows in a bordered list,
+   rather than a card grid — name/photo, then stat columns, then a rate. */
+.rate-list{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.rate-row{display:grid;grid-template-columns:2.2fr 1.5fr 1fr 22px;align-items:center;gap:18px;padding:16px 22px;border-bottom:1px solid var(--line);color:inherit;text-decoration:none;transition:background .15s}
+.rate-row:last-child{border-bottom:0}
+.rate-row:hover{background:var(--wash)}
+.rate-row-fleet{grid-template-columns:76px 2.2fr 1fr 22px}
+.rate-row-img{width:76px;height:54px;object-fit:cover;border-radius:8px;flex:none}
+.rate-row-main{display:flex;align-items:center;gap:10px;min-width:0}
+.rate-row-main b{font-size:.98rem;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rate-row-fleet .rate-row-main{flex-direction:column;align-items:flex-start;gap:2px}
+.rate-row-sub{font-size:.82rem;color:var(--muted)}
+.rate-row-badge{flex:none;padding:4px 9px;border-radius:6px;background:rgba(194,154,78,.12);border:1px solid rgba(194,154,78,.3);color:var(--brass-2);font:700 .72rem Inter,sans-serif;letter-spacing:.04em}
+.rate-row-col{display:flex;flex-direction:column;gap:2px;font-size:.88rem;color:var(--text)}
+.rate-row-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.rate-row-price{font-weight:600;color:var(--brass)}
+.rate-row-go{color:var(--brass);font-size:1.1rem;text-align:right}
+@media (max-width:680px){
+  .rate-row{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px}
+  .rate-row-img{width:100%;height:140px}
+  .rate-row-go{display:none}
+  .rate-row-col{flex-direction:row;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+}
+
 /* airports hub: mini boarding-pass cards for priority airports */
 .airport-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .airport-card{background:var(--ink);border-radius:var(--r);overflow:hidden;color:#fff;display:flex;flex-direction:column}

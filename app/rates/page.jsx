@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import PageFaq from "@/components/PageFaq.jsx";
 import Cta from "@/components/Cta.jsx";
-import { Check, Clock, Route, Shield, Plane } from "@/components/icons.jsx";
+import { Check, Clock, Route, Shield } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { pageMeta } from "@/lib/seo.js";
@@ -79,17 +79,27 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("flatEyebrow")}</p><h2>{f("flatHeading")}</h2></Reveal>
-          <div className="airport-cards" style={{ marginTop: 32 }}>
-            {airportDetails.map((a, i) => (
-              <Reveal key={a.code} delay={i % 3} className="airport-card">
-                <div className="ac-head"><b>{a.code}</b><Plane /></div>
-                <div className="ac-body">
-                  <div><span>Rate</span><strong>{a.rate}</strong></div>
-                  <div><span>Drive time</span><strong>{a.driveTime}</strong></div>
-                </div>
-                <a className="btn btn-gold" href={a.href}>Details</a>
-              </Reveal>
-            ))}
+          <div className="rate-list" style={{ marginTop: 32 }}>
+            {airportDetails.map((a, i) => {
+              const card = toCard("airport", a);
+              return (
+                <Reveal key={a.code} delay={i % 4} as="a" href={a.href} className="rate-row">
+                  <div className="rate-row-main">
+                    <span className="rate-row-badge">{a.code}</span>
+                    <b>{card.pageTitle}</b>
+                  </div>
+                  <div className="rate-row-col">
+                    <span className="rate-row-label">Drive time</span>
+                    {a.driveTime}
+                  </div>
+                  <div className="rate-row-col rate-row-price">
+                    <span className="rate-row-label">Rate</span>
+                    {a.rate}
+                  </div>
+                  <span className="rate-row-go" aria-hidden="true">&rarr;</span>
+                </Reveal>
+              );
+            })}
           </div>
           <p style={{ color: "var(--muted)", fontSize: ".9rem", marginTop: 20 }}>Every airport transfer is priced to your exact pickup point and vehicle class — tell us where you're starting from and dispatch confirms a flat number before you book. See the <a href="/airports/">full airport list</a> for terminal pickup details at each one.</p>
         </div>
@@ -107,20 +117,21 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("byClassEyebrow")}</p><h2>{f("byClassHeading")}</h2><p className="lead" style={{ maxWidth: 640 }}>The hourly rate includes a professional chauffeur and covers as-directed and point-to-point trips. Airport and long-distance routes are quoted flat for your exact pickup and drop-off instead.</p></Reveal>
-          <div className="fleet-cards" style={{ marginTop: 32 }}>
+          <div className="rate-list" style={{ marginTop: 32 }}>
             {fleetPages.map((v, i) => {
               const card = toCard("fleet", v);
               return (
-                <Reveal key={v.slug} delay={i % 3} className="fleet-card">
-                  <a href={v.href} className="fc-photo">
-                    <img src={card.img} alt={card.title} loading="lazy" />
-                    <span className="fc-price">{v.hourlyRate ? `${v.hourlyRate}` : "Quoted at booking"}</span>
-                  </a>
-                  <div className="fc-info">
-                    <h3><a href={v.href}>{v.title}</a></h3>
-                    <p className="fc-models">{v.capacity || v.models}</p>
-                    <a className="btn btn-line" style={{ marginTop: "auto", width: "100%" }} href={v.href}>View vehicle</a>
+                <Reveal key={v.slug} delay={i % 4} as="a" href={v.href} className="rate-row rate-row-fleet">
+                  <img className="rate-row-img" src={card.img} alt={card.title} loading="lazy" />
+                  <div className="rate-row-main">
+                    <b>{v.title}</b>
+                    <span className="rate-row-sub">{v.capacity || v.models}</span>
                   </div>
+                  <div className="rate-row-col rate-row-price">
+                    <span className="rate-row-label">Hourly</span>
+                    {v.hourlyRate || "Quoted at booking"}
+                  </div>
+                  <span className="rate-row-go" aria-hidden="true">&rarr;</span>
                 </Reveal>
               );
             })}
