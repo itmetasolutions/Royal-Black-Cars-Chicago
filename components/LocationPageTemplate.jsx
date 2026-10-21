@@ -54,19 +54,26 @@ export default function LocationPageTemplate({ location, siblings }) {
         </section>
 
         {detailSections.length > 0 && (
-          <section className="sec" style={{ background: "var(--wash)" }}>
-            <div className="wrap">
-              <Reveal className="section-head"><p className="eyebrow">ROUTE DETAILS</p><h2>{`Booking the ${location.name} route`}</h2></Reveal>
-              <div className="area-detail-sections">
-                {detailSections.map((s, i) => (
-                  <Reveal key={s.h || i} delay={i % 3} className="area-detail-section">
-                    {s.h && <h3>{s.h}</h3>}
+          <>
+            <section className="sec" style={{ background: "var(--wash)", paddingBottom: 0 }}>
+              <div className="wrap">
+                <Reveal className="section-head"><p className="eyebrow">ROUTE DETAILS</p><h2>{`Booking the ${location.name} route`}</h2></Reveal>
+              </div>
+            </section>
+            {detailSections.map((s, i) => (
+              <section key={s.h || i} className="sec" style={{ background: "var(--wash)" }}>
+                <div className={`wrap split${i % 2 ? " rev" : ""}`}>
+                  <Reveal className="media" slide>
+                    <img className="photo" src={s.img || img} alt={s.h || ""} loading="lazy" style={{ zIndex: 2 }} />
+                  </Reveal>
+                  <Reveal delay={1}>
+                    {s.h && <h3 style={{ marginBottom: 12 }}>{s.h}</h3>}
                     <div className="rich-text" dangerouslySetInnerHTML={{ __html: s.pHtml }} />
                   </Reveal>
-                ))}
-              </div>
-            </div>
-          </section>
+                </div>
+              </section>
+            ))}
+          </>
         )}
 
         <section className="sec">
@@ -125,19 +132,26 @@ export default function LocationPageTemplate({ location, siblings }) {
       </section>
 
       {detailSections.length > 0 && (
-        <section className="sec" style={{ background: "var(--wash)" }}>
-          <div className="wrap">
-            <Reveal className="section-head"><p className="eyebrow">ABOUT THIS AREA</p><h2>{`Chauffeured transportation in ${location.name}`}</h2></Reveal>
-            <div className="area-detail-sections">
-              {detailSections.map((s, i) => (
-                <Reveal key={s.h || i} delay={i % 3} className="area-detail-section">
-                  {s.h && <h3>{s.h}</h3>}
+        <>
+          <section className="sec" style={{ background: "var(--wash)", paddingBottom: 0 }}>
+            <div className="wrap">
+              <Reveal className="section-head"><p className="eyebrow">ABOUT THIS AREA</p><h2>{`Chauffeured transportation in ${location.name}`}</h2></Reveal>
+            </div>
+          </section>
+          {detailSections.map((s, i) => (
+            <section key={s.h || i} className="sec" style={{ background: "var(--wash)" }}>
+              <div className={`wrap split${i % 2 ? " rev" : ""}`}>
+                <Reveal className="media" slide>
+                  <img className="photo" src={s.img || img} alt={s.h || ""} loading="lazy" style={{ zIndex: 2 }} />
+                </Reveal>
+                <Reveal delay={1}>
+                  {s.h && <h3 style={{ marginBottom: 12 }}>{s.h}</h3>}
                   <div className="rich-text" dangerouslySetInnerHTML={{ __html: s.pHtml }} />
                 </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+              </div>
+            </section>
+          ))}
+        </>
       )}
 
       <section className="sec" style={{ background: "var(--wash)" }}>

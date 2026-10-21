@@ -291,9 +291,10 @@ export default function TemplatePageEditor({ type, page, allFleet = [] }) {
               </>
             )}
             <SectionsField
-              label="Detailed content sections (3 — heading + description each, shown as the page's main content)"
+              label="Detailed content sections (3 — heading + description each, shown side-by-side with a photo)"
               value={data.body}
               onChange={setFieldValue("body")}
+              withImage
             />
             {!data.isCluster && (
               <div className="adm-field" style={{ maxWidth: 700 }}>

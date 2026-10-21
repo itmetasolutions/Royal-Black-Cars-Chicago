@@ -136,6 +136,10 @@ export default async function Page() {
                     <b>{v.title}</b>
                     <span className="rate-row-sub">{v.capacity || v.models}</span>
                   </div>
+                  <div className="rate-row-col">
+                    <span className="rate-row-label">Flat rate</span>
+                    {v.rate || "Quoted at booking"}
+                  </div>
                   <div className="rate-row-col rate-row-price">
                     <span className="rate-row-label">Hourly</span>
                     {v.hourlyRate || "Quoted at booking"}

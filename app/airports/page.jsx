@@ -1,7 +1,7 @@
 import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
-import { Plane, Check, Pin, Clock, Car, Route } from "@/components/icons.jsx";
+import { Check, Pin, Clock, Car, Route } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
@@ -19,8 +19,6 @@ export default async function Page() {
   const [rows, corePage] = await Promise.all([getAllTemplatePages("airport"), getCorePage("airports")]);
   const f = fieldsFor("airports", corePage);
   const airportDetails = rows.map((r) => ({ ...r, name: r.title }));
-  const priority = airportDetails.filter((a) => a.rate !== "Custom quote");
-  const secondary = airportDetails.filter((a) => a.rate === "Custom quote");
 
   return (
     <>
@@ -33,37 +31,17 @@ export default async function Page() {
       />
 
       <section className="sec">
-        <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">{f("flatEyebrow")}</p><h2>{f("flatHeading")}</h2></Reveal>
-          <div className="airport-cards" style={{ marginTop: 32 }}>
-            {priority.map((a, i) => (
-              <Reveal key={a.code} delay={i} className="airport-card">
-                <div className="ac-head">
-                  <b>{a.code}</b>
-                  <Plane />
-                </div>
-                <div className="ac-body">
-                  <div><span>Rate</span><strong>{a.rate}</strong></div>
-                  <div><span>Drive time</span><strong>{a.driveTime}</strong></div>
-                </div>
-                <a className="btn btn-gold" href={a.href}>View details</a>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec">
-        <div className="wrap">
-          <Reveal className="section-head">
+        <div className="wrap split">
+          <Reveal>
             <p className="eyebrow">{f("ratesEyebrow")}</p>
             <h2>{f("ratesHeading")}</h2>
             <p className="lead">{f("ratesLead")}</p>
+            <ul className="tick">{(f("ratesPoints") || []).map((p) => <li key={p}><Check />{p}</li>)}</ul>
+            <a className="btn btn-gold" href="/rates/">{f("ratesCtaLabel")} &rarr;</a>
           </Reveal>
-          <ul className="tick" style={{ marginTop: 20 }}>
-            {(f("ratesPoints") || []).map((p) => <li key={p}><Check />{p}</li>)}
-          </ul>
-          <a className="btn btn-gold" href="/rates/">{f("ratesCtaLabel")} &rarr;</a>
+          <Reveal delay={1} className="media" slide>
+            <img className="photo" src={f("ratesImg")} alt="" loading="lazy" style={{ zIndex: 2 }} />
+          </Reveal>
         </div>
       </section>
 
@@ -71,7 +49,7 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("regionalEyebrow")}</p><h2>{f("regionalHeading")}</h2></Reveal>
           <div className="svc-list" style={{ marginTop: 24 }}>
-            {secondary.map((a) => (
+            {airportDetails.map((a) => (
               <a key={a.code} href={a.href} className="svc-row">
                 <span className="ic"><Check /></span>
                 <div style={{ flex: 1, minWidth: 0 }}>

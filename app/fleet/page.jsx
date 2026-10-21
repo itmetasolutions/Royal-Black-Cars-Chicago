@@ -64,16 +64,17 @@ export default async function Page() {
       </section>
 
       <section className="sec">
-        <div className="wrap">
-          <Reveal className="section-head">
+        <div className="wrap split">
+          <Reveal>
             <p className="eyebrow">{f("ratesEyebrow")}</p>
             <h2>{f("ratesHeading")}</h2>
             <p className="lead">{f("ratesLead")}</p>
+            <ul className="tick">{(f("ratesPoints") || []).map((p) => <li key={p}><Check />{p}</li>)}</ul>
+            <a className="btn btn-gold" href="/rates/">{f("ratesCtaLabel")} &rarr;</a>
           </Reveal>
-          <ul className="tick" style={{ marginTop: 20 }}>
-            {(f("ratesPoints") || []).map((p) => <li key={p}><Check />{p}</li>)}
-          </ul>
-          <a className="btn btn-gold" href="/rates/">{f("ratesCtaLabel")} &rarr;</a>
+          <Reveal delay={1} className="media" slide>
+            <img className="photo" src={f("ratesImg")} alt="" loading="lazy" style={{ zIndex: 2 }} />
+          </Reveal>
         </div>
       </section>
 

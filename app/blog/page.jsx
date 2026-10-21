@@ -23,46 +23,30 @@ export default async function Page() {
   if (!posts.length) {
     return <PageHero eyebrow={f("heroEyebrow")} title={f("heroTitle")} img={f("heroImg")} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />;
   }
-  const [featured, ...rest] = posts;
 
   return (
     <>
       <PageHero eyebrow={f("heroEyebrow")} title={f("heroTitle")} img={f("heroImg")} crumbs={[{ name: "Blog", href: "/blog/" }]} cta={false} />
 
       <section className="sec">
-        <div className="wrap split">
-          <Reveal className="media" slide>
-            <a href={`/blog/${featured.slug}/`}><img className="photo" src={featured.img} alt="" loading="lazy" style={{ zIndex: 2 }} /></a>
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="eyebrow">LATEST GUIDE</p>
-            <h2><a href={`/blog/${featured.slug}/`}>{featured.title}</a></h2>
-            <p className="lead" style={{ fontSize: "1rem" }}>{featured.excerpt}</p>
-            <p className="byline" style={{ marginTop: 18 }}><b>Royal Black Car Chicago</b> · {fmt(featured.publishedAt)}</p>
-            <a className="btn btn-dark" href={`/blog/${featured.slug}/`}>Read the guide</a>
-          </Reveal>
+        <div className="wrap">
+          <div className="occ-grid">
+            {posts.map((p, i) => (
+              <Reveal key={p.slug} delay={i % 3} as="a" href={`/blog/${p.slug}/`} className="occ-card">
+                <div className="occ-media">
+                  <img src={p.img} alt="" loading="lazy" />
+                </div>
+                <div className="occ-body">
+                  <p className="date">{fmt(p.publishedAt)}</p>
+                  <h3>{p.title}</h3>
+                  <p>{p.excerpt}</p>
+                  <span className="occ-more">Read the guide <span className="arrow">&rarr;</span></span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
-
-      {rest.length > 0 && (
-        <section className="sec" style={{ background: "var(--wash)" }}>
-          <div className="wrap">
-            <p className="eyebrow">MORE GUIDES</p>
-            <div style={{ marginTop: 20 }}>
-              {rest.map((p) => (
-                <a key={p.slug} href={`/blog/${p.slug}/`} className="post-row" style={{ color: "inherit" }}>
-                  <img src={p.img} alt="" loading="lazy" />
-                  <div>
-                    <p className="date">{fmt(p.publishedAt)}</p>
-                    <h3>{p.title}</h3>
-                    <p>{p.excerpt}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       <Cta img={f("ctaImg")} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
