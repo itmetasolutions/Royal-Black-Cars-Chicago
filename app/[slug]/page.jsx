@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const service = await getTemplatePage("service", slug);
   if (!service) return {};
   return pageMeta({
-    title: service.seo.metaTitle || `${service.title} | Royal Black Cars Chicago`,
+    title: service.seo.metaTitle || `${service.title} | Royal Black Car Chicago`,
     // service.lead is rich text now; a meta description can't carry markup.
     description: service.seo.metaDescription || stripHtml(service.lead),
     path: service.href,

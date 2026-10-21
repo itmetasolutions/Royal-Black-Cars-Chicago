@@ -117,7 +117,7 @@ export default function LocationPageTemplate({ location, siblings }) {
             <p className="eyebrow">LOCAL SERVICE</p>
             <h2>Daily service in {location.name}</h2>
             <p className="lead" style={{ fontSize: "1rem" }}>
-              {stripHtml(location.intro) || `Royal Black Cars Chicago runs daily airport, corporate and point-to-point service in ${location.name}${location.landmarks?.length ? `, near ${location.landmarks.join(" and ")}` : ""}. Chauffeurs run this route regularly via ${location.highway}, so pickup timing accounts for real traffic patterns, not just map-app estimates.`}
+              {stripHtml(location.intro) || `Royal Black Car Chicago runs daily airport, corporate and point-to-point service in ${location.name}${location.landmarks?.length ? `, near ${location.landmarks.join(" and ")}` : ""}. Chauffeurs run this route regularly via ${location.highway}, so pickup timing accounts for real traffic patterns, not just map-app estimates.`}
             </p>
             <a className="btn btn-gold" href="/get-a-quote/">Get A Free Quote</a>
           </Reveal>

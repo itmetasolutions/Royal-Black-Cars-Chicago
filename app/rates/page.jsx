@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("rates");
   return pageMeta({
-    title: page?.seo.metaTitle || "Rates & Instant Quote | Royal Black Cars Chicago",
+    title: page?.seo.metaTitle || "Rates & Instant Quote | Royal Black Car Chicago",
     description: page?.seo.metaDescription || "Flat airport rates from downtown Chicago, what's included in every fare, and how hourly, long-distance and fleet pricing works.",
     path: "/rates/",
   });

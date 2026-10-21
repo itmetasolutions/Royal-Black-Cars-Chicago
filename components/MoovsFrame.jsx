@@ -23,7 +23,7 @@ export default function MoovsFrame({ className = "moovs-frame", iframeClassName 
       <iframe
         className={iframeClassName}
         src="https://customer.moovs.app/royal-black-car-chicago/iframe"
-        title="Book with Royal Black Cars Chicago"
+        title="Book with Royal Black Car Chicago"
         loading="lazy"
       />
     </div>

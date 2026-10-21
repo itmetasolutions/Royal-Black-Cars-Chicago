@@ -13,8 +13,8 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("contact");
   return pageMeta({
-    title: page?.seo.metaTitle || "Contact Us | Royal Black Cars Chicago",
-    description: page?.seo.metaDescription || "Reach Royal Black Cars Chicago dispatch by phone, text or email, 24 hours a day — or send a message and we'll reply within minutes.",
+    title: page?.seo.metaTitle || "Contact Us | Royal Black Car Chicago",
+    description: page?.seo.metaDescription || "Reach Royal Black Car Chicago dispatch by phone, text or email, 24 hours a day — or send a message and we'll reply within minutes.",
     path: "/contact/",
   });
 }

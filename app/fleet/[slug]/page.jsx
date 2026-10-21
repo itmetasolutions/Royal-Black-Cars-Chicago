@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const vehicle = await getTemplatePage("fleet", slug);
   if (!vehicle) return {};
   return pageMeta({
-    title: vehicle.seo.metaTitle || `${vehicle.title} | Royal Black Cars Chicago Fleet`,
+    title: vehicle.seo.metaTitle || `${vehicle.title} | Royal Black Car Chicago Fleet`,
     description: vehicle.seo.metaDescription || stripHtml(vehicle.body),
     path: vehicle.href,
   });

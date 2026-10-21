@@ -9,7 +9,7 @@ import { fieldsFor } from "@/lib/pageDefaults.js";
 import RichText from "@/components/RichText.jsx";
 
 export const metadata = pageMeta({
-  title: "Get a Free Quote | Royal Black Cars Chicago",
+  title: "Get a Free Quote | Royal Black Car Chicago",
   description: "Request a free, no-obligation flat-rate quote for airport transfers, corporate travel, hourly chauffeur service and more across Chicago.",
   path: "/get-a-quote/",
 });

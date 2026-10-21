@@ -11,8 +11,8 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("faq");
   return pageMeta({
-    title: page?.seo.metaTitle || "Frequently Asked Questions | Royal Black Cars Chicago",
-    description: page?.seo.metaDescription || "Answers on pricing, booking, flight delays, child seats, corporate billing and service areas for Royal Black Cars Chicago.",
+    title: page?.seo.metaTitle || "Frequently Asked Questions | Royal Black Car Chicago",
+    description: page?.seo.metaDescription || "Answers on pricing, booking, flight delays, child seats, corporate billing and service areas for Royal Black Car Chicago.",
     path: "/faq/",
   });
 }

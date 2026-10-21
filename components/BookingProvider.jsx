@@ -24,7 +24,7 @@ export default function BookingProvider({ children }) {
             <button className="booking-modal-close" aria-label="Close" onClick={closeModal}>&times;</button>
             <iframe
               src="https://customer.moovs.app/royal-black-car-chicago/iframe"
-              title="Book with Royal Black Cars Chicago"
+              title="Book with Royal Black Car Chicago"
               className="booking-modal-iframe"
             />
           </div>

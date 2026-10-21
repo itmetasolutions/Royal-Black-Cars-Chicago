@@ -10,8 +10,8 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("terms");
   return pageMeta({
-    title: page?.seo.metaTitle || "Terms & Conditions | Royal Black Cars Chicago",
-    description: page?.seo.metaDescription || "Terms and conditions for booking and riding with Royal Black Cars Chicago.",
+    title: page?.seo.metaTitle || "Terms & Conditions | Royal Black Car Chicago",
+    description: page?.seo.metaDescription || "Terms and conditions for booking and riding with Royal Black Car Chicago.",
     path: "/terms/",
   });
 }

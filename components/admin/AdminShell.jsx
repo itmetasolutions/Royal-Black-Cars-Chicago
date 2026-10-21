@@ -56,7 +56,7 @@ export default function AdminShell({ session, children, logoUrl, logoWidth = "15
   return (
     <div className="adm-shell">
       <header className="adm-topbar">
-        <span className="adm-brand">{logoUrl && <img className="adm-brand-logo" src={logoUrl} alt="Royal Black Cars Chicago" style={{ width: `${Math.min(Number(logoWidth) || 150, 180)}px`, height: "auto" }} />}<b>Admin</b></span>
+        <span className="adm-brand">{logoUrl && <img className="adm-brand-logo" src={logoUrl} alt="Royal Black Car Chicago" style={{ width: `${Math.min(Number(logoWidth) || 150, 180)}px`, height: "auto" }} />}<b>Admin</b></span>
         <div className="adm-topbar-right">
           {session?.email && <span className="adm-user">{session.email}</span>}
           <button className="adm-btn adm-btn-line" onClick={logout} type="button">Log out</button>

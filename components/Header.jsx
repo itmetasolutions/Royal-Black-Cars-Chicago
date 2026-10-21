@@ -35,7 +35,7 @@ const groupBlurbs = {
 const homeLink = ["/", "Home"];
 const plainLinks = [["/about/", "About"], ["/contact/", "Contact"]];
 
-export default function Header({ logoUrl = "/brand/logo.png", logoWidth = "150", logoWidthMobile = "120", siteName = "Royal Black Cars Chicago" }) {
+export default function Header({ logoUrl = "/brand/logo.png", logoWidth = "150", logoWidthMobile = "120", siteName = "Royal Black Car Chicago" }) {
   const pathname = usePathname();
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);

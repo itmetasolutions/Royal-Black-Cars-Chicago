@@ -1,4 +1,4 @@
-# Royal Black Cars Chicago — homepage
+# Royal Black Car Chicago — homepage
 
 The Next.js app at the repo root is the site that ships (deploy this to Vercel or
 any Node host). A second build with identical components, CSS and content lives

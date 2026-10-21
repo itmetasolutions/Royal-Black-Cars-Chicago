@@ -10,8 +10,8 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("privacy");
   return pageMeta({
-    title: page?.seo.metaTitle || "Privacy Policy | Royal Black Cars Chicago",
-    description: page?.seo.metaDescription || "How Royal Black Cars Chicago collects, uses and protects your information.",
+    title: page?.seo.metaTitle || "Privacy Policy | Royal Black Car Chicago",
+    description: page?.seo.metaDescription || "How Royal Black Car Chicago collects, uses and protects your information.",
     path: "/privacy/",
   });
 }

@@ -15,8 +15,8 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("about");
   return pageMeta({
-    title: page?.seo.metaTitle || "About Royal Black Cars Chicago | Premium Chauffeured Transportation",
-    description: page?.seo.metaDescription || "Learn about Royal Black Cars Chicago and our approach to premium, professional, and comfortable black car transportation across Chicago and the surrounding suburbs.",
+    title: page?.seo.metaTitle || "About Royal Black Car Chicago | Premium Chauffeured Transportation",
+    description: page?.seo.metaDescription || "Learn about Royal Black Car Chicago and our approach to premium, professional, and comfortable black car transportation across Chicago and the surrounding suburbs.",
     path: "/about/",
   });
 }
@@ -65,7 +65,7 @@ export default async function Page() {
       <PageHero
         eyebrow="ABOUT US"
         title={page?.heroTitle || "A Dependable Chicago Black Car Service, Built Around Your Journey"}
-        lead={page?.heroLead || "Royal Black Cars Chicago is dedicated to meeting the needs of travelers who want a more sophisticated way to get around than typical options. Our mission is simple: superior vehicles, expert chauffeurs, and a relaxed, luxury experience for airport transfers, corporate travel, special events and everyday transportation."}
+        lead={page?.heroLead || "Royal Black Car Chicago is dedicated to meeting the needs of travelers who want a more sophisticated way to get around than typical options. Our mission is simple: superior vehicles, expert chauffeurs, and a relaxed, luxury experience for airport transfers, corporate travel, special events and everyday transportation."}
         img={page?.heroImg || PHOTOS.chauffeur[2]}
         crumbs={[{ name: "About", href: "/about/" }]}
       />
@@ -92,7 +92,7 @@ export default async function Page() {
       <section className="sec">
         <div className="wrap split">
           <Reveal className="media" slide>
-            <img className="photo" src={page?.whatWeDoImg || PHOTOS.corporateOffice[0]} alt="Royal Black Cars Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
+            <img className="photo" src={page?.whatWeDoImg || PHOTOS.corporateOffice[0]} alt="Royal Black Car Chicago chauffeured vehicle" loading="lazy" style={{ zIndex: 2 }} />
           </Reveal>
           <Reveal delay={1}>
             <p className="eyebrow">{f("whatWeDoEyebrow")}</p>

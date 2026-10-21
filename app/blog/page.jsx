@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/seo.js";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Blog | Royal Black Cars Chicago",
+  title: "Blog | Royal Black Car Chicago",
   description: "Practical guides on Chicago airport transportation, private aviation ground transfers and booking a black car.",
   path: "/blog/",
 });
@@ -39,7 +39,7 @@ export default async function Page() {
             <p className="eyebrow">LATEST GUIDE</p>
             <h2><a href={`/blog/${featured.slug}/`}>{featured.title}</a></h2>
             <p className="lead" style={{ fontSize: "1rem" }}>{featured.excerpt}</p>
-            <p className="byline" style={{ marginTop: 18 }}><b>Royal Black Cars Chicago</b> · {fmt(featured.publishedAt)}</p>
+            <p className="byline" style={{ marginTop: 18 }}><b>Royal Black Car Chicago</b> · {fmt(featured.publishedAt)}</p>
             <a className="btn btn-dark" href={`/blog/${featured.slug}/`}>Read the guide</a>
           </Reveal>
         </div>

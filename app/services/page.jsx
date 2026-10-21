@@ -11,7 +11,7 @@ import { pageMeta } from "@/lib/seo.js";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Chicago Black Car & Limo Services | Royal Black Cars Chicago",
+  title: "Chicago Black Car & Limo Services | Royal Black Car Chicago",
   description: "Book premium Chicago black car service for airport, corporate travel, hourly chauffeur service, weddings, events, point-to-point rides and more.",
   path: "/services/",
 });

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
   const airport = await getTemplatePage("airport", slug);
   if (!airport) return {};
   return pageMeta({
-    title: airport.seo.metaTitle || `${airport.title} Car Service | Royal Black Cars Chicago`,
+    title: airport.seo.metaTitle || `${airport.title} Car Service | Royal Black Car Chicago`,
     description: airport.seo.metaDescription || `Flat-rate pickups and drop-offs, ${airport.driveTime}.`,
     path: airport.href,
   });

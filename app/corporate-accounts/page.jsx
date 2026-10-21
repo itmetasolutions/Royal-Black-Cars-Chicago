@@ -22,7 +22,7 @@ const defaultFaqs = [
 export async function generateMetadata() {
   const page = await getCorePage("corporate-accounts");
   return pageMeta({
-    title: page?.seo.metaTitle || "Corporate Accounts | Royal Black Cars Chicago",
+    title: page?.seo.metaTitle || "Corporate Accounts | Royal Black Car Chicago",
     description: page?.seo.metaDescription || "Monthly invoicing, a named dispatcher and NDA-signed chauffeurs for executive travel and roadshows across Chicago.",
     path: "/corporate-accounts/",
   });

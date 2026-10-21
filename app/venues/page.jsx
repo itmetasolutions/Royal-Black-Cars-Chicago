@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata() {
   const page = await getCorePage("venues");
   return pageMeta({
-    title: page?.seo?.metaTitle || "Venue Transportation | Royal Black Cars Chicago",
+    title: page?.seo?.metaTitle || "Venue Transportation | Royal Black Car Chicago",
     description: page?.seo?.metaDescription || "Drop-off and pickup at United Center, Soldier Field, Wrigley Field, McCormick Place and every major Chicago venue.",
     path: "/venues/",
   });

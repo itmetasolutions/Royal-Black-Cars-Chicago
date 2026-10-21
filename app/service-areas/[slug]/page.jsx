@@ -21,15 +21,15 @@ export async function generateMetadata({ params }) {
   }
   if (location.isCluster) {
     return pageMeta({
-      title: `${location.name} Black Car Service | Royal Black Cars Chicago`,
+      title: `${location.name} Black Car Service | Royal Black Car Chicago`,
       description: stripHtml(location.intro) || `Chauffeured black car and airport transportation throughout ${location.name}, Chicago — flat rates, licensed chauffeurs.`,
       path: location.href,
     });
   }
   return pageMeta({
     title: location.isRoute
-      ? `${location.name} Car Service | Royal Black Cars Chicago`
-      : `${location.name} Black Car Service | Royal Black Cars Chicago`,
+      ? `${location.name} Car Service | Royal Black Car Chicago`
+      : `${location.name} Black Car Service | Royal Black Car Chicago`,
     description: location.isRoute
       ? `Door-to-door ${location.name.toLowerCase()} car service, ${location.miles}, ${location.drive}.`
       : `Black car and airport transportation in ${location.name}, IL — flat rates to O'Hare, Midway and Chicago Executive.`,

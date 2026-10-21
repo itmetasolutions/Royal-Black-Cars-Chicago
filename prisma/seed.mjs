@@ -56,7 +56,7 @@ async function main() {
           }
         : {}),
     }, {
-      metaTitle: `${s.title} | Royal Black Cars Chicago`,
+      metaTitle: `${s.title} | Royal Black Car Chicago`,
       metaDescription: s.lead,
       focusKeyword: s.keyword || "",
     });
@@ -77,7 +77,7 @@ async function main() {
           }
         : {}),
     }, {
-      metaTitle: `${a.name} Car Service | Royal Black Cars Chicago`,
+      metaTitle: `${a.name} Car Service | Royal Black Car Chicago`,
       metaDescription: `Flat-rate pickups and drop-offs, ${a.driveTime}.`,
       focusKeyword: `${a.name} car service`,
     });
@@ -90,7 +90,7 @@ async function main() {
       rate: f.rate, hourlyRate: f.hourlyRate, bestFor: f.bestFor || [],
       body: f.body || "", services: f.services || [], faqs: f.faqs || [],
     }, {
-      metaTitle: `${f.title} | Royal Black Cars Chicago Fleet`,
+      metaTitle: `${f.title} | Royal Black Car Chicago Fleet`,
       metaDescription: f.body || "",
       focusKeyword: f.title,
     });
@@ -101,7 +101,7 @@ async function main() {
     await upsertTemplatePage("venue", v.slug, v.name, {
       href: v.href, area: v.area, note: v.note, img: v.img, faqs: v.faqs || [],
     }, {
-      metaTitle: `${v.name} Car Service | Royal Black Cars Chicago`,
+      metaTitle: `${v.name} Car Service | Royal Black Car Chicago`,
       metaDescription: `Drop-off and pickup transportation for ${v.name}, ${v.area}.`,
       focusKeyword: `${v.name} car service`,
     });
@@ -126,8 +126,8 @@ async function main() {
       faqs: l.faqs || [],
     }, {
       metaTitle: l.isRoute
-        ? `${l.name} Car Service | Royal Black Cars Chicago`
-        : `${l.name} Black Car Service | Royal Black Cars Chicago`,
+        ? `${l.name} Car Service | Royal Black Car Chicago`
+        : `${l.name} Black Car Service | Royal Black Car Chicago`,
       metaDescription: l.isRoute
         ? `Door-to-door ${l.name.toLowerCase()} car service.`
         : `Black car and airport transportation in ${l.name}, IL — flat rates to O'Hare, Midway and Chicago Executive.`,
@@ -140,7 +140,7 @@ async function main() {
   // Every home section's copy, not just the hero, so each one is editable in
   // the admin from the first load.
   await upsertCorePage("home", "Home", { ...homeDefaults }, {
-    metaTitle: "Chicago Black Car Service | O'Hare & Midway Chauffeur | Royal Black Cars",
+    metaTitle: "Chicago Black Car Service | O'Hare & Midway Chauffeur | Royal Black Car",
     metaDescription: "Flat-rate Chicago black car service. Sedans, SUVs and Sprinters for O'Hare, Midway, corporate travel and events. Flights tracked, chauffeurs vetted, price fixed before you ride.",
   });
 
@@ -158,10 +158,10 @@ async function main() {
     ...pageDefaults["about"],
     heroImg: PHOTOS.chauffeur[2],
     heroTitle: "A dependable alternative to rideshare, built for Chicago",
-    heroLead: "Royal Black Cars Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up.",
+    heroLead: "Royal Black Car Chicago runs a licensed, insured black car fleet across the city and suburbs — flat pricing, vetted chauffeurs, and a dispatch desk that picks up.",
     whatWeDoImg: PHOTOS.corporateOffice[0],
     whatWeDoHeading: "Airport, corporate and private aviation transportation",
-    whatWeDoP1: "We built Royal Black Cars Chicago around three jobs people consistently need done well: a dependable airport transfer that adjusts to a delayed flight, a corporate account a finance team will actually accept, and a chauffeur who shows up in the right car, on time, for private aviation and everyday point-to-point trips.",
+    whatWeDoP1: "We built Royal Black Car Chicago around three jobs people consistently need done well: a dependable airport transfer that adjusts to a delayed flight, a corporate account a finance team will actually accept, and a chauffeur who shows up in the right car, on time, for private aviation and everyday point-to-point trips.",
     whatWeDoP2: "Every trip runs on the same principle — the rate is agreed before the car is dispatched, not estimated on a meter or subject to surge pricing. Tolls, standard wait time and gratuity are built into the price you're quoted.",
     quoteText: "The dependable premium alternative to rideshare: licensed, insured and winter-ready, with live pricing and specialist coverage for airports, corporate travel and private aviation.",
     closingCard1Img: PHOTOS.chauffeur[1],
@@ -175,7 +175,7 @@ async function main() {
     closingCard3Text: "Businesses that book with us regularly move to a corporate account: monthly invoicing, a named dispatcher and NDA-signed chauffeurs for client-facing travel.",
     ctaImg: PHOTOS.chauffeur[0],
   }, {
-    metaTitle: "About Us | Royal Black Cars Chicago",
+    metaTitle: "About Us | Royal Black Car Chicago",
     metaDescription: "A licensed, insured Chicago black car service built on flat pricing agreed before you ride, vetted chauffeurs and a dispatch desk that answers.",
   });
 
@@ -187,8 +187,8 @@ async function main() {
     introHeading: "Dispatch, 24 hours a day",
     officeNote: `Chicago, IL 60601 (street address to be confirmed — call or text for meet-up details)`,
   }, {
-    metaTitle: "Contact Us | Royal Black Cars Chicago",
-    metaDescription: "Reach Royal Black Cars Chicago dispatch by phone, text or email, 24 hours a day — or send a message and we'll reply within minutes.",
+    metaTitle: "Contact Us | Royal Black Car Chicago",
+    metaDescription: "Reach Royal Black Car Chicago dispatch by phone, text or email, 24 hours a day — or send a message and we'll reply within minutes.",
   });
 
   await upsertCorePage("faq", "FAQ", {
@@ -198,8 +198,8 @@ async function main() {
     faqs: faqsFull,
     ctaImg: PHOTOS.sedan[2],
   }, {
-    metaTitle: "Frequently Asked Questions | Royal Black Cars Chicago",
-    metaDescription: "Answers about booking, pricing, cancellations, service areas and more for Royal Black Cars Chicago.",
+    metaTitle: "Frequently Asked Questions | Royal Black Car Chicago",
+    metaDescription: "Answers about booking, pricing, cancellations, service areas and more for Royal Black Car Chicago.",
   });
 
   await upsertCorePage("rates", "Rates", {
@@ -222,8 +222,8 @@ async function main() {
     ],
     ctaImg: PHOTOS.corporateOffice[1],
   }, {
-    metaTitle: "Rates | Royal Black Cars Chicago",
-    metaDescription: "Flat airport rates and how hourly, long-distance and corporate pricing works with Royal Black Cars Chicago.",
+    metaTitle: "Rates | Royal Black Car Chicago",
+    metaDescription: "Flat airport rates and how hourly, long-distance and corporate pricing works with Royal Black Car Chicago.",
   });
 
   await upsertCorePage("corporate-accounts", "Corporate Accounts", {
@@ -257,24 +257,24 @@ async function main() {
     ],
     ctaImg: PHOTOS.corporateOffice[2],
   }, {
-    metaTitle: "Corporate Accounts | Royal Black Cars Chicago",
+    metaTitle: "Corporate Accounts | Royal Black Car Chicago",
     metaDescription: "Monthly invoicing, a named dispatcher and NDA-signed chauffeurs for executive travel and roadshows across Chicago.",
   });
 
   await upsertCorePage("terms", "Terms & Conditions", {
     heroImg: PHOTOS.loop[2],
-    bodyText: `1. About these terms\nThese Terms & Conditions govern bookings made with Royal Black Cars Chicago ("we", "us"), a chauffeured transportation service operating in Chicago, Illinois [LEGAL ENTITY NAME AND STATE OF FORMATION TO BE CONFIRMED]. By booking a ride, you agree to these terms.\n\n2. Bookings and quotes\nRates quoted online, by phone or by text are estimates until confirmed by dispatch. Flat rates for standard airport and point-to-point trips are fixed once confirmed and include tolls, standard wait time and gratuity unless stated otherwise. Hourly and as-directed bookings are billed on actual time used, subject to any stated minimum.\n\n3. Cancellations\nCancellations made at least 2 hours before the scheduled pick-up are free of charge. Cancellations made inside that window, or no-shows, may be charged a fee. Contact dispatch as early as possible if your plans change.\n\n4. Wait time\nAirport pickups include 60 minutes of free wait time measured from landing. Point-to-point and hourly pickups include a shorter grace period stated at booking. Additional wait time may be billed at the applicable hourly rate.\n\n5. Passenger conduct and safety\nChauffeurs may decline or end a trip if a passenger's conduct threatens safety, damages the vehicle, or violates the law, including transport of illegal substances or open alcohol containers where prohibited. Seatbelt use is required. Child seats must be requested in advance.\n\n6. Liability\nRoyal Black Cars Chicago carries commercial auto insurance covering its vehicles and chauffeurs as required by Illinois law [CONFIRM CURRENT POLICY DETAILS]. We are not liable for delays caused by traffic, weather, mechanical failure beyond reasonable control, or acts of third parties, though we will make reasonable efforts to notify you of any delay.\n\n7. Payment\nIndividual bookings are charged to the card on file after the ride. Corporate accounts are invoiced monthly per the terms agreed at account setup.\n\n8. Changes to these terms\nWe may update these terms from time to time; the current version is always posted on this page.`,
+    bodyText: `1. About these terms\nThese Terms & Conditions govern bookings made with Royal Black Car Chicago ("we", "us"), a chauffeured transportation service operating in Chicago, Illinois [LEGAL ENTITY NAME AND STATE OF FORMATION TO BE CONFIRMED]. By booking a ride, you agree to these terms.\n\n2. Bookings and quotes\nRates quoted online, by phone or by text are estimates until confirmed by dispatch. Flat rates for standard airport and point-to-point trips are fixed once confirmed and include tolls, standard wait time and gratuity unless stated otherwise. Hourly and as-directed bookings are billed on actual time used, subject to any stated minimum.\n\n3. Cancellations\nCancellations made at least 2 hours before the scheduled pick-up are free of charge. Cancellations made inside that window, or no-shows, may be charged a fee. Contact dispatch as early as possible if your plans change.\n\n4. Wait time\nAirport pickups include 60 minutes of free wait time measured from landing. Point-to-point and hourly pickups include a shorter grace period stated at booking. Additional wait time may be billed at the applicable hourly rate.\n\n5. Passenger conduct and safety\nChauffeurs may decline or end a trip if a passenger's conduct threatens safety, damages the vehicle, or violates the law, including transport of illegal substances or open alcohol containers where prohibited. Seatbelt use is required. Child seats must be requested in advance.\n\n6. Liability\nRoyal Black Car Chicago carries commercial auto insurance covering its vehicles and chauffeurs as required by Illinois law [CONFIRM CURRENT POLICY DETAILS]. We are not liable for delays caused by traffic, weather, mechanical failure beyond reasonable control, or acts of third parties, though we will make reasonable efforts to notify you of any delay.\n\n7. Payment\nIndividual bookings are charged to the card on file after the ride. Corporate accounts are invoiced monthly per the terms agreed at account setup.\n\n8. Changes to these terms\nWe may update these terms from time to time; the current version is always posted on this page.`,
   }, {
-    metaTitle: "Terms & Conditions | Royal Black Cars Chicago",
-    metaDescription: "Terms and conditions for booking and riding with Royal Black Cars Chicago.",
+    metaTitle: "Terms & Conditions | Royal Black Car Chicago",
+    metaDescription: "Terms and conditions for booking and riding with Royal Black Car Chicago.",
   });
 
   await upsertCorePage("privacy", "Privacy Policy", {
     heroImg: PHOTOS.skyline[2],
     bodyText: `1. Information we collect\nWhen you request a quote, book a ride, or contact us, we collect the information you provide: name, phone number, email address, pickup and drop-off locations, and payment details processed through our payment provider. Corporate account setup may include company name and billing contact details.\n\n2. How we use it\nWe use this information to quote, confirm and provide your ride, to contact you about a booking, to send receipts and invoices, and — only with your consent — to send service updates. We do not sell your personal information.\n\n3. Sharing\nInformation is shared with chauffeurs as needed to complete your trip, and with our payment processor to handle transactions. We do not share your information with third parties for their own marketing purposes.\n\n4. Cookies and website data\nOur website may use basic analytics cookies to understand site traffic. No personal booking information is stored in cookies.\n\n5. Data retention\nBooking and billing records are retained as required for tax and accounting purposes [CONFIRM RETENTION PERIOD]. You can request deletion of non-essential personal information by contacting us.\n\n6. Your choices\nYou can ask us at any time what information we hold about you, request a correction, or opt out of non-essential communications, by emailing us.\n\n7. Security\nWe use reasonable administrative and technical safeguards to protect your information, including processing payments through a PCI-compliant provider rather than storing full card numbers ourselves.\n\n8. Changes to this policy\nWe may update this policy from time to time; the current version is always posted on this page.`,
   }, {
-    metaTitle: "Privacy Policy | Royal Black Cars Chicago",
-    metaDescription: "How Royal Black Cars Chicago collects, uses and protects your information.",
+    metaTitle: "Privacy Policy | Royal Black Car Chicago",
+    metaDescription: "How Royal Black Car Chicago collects, uses and protects your information.",
   });
 
   console.log(`Seeding ${posts.length} blog posts...`);
@@ -287,7 +287,7 @@ async function main() {
       status: "published",
       publishedAt: new Date(p.date),
     }, {
-      metaTitle: `${p.title} | Royal Black Cars Chicago`,
+      metaTitle: `${p.title} | Royal Black Car Chicago`,
       metaDescription: p.description,
     });
   }

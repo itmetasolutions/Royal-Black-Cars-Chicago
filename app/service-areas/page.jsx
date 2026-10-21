@@ -14,8 +14,8 @@ import { routesFrom } from "@/lib/areas.js";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
-  title: "Chicago Areas of Service | Car and Limousine Service in Chicago | Royal Black Cars",
-  description: "Royal Black Cars Chicago provides chauffeur services in Downtown Chicago, O'Hare, Midway, North Shore, west and northwest suburbs, south suburbs, popular landmarks, all executive and long distant airports.",
+  title: "Chicago Areas of Service | Car and Limousine Service in Chicago | Royal Black Car",
+  description: "Royal Black Car Chicago provides chauffeur services in Downtown Chicago, O'Hare, Midway, North Shore, west and northwest suburbs, south suburbs, popular landmarks, all executive and long distant airports.",
   path: "/service-areas/",
 });
 

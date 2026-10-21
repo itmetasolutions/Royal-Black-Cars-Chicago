@@ -36,7 +36,7 @@ const cols = [
   ]],
 ];
 
-export default function Footer({ logoUrl = "/brand/logo.png", logoWidth = "150", logoWidthMobile = "120", siteName = "Royal Black Cars Chicago" }) {
+export default function Footer({ logoUrl = "/brand/logo.png", logoWidth = "150", logoWidthMobile = "120", siteName = "Royal Black Car Chicago" }) {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) return null;
 
@@ -69,7 +69,7 @@ export default function Footer({ logoUrl = "/brand/logo.png", logoWidth = "150",
             ))}
           </div>
           <div className="fbar">
-            <span>© {new Date().getFullYear()} Royal Black Cars Chicago</span>
+            <span>© {new Date().getFullYear()} Royal Black Car Chicago</span>
             <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/sitemap.xml">Sitemap</a></span>
           </div>
         </div>

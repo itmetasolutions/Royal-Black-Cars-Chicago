@@ -10,7 +10,7 @@ export default function ChildSeats({ page }) {
     <section className="sec" style={{ background: "var(--wash)" }}>
       <div className="wrap split">
         <Reveal className="media child-media">
-          <img src={homeField(page, "childImg")} alt="Infant, toddler and booster car seats available with Royal Black Cars Chicago"
+          <img src={homeField(page, "childImg")} alt="Infant, toddler and booster car seats available with Royal Black Car Chicago"
                width={943} height={472} loading="lazy" />
         </Reveal>
         <Reveal delay={1}>

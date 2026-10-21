@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
   const post = await getBlogPost(slug);
   if (!post) return {};
   return pageMeta({
-    title: post.metaTitle || `${post.title} | Royal Black Cars Chicago`,
+    title: post.metaTitle || `${post.title} | Royal Black Car Chicago`,
     description: post.metaDescription || post.excerpt,
     path: `/blog/${post.slug}/`,
   });
@@ -48,7 +48,7 @@ export default async function Page({ params }) {
       <section className="sec">
         <div className="wrap">
           <p className="byline">
-            <b>Royal Black Cars Chicago</b> · {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+            <b>Royal Black Car Chicago</b> · {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
           </p>
           <div className="prose" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
