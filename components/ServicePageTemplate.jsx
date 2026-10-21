@@ -3,6 +3,8 @@ import PageHero from "./PageHero.jsx";
 import RelatedLinks from "./RelatedLinks.jsx";
 import PageFaq from "./PageFaq.jsx";
 import SplitSections from "./SplitSections.jsx";
+import ServicesSlider from "./ServicesSlider.jsx";
+import AirportsSlider from "./AirportsSlider.jsx";
 import Cta from "./Cta.jsx";
 import { Check, Tag, Shield, Clock } from "./icons.jsx";
 import { serviceDetails, trustPoints, fleetPages } from "../lib/data.js";
@@ -16,7 +18,7 @@ const quickFacts = [
   [Check, "No surge, ever", "Same price no matter the hour"],
 ];
 
-export default function ServicePageTemplate({ service, allServices = serviceDetails, allFleet = fleetPages }) {
+export default function ServicePageTemplate({ service, allServices = serviceDetails, allFleet = fleetPages, allAirports }) {
   const related = allServices.filter(s => s.slug !== service.slug).slice(0, 4).map(s => [s.title, s.href, s.img]);
 
   // The side-by-side sections are a backend-editable, add-as-many-as-you-want
@@ -126,6 +128,13 @@ export default function ServicePageTemplate({ service, allServices = serviceDeta
           </div>
         </div>
       </section>
+
+      {allAirports?.length > 0 && (
+        <>
+          <ServicesSlider services={allServices} excludeSlug={service.slug} />
+          <AirportsSlider airports={allAirports} />
+        </>
+      )}
 
       <PageFaq faqs={service.faqs} title={`Questions about ${service.title.toLowerCase()}`} />
       <RelatedLinks title="Other services" links={related} hub={["All services", "/services/"]} />

@@ -20,11 +20,16 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  const [service, allServices, allFleet] = await Promise.all([
+  // The black-car-service page is the site's main "pillar" keyword page that
+  // most other pages link back to, so it alone also shows full services and
+  // airports sliders beneath its content.
+  const isPillarPage = slug === "black-car-service";
+  const [service, allServices, allFleet, allAirports] = await Promise.all([
     getTemplatePage("service", slug),
     getAllTemplatePages("service"),
     getAllTemplatePages("fleet"),
+    isPillarPage ? getAllTemplatePages("airport") : Promise.resolve(undefined),
   ]);
   if (!service) notFound();
-  return <ServicePageTemplate service={service} allServices={allServices} allFleet={allFleet} />;
+  return <ServicePageTemplate service={service} allServices={allServices} allFleet={allFleet} allAirports={allAirports} />;
 }

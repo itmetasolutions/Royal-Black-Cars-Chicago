@@ -282,6 +282,13 @@ p{margin:0 0 1rem}
 .occ-more .arrow{display:inline-block;transition:transform .25s ease}
 .occ-card:hover .occ-more .arrow{transform:translateX(3px)}
 
+/* Horizontal card sliders (services / airports) reusing the fleet rail's
+   scroll-snap mechanics, with the existing service/airport card styling. */
+.svc-rail,.apt-rail{display:flex;gap:20px;overflow-x:auto;padding:6px 2px 10px;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.svc-rail::-webkit-scrollbar,.apt-rail::-webkit-scrollbar{display:none}
+.occ-slide{flex:0 0 clamp(260px,30vw,320px);scroll-snap-align:start}
+.apt-slide{flex:0 0 clamp(230px,27vw,270px);scroll-snap-align:start}
+
 /* Homepage services — bare photo, name bottom-left; hover darkens and reveals the description */
 .svc-home{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
 .svc-home a{position:relative;display:block;border-radius:var(--r);overflow:hidden;min-height:340px;color:#fff;background:var(--ink2);isolation:isolate}
