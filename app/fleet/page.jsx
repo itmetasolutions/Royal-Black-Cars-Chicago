@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero.jsx";
 import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import BookNowButton from "@/components/BookNowButton.jsx";
-import { Car as CarIcon, Seat, Bag, Clock } from "@/components/icons.jsx";
+import { Car as CarIcon, Seat, Bag, Clock, Check } from "@/components/icons.jsx";
 import { PHOTOS } from "@/lib/data.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
@@ -60,6 +60,20 @@ export default async function Page() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <p className="eyebrow">{f("ratesEyebrow")}</p>
+            <h2>{f("ratesHeading")}</h2>
+            <p className="lead">{f("ratesLead")}</p>
+          </Reveal>
+          <ul className="tick" style={{ marginTop: 20 }}>
+            {(f("ratesPoints") || []).map((p) => <li key={p}><Check />{p}</li>)}
+          </ul>
+          <a className="btn btn-gold" href="/rates/">{f("ratesCtaLabel")} &rarr;</a>
         </div>
       </section>
 

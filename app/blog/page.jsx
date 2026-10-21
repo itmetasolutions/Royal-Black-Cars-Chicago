@@ -3,7 +3,6 @@ import Reveal from "@/components/Reveal.jsx";
 import Cta from "@/components/Cta.jsx";
 import { getPublishedBlogPosts, getCorePage } from "@/lib/cms.js";
 import { fieldsFor } from "@/lib/pageDefaults.js";
-import { PHOTOS } from "@/lib/data.js";
 import { pageMeta } from "@/lib/seo.js";
 
 export const dynamic = "force-dynamic";
@@ -65,7 +64,7 @@ export default async function Page() {
         </section>
       )}
 
-      <Cta img={PHOTOS.limo[2]} />
+      <Cta img={f("ctaImg")} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }

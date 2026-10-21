@@ -53,6 +53,20 @@ export default async function Page() {
         </div>
       </section>
 
+      <section className="sec">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <p className="eyebrow">{f("ratesEyebrow")}</p>
+            <h2>{f("ratesHeading")}</h2>
+            <p className="lead">{f("ratesLead")}</p>
+          </Reveal>
+          <ul className="tick" style={{ marginTop: 20 }}>
+            {(f("ratesPoints") || []).map((p) => <li key={p}><Check />{p}</li>)}
+          </ul>
+          <a className="btn btn-gold" href="/rates/">{f("ratesCtaLabel")} &rarr;</a>
+        </div>
+      </section>
+
       <section className="sec" style={{ background: "var(--wash)" }}>
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("regionalEyebrow")}</p><h2>{f("regionalHeading")}</h2></Reveal>

@@ -25,19 +25,22 @@ const defaultIncluded = [
   "60 minutes of free wait time at O'Hare and Midway",
   "Live flight tracking and automatic pick-up adjustment",
   "The first child seat, free",
+  "A licensed, insured and background-checked chauffeur",
+  "No surge pricing, any time of day or night",
 ];
 
-const otherPricing = [
-  [Clock, "Hourly & as-directed", "A 2-hour minimum, then billed in clean hourly increments. Rate depends on vehicle class.", "/hourly-chauffeur/"],
-  [Route, "Long-distance & city-to-city", "Milwaukee, Madison, Indianapolis, South Bend and Detroit, quoted flat, round-trip or one-way.", "/long-distance-car-service/"],
-  [Shield, "Corporate accounts", "Monthly invoicing with cost centres and trip codes, billed once a month, not per ride.", "/corporate-accounts/"],
+const OTHER_PRICING_ICONS = [Clock, Route, Shield];
+const defaultOtherPricing = [
+  { title: "Hourly & as-directed", text: "A 2-hour minimum, then billed in clean hourly increments. Rate depends on vehicle class.", href: "/hourly-chauffeur/" },
+  { title: "Long-distance & city-to-city", text: "Milwaukee, Madison, Indianapolis, South Bend and Detroit, quoted flat, round-trip or one-way.", href: "/long-distance-car-service/" },
+  { title: "Corporate accounts", text: "Monthly invoicing with cost centres and trip codes, billed once a month, not per ride.", href: "/corporate-accounts/" },
 ];
 
-const pricingSteps = [
-  ["Distance & vehicle class", "Your pickup, drop-off and chosen vehicle set the baseline rate."],
-  ["Time of day", "Rush-hour routing and airport wait windows are factored in up front, not added after."],
-  ["Quote confirmed", "Dispatch or the online form shows the exact rate before anything is booked."],
-  ["Rate locked", "That number doesn't change — a slow route or extra traffic is on us, not your bill."],
+const defaultPricingSteps = [
+  { title: "Distance & vehicle class", text: "Your pickup, drop-off and chosen vehicle set the baseline rate." },
+  { title: "Time of day", text: "Rush-hour routing and airport wait windows are factored in up front, not added after." },
+  { title: "Quote confirmed", text: "Dispatch or the online form shows the exact rate before anything is booked." },
+  { title: "Rate locked", text: "That number doesn't change — a slow route or extra traffic is on us, not your bill." },
 ];
 
 const defaultRateFaqs = [
@@ -57,6 +60,8 @@ export default async function Page() {
   const f = fieldsFor("rates", corePage);
   const included = corePage?.included?.length ? corePage.included : defaultIncluded;
   const rateFaqs = corePage?.faqs?.length ? corePage.faqs : defaultRateFaqs;
+  const otherPricing = corePage?.otherPricing?.length ? corePage.otherPricing : defaultOtherPricing;
+  const pricingSteps = corePage?.pricingSteps?.length ? corePage.pricingSteps : defaultPricingSteps;
 
   return (
     <>
@@ -106,11 +111,15 @@ export default async function Page() {
       </section>
 
       <section className="sec" style={{ background: "var(--wash)" }}>
-        <div className="wrap">
-          <Reveal className="section-head"><p className="eyebrow">{f("includedEyebrow")}</p><h2>{f("includedHeading")}</h2></Reveal>
-          <ul className="tick" style={{ maxWidth: 640, margin: "28px auto 0", gridTemplateColumns: "1fr 1fr" }}>
-            {included.map((i) => <li key={i}><Check />{i}</li>)}
-          </ul>
+        <div className="wrap split">
+          <Reveal>
+            <p className="eyebrow">{f("includedEyebrow")}</p>
+            <h2>{f("includedHeading")}</h2>
+            <ul className="tick">{included.map((i) => <li key={i}><Check />{i}</li>)}</ul>
+          </Reveal>
+          <Reveal delay={1} className="media" slide>
+            <img className="photo" src={f("includedImg")} alt="" loading="lazy" style={{ zIndex: 2 }} />
+          </Reveal>
         </div>
       </section>
 
@@ -143,13 +152,16 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("otherEyebrow")}</p><h2>{f("otherHeading")}</h2></Reveal>
           <div className="feature-grid cols-3" style={{ marginTop: 32 }}>
-            {otherPricing.map(([Icon, title, text, href], i) => (
-              <Reveal key={title} delay={i} as="a" href={href} className="feature-card">
-                <Icon />
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </Reveal>
-            ))}
+            {otherPricing.map((item, i) => {
+              const Icon = OTHER_PRICING_ICONS[i] || Shield;
+              return (
+                <Reveal key={item.title} delay={i} as="a" href={item.href} className="feature-card">
+                  <Icon />
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -158,10 +170,10 @@ export default async function Page() {
         <div className="wrap">
           <Reveal className="section-head"><p className="eyebrow">{f("howEyebrow")}</p><h2>{f("howHeading")}</h2></Reveal>
           <div className="steps">
-            {pricingSteps.map(([title, text], i) => (
-              <Reveal key={title} delay={i % 3} className="step">
-                <h3>{title}</h3>
-                <p>{text}</p>
+            {pricingSteps.map((item, i) => (
+              <Reveal key={item.title} delay={i % 3} className="step">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </Reveal>
             ))}
           </div>
@@ -169,7 +181,7 @@ export default async function Page() {
       </section>
 
       <PageFaq faqs={rateFaqs} eyebrow="PRICING QUESTIONS" title="About our rates" />
-      <Cta img={corePage?.ctaImg || PHOTOS.corporateOffice[1]} />
+      <Cta img={corePage?.ctaImg || PHOTOS.corporateOffice[1]} heading={f("ctaHeading")} text={f("ctaText")} />
     </>
   );
 }
