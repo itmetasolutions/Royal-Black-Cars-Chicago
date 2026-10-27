@@ -7,8 +7,11 @@ import BookNowButton from "./BookNowButton.jsx";
 import Marquee from "./Marquee.jsx";
 import MoovsFrame from "./MoovsFrame.jsx";
 
-// Looping background clip for the hero. No poster is set, so there is never
-// a still image painted before the video starts — just the video itself.
+// Looping background clip for the hero. A poster image is required so the
+// browser has something to paint immediately — without one, the video isn't
+// a valid Largest Contentful Paint candidate at all, and on a slow
+// connection the page can end up with no LCP candidate until the video
+// itself finishes loading (or never, if the measurement window ends first).
 // The <img> fallback below only renders for anyone who asked for reduced
 // motion, where the video itself is hidden.
 const HERO_VIDEO = "/video/hero-motion.mp4";
@@ -25,11 +28,12 @@ export default function Hero({ heroData }) {
             <video
               className="hero-video"
               src={video}
+              poster={still}
               autoPlay
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
             />
             {/* Only shown when prefers-reduced-motion hides the video above. */}
             <img className="photo hero-still" src={still} alt="" fetchPriority="high" style={{ zIndex: 1 }} />

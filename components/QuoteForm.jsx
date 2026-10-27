@@ -17,7 +17,8 @@ const empty = {
 
 export default function QuoteForm() {
   const [form, setForm] = useState(empty);
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | busy | sent | error
+  const [error, setError] = useState("");
   const [minDate, setMinDate] = useState("");
 
   useEffect(() => {
@@ -36,16 +37,29 @@ export default function QuoteForm() {
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.pickup.trim()) {
       return document.getElementById("qf-name")?.focus();
     }
-    // TODO: POST to your booking API here
-    setSent(true);
+    setStatus("busy");
+    setError("");
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Something went wrong.");
+      setStatus("sent");
+    } catch (err) {
+      setError(err.message);
+      setStatus("error");
+    }
   };
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <div className="quote-panel">
         <h2>Request sent</h2>
@@ -95,7 +109,8 @@ export default function QuoteForm() {
           </div>
         </div>
         <div className="field"><label htmlFor="qf-notes">Special notes</label><textarea id="qf-notes" value={form.notes} onChange={set("notes")} placeholder="Car seats, extra luggage, flight number — anything dispatch should know" /></div>
-        <button className="btn btn-gold" type="submit">Get my free quote</button>
+        {status === "error" && <p className="qnote" style={{ color: "#E08F8F" }}>{error}</p>}
+        <button className="btn btn-gold" type="submit" disabled={status === "busy"}>{status === "busy" ? "Sending…" : "Get my free quote"}</button>
       </form>
     </div>
   );

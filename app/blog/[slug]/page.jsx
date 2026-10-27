@@ -33,7 +33,7 @@ export default async function Page({ params }) {
           __html: JSON.stringify(articleSchema({
             title: post.title, description: post.excerpt, image: post.img,
             datePublished: post.publishedAt, dateModified: post.updatedAt,
-            url: `https://www.royalblackcarschicago.com/blog/${post.slug}/`,
+            url: `https://www.royalblackcarchicago.com/blog/${post.slug}/`,
           })),
         }}
       />

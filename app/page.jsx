@@ -10,7 +10,7 @@ import ServiceAreas from "@/components/ServiceAreas.jsx";
 import VenuesHome from "@/components/VenuesHome.jsx";
 import Faq from "@/components/Faq.jsx";
 import Cta from "@/components/Cta.jsx";
-import { faqPage } from "@/lib/schema.js";
+import { faqSchema } from "@/lib/schema.js";
 import { getAllTemplatePages, getCorePage } from "@/lib/cms.js";
 import { homeField } from "@/lib/homeDefaults.js";
 import { pickCards } from "@/lib/cards.js";
@@ -41,7 +41,7 @@ export default async function Home() {
   const areaClusters = clustersFrom(areas);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(homeField(page, "faqs"))) }} />
       <Hero heroData={page} />
       <Intro page={page} />
       <Services page={page} cards={serviceCards} />

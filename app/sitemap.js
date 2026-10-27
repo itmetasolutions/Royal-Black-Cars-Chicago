@@ -1,7 +1,7 @@
 import { getAllTemplatePages, getPublishedBlogPosts } from "../lib/cms.js";
 import { toLocations } from "../lib/areas.js";
 
-const base = "https://www.royalblackcarschicago.com";
+const base = "https://www.royalblackcarchicago.com";
 
 export const dynamic = "force-dynamic";
 

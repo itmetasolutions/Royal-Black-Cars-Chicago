@@ -1,6 +1,6 @@
 export default function robots() {
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: "https://www.royalblackcarschicago.com/sitemap.xml",
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin/", "/api/"] }],
+    sitemap: "https://www.royalblackcarchicago.com/sitemap.xml",
   };
 }

@@ -10,7 +10,7 @@ import { getSiteSettings } from "@/lib/settings.js";
 export async function generateMetadata() {
   const s = await getSiteSettings();
   return {
-    metadataBase: new URL("https://www.royalblackcarschicago.com"),
+    metadataBase: new URL("https://www.royalblackcarchicago.com"),
     title: s.site_name,
     description: s.tagline,
     alternates: { canonical: "/" },
