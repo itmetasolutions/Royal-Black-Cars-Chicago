@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { IMG, PHONE_HREF } from "../lib/data.js";
 import { homeField } from "../lib/homeDefaults.js";
 import RichText from "./RichText.jsx";
@@ -8,17 +9,28 @@ import Marquee from "./Marquee.jsx";
 import MoovsFrame from "./MoovsFrame.jsx";
 
 // Looping background clip for the hero. A poster image is required so the
-// browser has something to paint immediately — without one, the video isn't
-// a valid Largest Contentful Paint candidate at all, and on a slow
-// connection the page can end up with no LCP candidate until the video
-// itself finishes loading (or never, if the measurement window ends first).
-// The <img> fallback below only renders for anyone who asked for reduced
-// motion, where the video itself is hidden.
+// browser has something to paint immediately — a <video> with no poster
+// isn't a valid Largest Contentful Paint candidate at all.
+//
+// The video's `src` is left out of the server-rendered HTML and only
+// attached client-side (below) once mounted. `autoplay` makes browsers
+// fetch the whole file immediately regardless of the `preload` hint, so if
+// `src` were in the initial markup, Chrome's preload scanner would start
+// that ~1.6MB download before the page even finishes parsing — on a slow
+// connection that starves the critical-path resources (fonts, CSS, the
+// poster itself) of bandwidth and can blow out LCP entirely. Deferring it
+// keeps the poster as the real LCP candidate and lets the video load in
+// as a progressive enhancement afterward.
 const HERO_VIDEO = "/video/hero-motion.mp4";
 
 export default function Hero({ heroData }) {
   const still = heroData?.heroImg || IMG.hero;
   const video = heroData?.heroVideo || HERO_VIDEO;
+  const [videoSrc, setVideoSrc] = useState(null);
+
+  useEffect(() => {
+    setVideoSrc(video);
+  }, [video]);
 
   return (
     <section className="hero">
@@ -27,13 +39,13 @@ export default function Hero({ heroData }) {
           <>
             <video
               className="hero-video"
-              src={video}
+              src={videoSrc || undefined}
               poster={still}
               autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
             />
             {/* Only shown when prefers-reduced-motion hides the video above. */}
             <img className="photo hero-still" src={still} alt="" fetchPriority="high" style={{ zIndex: 1 }} />
