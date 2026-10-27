@@ -42,6 +42,13 @@ export default async function RootLayout({ children }) {
       </head>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-CMKHLMH78W" strategy="afterInteractive" />
+        <Script id="ga-config" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CMKHLMH78W');`}
+        </Script>
         <Script id="moovs-operator" strategy="afterInteractive">
           {`window["moovsAPI"] = window["moovsAPI"] || [];
             window["moovsAPI"].push(["operator", "bda0c52a-b900-11f1-b674-e34de33d718a"]);
